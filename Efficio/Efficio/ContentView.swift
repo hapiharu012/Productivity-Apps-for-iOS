@@ -17,7 +17,6 @@ struct ContentView: View {
     
     @FetchRequest(entity: Todo.entity(),
                   sortDescriptors: [
-                    NSSortDescriptor(keyPath: \Todo.state, ascending: true),
                     NSSortDescriptor(keyPath: \Todo.name, ascending: true)
                   ]
     ) var todos:FetchedResults<Todo>
@@ -39,37 +38,35 @@ struct ContentView: View {
             ZStack {
                 List{
                     ForEach(self.todos, id: \.self) { todo in
-                        HStack {
-                            Button(action: {
-                                
-                                toggleState(for: todo)
-                                
-                                do {
-                                    try managedObjectContext.save()
-                                } catch {
-                                    print(error)
-                                }
-                            }) {
-                                Image(systemName: todo.state ? "checkmark.circle" : "circle")
-//                                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                            }
-                            
-                            Group{
-                                Text(todo.name ?? "Unknown")
-                                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                                Spacer()
-                                Text(formatDate(todo.deadline))
-                                    .font(.footnote)
-                                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                                    .opacity(0.5)
-                                
-                                
-                                Text(todo.priority ?? "Unknown")
-                                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                            }.foregroundColor(todo.state ? Color.gray : Color.primary)
-                                .strikethrough(todo.state)
-                            
-                        }
+                      HStack {
+                          Button(action: {
+                              toggleState(for: todo)
+                              do {
+                                  try managedObjectContext.save()
+                              } catch {
+                                  print(error)
+                              }
+                          }) {
+                              Image(systemName: todo.state ? "checkmark.circle" : "circle")
+                                  .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
+                          }
+
+                          Text(todo.name ?? "Unknown")
+                              .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
+                              .strikethrough(todo.state, color: .black)
+
+                          Spacer()
+
+                          Text(formatDate(todo.deadline))
+                              .font(.footnote)
+                              .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
+                              .opacity(0.5)
+
+                          Text(todo.priority ?? "Unknown")
+                              .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
+                      } // END: HSTACK
+                      .padding(.vertical, 8)
+                    
                     }// END: FOREACH
                     .onDelete(perform: deleteTodo)
                 }// END: LIST
@@ -88,7 +85,7 @@ struct ContentView: View {
                 if todos.count == 0 {
                     EmptyView()
                 }
-            }
+            }  // END: ZSTACK
                 .sheet(isPresented: $showingAddTodoView) {
                     AddTodoView().environment(\.managedObjectContext, managedObjectContext)
                 }
@@ -141,11 +138,12 @@ struct ContentView: View {
                     .padding(.bottom, 15)
                     .padding(.trailing, 15)
                     , alignment: .bottomTrailing
-            )
-//            }// END: ZSTACK
-        }// END: NAVIGATION
-//        .na
-    }
+            ) //: OVERLAY
+        }  // END: NAVIGATION
+
+    } // END: BODY
+    
+    
     
     // MARK: - FUNCTIONS
     
@@ -210,6 +208,7 @@ struct ContentView: View {
 // MARK: - PREVIEW
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+      ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    
     }
 }
