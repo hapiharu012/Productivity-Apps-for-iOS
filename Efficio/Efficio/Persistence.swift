@@ -13,9 +13,12 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
+        for index in 0..<10 {
             let newItem = Todo(context: viewContext)
             newItem.deadline = Date()
+            newItem.name = "NewTodo-" + String(index+1)
+            newItem.priority = "中"
+            newItem.state = false
         }
         do {
             try viewContext.save()

@@ -5,6 +5,6 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priority" optional="YES" attributeType="String"/>
-        <attribute name="state" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="state" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
     </entity>
 </model>
