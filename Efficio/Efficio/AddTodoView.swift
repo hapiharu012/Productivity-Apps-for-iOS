@@ -36,7 +36,7 @@ struct AddTodoView: View {
     enum Field: Hashable {
         case text
     }
-//    @FocusState private var focusedField: Field?
+    @FocusState private var focusedField: Field?
     
     // MARK: - BODY
     var body: some View {
@@ -45,7 +45,7 @@ struct AddTodoView: View {
                 VStack(alignment: .leading, spacing: 20) {  //画面全体を覆うスクロールリストの生成
                     // MARK: - TODO NAME
                     TextField("Todo", text: $name)
-//                        .focused($focusedField, equals: .text)
+                        .focused($focusedField, equals: .text)
                         .padding()
                         .background(Color(UIColor.tertiarySystemFill))
                         .cornerRadius(9)
@@ -130,15 +130,15 @@ struct AddTodoView: View {
                 Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("OK")))
             }
         } // END: NAVIGATION
-//        .onAppear() {
-//            focusedField = .text
-//        }
+        .onAppear() {
+            focusedField = .text
+        }
     }
 }
 
 // MARK: - PREVIEW
 struct AddTodoView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTodoView()
+        AddTodoView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

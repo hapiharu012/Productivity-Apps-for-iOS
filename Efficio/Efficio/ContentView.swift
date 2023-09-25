@@ -38,35 +38,7 @@ struct ContentView: View {
             ZStack {
                 List{
                     ForEach(self.todos, id: \.self) { todo in
-                      HStack {
-                          Button(action: {
-                              toggleState(for: todo)
-                              do {
-                                  try managedObjectContext.save()
-                              } catch {
-                                  print(error)
-                              }
-                          }) {
-                              Image(systemName: todo.state ? "checkmark.circle" : "circle")
-                                  .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
-                          }
-
-                          Text(todo.name ?? "Unknown")
-                              .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
-                              .strikethrough(todo.state, color: .black)
-
-                          Spacer()
-
-                          Text(formatDate(todo.deadline))
-                              .font(.footnote)
-                              .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
-                              .opacity(0.5)
-
-                          Text(todo.priority ?? "Unknown")
-                              .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
-                      } // END: HSTACK
-                      .padding(.vertical, 8)
-                    
+                      TodoItemView(todo: todo)
                     }// END: FOREACH
                     .onDelete(perform: deleteTodo)
                 }// END: LIST
@@ -146,14 +118,6 @@ struct ContentView: View {
     
     
     // MARK: - FUNCTIONS
-    
-    private func formatDate(_ date: Date?) -> String {
-        guard let date = date else { return "" }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM月dd日"
-        return formatter.string(from: date)
-    }
-
     private func deleteTodo(at offsets: IndexSet) {
         for index in offsets {
             let todo = todos[index]
@@ -173,33 +137,6 @@ struct ContentView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
-        }
-    }
-
-    private func toggleState(for todo: Todo) {
-        todo.state.toggle()
-        do {
-            try managedObjectContext.save()
-        } catch {
-            print(error)
-        }
-        do {
-            try managedObjectContext.save()
-            // 追加
-            WidgetCenter.shared.reloadAllTimelines()
-            
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-    }
-    
-    private func determiningPriority (priority: String) -> Bool {
-        switch priority {
-        case "高":
-            return true
-        default:
-            return false
         }
     }
 }
