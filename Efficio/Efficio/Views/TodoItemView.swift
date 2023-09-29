@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct TodoItemView: View {
-  @ObservedObject var todo: Todo
   @Environment(\.managedObjectContext) var managedObjectContext
+  @ObservedObject var todoModel: TodoModel
+  @ObservedObject var todo: Todo
+  
   var body: some View {
     // ContentViewから渡された変数を受け取る
     
     
     HStack {
-      Image(systemName: todo.state ? "checkmark.circle" : "circle")
-        .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
+      Image(systemName: todo.wrappedState ? "checkmark.circle" : "circle")
+        .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedName) ? .red : .black))
         .onTapGesture {
           toggleState(for: todo)
           do {
@@ -25,23 +27,28 @@ struct TodoItemView: View {
             print(error)
           }
         }
-      NavigationLink(destination: TodoDetailView(todo: todo)) {
-        Text(todo.name ?? "Unknown")
-          .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
+      
+      // MARK: - NAVIGATION LINK
+//      NavigationLink(destination: TodoDetailView(todoModel: todoModel, todo: todo)) {
+        Text(todo.wrappedName)
+          .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
           .strikethrough(todo.state, color: .black)
         
         Spacer()
         
-        Text(formatDate(todo.deadline))
+        Text(formatDate(todo.wrappedDadeline))
           .font(.footnote)
-          .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
+          .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
           .opacity(0.5)
         
         Text(todo.priority ?? "Unknown")
-          .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.priority!) ? .red : .black))
-      }
+          .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
+//      }
       //    } // END: HSTACK
       .padding(.vertical, 8)
+    } // END: HSTACK
+    .onTapGesture {
+      todoModel.editTodo(todo: todo)
     }
   }
     // MARK: - FUNCTIONS
