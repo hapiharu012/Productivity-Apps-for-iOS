@@ -48,7 +48,7 @@ struct TodoItemView: View {
         .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
         .padding(.vertical, 8)
     } // END: HSTACK
-    .padding(.vertical, 4)
+    .padding(.vertical, 8)
     
     // MARK: - ONTAPGESTURE
     .onTapGesture {
