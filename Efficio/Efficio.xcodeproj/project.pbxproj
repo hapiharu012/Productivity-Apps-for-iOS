@@ -68,7 +68,6 @@
 		4160D5862AC1F3B300B99F6A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				41810B722ABF67CE00ADBB9A /* EfficioApp.swift */,
 				41810B742ABF67CE00ADBB9A /* ContentView.swift */,
 				41810B892AC1449B00ADBB9A /* TodoItemView.swift */,
 				41810B852ABF69E800ADBB9A /* AddTodoView.swift */,
@@ -96,6 +95,7 @@
 		41810B712ABF67CE00ADBB9A /* Efficio */ = {
 			isa = PBXGroup;
 			children = (
+				41810B722ABF67CE00ADBB9A /* EfficioApp.swift */,
 				4160D5862AC1F3B300B99F6A /* Views */,
 				4160D5852AC1F39900B99F6A /* ViewModels */,
 				4160D5842AC1F38200B99F6A /* Models */,

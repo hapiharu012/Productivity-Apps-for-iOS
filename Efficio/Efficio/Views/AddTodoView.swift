@@ -6,35 +6,23 @@
 //
 
 import SwiftUI
-import WidgetKit
 import Combine
 
 
 struct AddTodoView: View {
   // MARK: - PROPERTIES
   @Environment(\.managedObjectContext) var context
-  @ObservedObject var todoModel: TodoModel
-//  @ObservedObject var todo: Todo
-
   @Environment(\.presentationMode) var presentationMode
   
-  /*
-   メモ→ presentationMode構造体は次の二つの機能を実現する
-   ・現在のViewが他のViewから呼ばれているかどうかを示すフラグ
-   ・現在のViewを閉じる処理
-   */
-  
-//  @State private var name: String = "" //todo名
-  //    @State private var priority: String = "中" //優先度(通常は中)
-  //    @State private var state: Bool =  false //実行状況
-  //    @State private var dedline: Date = Date() //期限
+  @ObservedObject var todoModel: TodoModel
   
   let priorities = ["高", "中", "低"]
+  let textLimit = 20 //最大文字数
   
   @State private var errorShowing: Bool = false
   @State private var errorTitle: String = ""
   @State private var errorMessage = ""
-  let textLimit = 20 //最大文字数
+  
   // フォーカスが当たるTextFieldを、判断するためのenumを作成します。
   enum Field: Hashable {
     case text
@@ -43,6 +31,7 @@ struct AddTodoView: View {
   
   // MARK: - BODY
   var body: some View {
+    
     NavigationView{
       VStack {
         VStack(alignment: .leading, spacing: 20) {  //画面全体を覆うスクロールリストの生成
@@ -53,13 +42,14 @@ struct AddTodoView: View {
             .background(Color(UIColor.tertiarySystemFill))
             .cornerRadius(9)
             .font(.system(size: 24, weight: .bold, design: .default))
-//            .onReceive(Just(todoModel.name)) { _ in
-//              if todoModel.name.count > textLimit {
-//                todoModel.name = String(todoModel.name.prefix(textLimit))
-//              }
-//            }
+            .onReceive(Just(todoModel.name)) { _ in
+              if todoModel.name.count > textLimit {
+                todoModel.name = String(todoModel.name.prefix(textLimit))
+              }
+            }
           
           // MARK: - TODO PRI0RITIY
+          
           Picker("優先度", selection: $todoModel.priority){
             ForEach(priorities, id: \.self) {
               Text($0) //メモ→   $0はクロージャが受け取る現在処理している要素を指す
@@ -69,15 +59,28 @@ struct AddTodoView: View {
           .padding(10)
           
           // MARK: - TODO DEDLINE
-          DatePicker(selection: $todoModel.deadline, label: {
+          DatePicker(selection: Binding<Date>(
+            get: { self.todoModel.deadline ?? Date() },
+            set: { newValue in
+              print("Selected date:", newValue)
+              self.todoModel.deadline = newValue
+            }
+          ), label: {
             Text("期限")
-          })
+              .font(.footnote)
+          }).onTapGesture {
+            if todoModel.deadline == nil {
+              todoModel.deadline = Date()
+            }
+          }
           .environment(\.locale, Locale(identifier: "ja_JP"))
           .padding(10)
           
           //MARK: - SAVE BUTTON
           Button(action: {
             if todoModel.name != "" {
+              print("保存ボタンが押されました")
+              
               todoModel.writeTodo(context: context)
             } else {
               errorShowing = true
@@ -106,7 +109,6 @@ struct AddTodoView: View {
                             Button(action: {
         presentationMode.wrappedValue.dismiss() //dismiss関数は現在のViewを閉じる　＊しかし他のViewから呼ばれたViewではな場合は何も起きない
         todoModel.isNewTodo = false
-        
       }) {
         Image(systemName: "xmark")
       }
@@ -115,15 +117,21 @@ struct AddTodoView: View {
         Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("OK")))
       }
     } // END: NAVIGATION
+    // MARK: - ON APPEAR
     .onAppear() {
       focusedField = .text
+    }
+    // MARK: - ON DISAPPEAR
+    .onDisappear() {
+      print("onDisappear - todoModel.isNewTodo: \(todoModel.isNewTodo)")
+      todoModel.resetData()
     }
   }
 }
 
-//// MARK: - PREVIEW
-//struct AddTodoView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    AddTodoView(todoModel: TodoModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-//  }
-//}
+// MARK: - PREVIEW
+struct AddTodoView_Previews: PreviewProvider {
+  static var previews: some View {
+    AddTodoView(todoModel: TodoModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+  }
+}

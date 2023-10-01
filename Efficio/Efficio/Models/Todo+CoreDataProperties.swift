@@ -25,7 +25,7 @@ extension Todo {
 }
 //毎回nilの場合の処理を考えるのが面倒なのだから設定
 extension Todo{
-  public var wrappedDadeline: Date {deadline ?? Date()}
+//  public var wrappedDadeline: Date {deadline ?? Date()}
   public var wrappedId: UUID {id ?? UUID()}
   public var wrappedName: String {name ?? ""}
   public var wrappedPriority: String {priority ?? "中"}

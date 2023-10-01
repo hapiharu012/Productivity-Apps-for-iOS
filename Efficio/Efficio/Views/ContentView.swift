@@ -13,9 +13,7 @@ import WidgetKit
 struct ContentView: View {
   // MARK: - PROPERTIES
   @StateObject private var todoModel = TodoModel()
-  
   @Environment(\.managedObjectContext) var context
-//  @ObservedObject var todos: Todo
   
   @FetchRequest(entity: Todo.entity(),
                 sortDescriptors: [
@@ -31,9 +29,7 @@ struct ContentView: View {
    引数keyPathで並べ替える属性を、引数ascendingで昇順（true）か降順（false）を指定します。
    */
   
-  @State private var showingAddTodoView: Bool = false
   @State private var animatingButton: Bool = false
-  
   // MARK: - BODY
   var body: some View {
     NavigationView {
@@ -49,8 +45,7 @@ struct ContentView: View {
           leading: EditButton(),
           trailing:
             Button(action: {
-//              showingAddTodoView.toggle()
-//              todoModel.editTodo()
+              todoModel.isNewTodo.toggle()
             }) {
               Image(systemName: "pencil.and.outline")
                 .padding()
@@ -61,6 +56,8 @@ struct ContentView: View {
           EmptyView()
         }
       }  // END: ZSTACK
+      
+      // MARK: - SHEET
       .sheet(isPresented: $todoModel.isNewTodo) {
         AddTodoView(todoModel: todoModel)
       }
@@ -92,25 +89,35 @@ struct ContentView: View {
               .scaleEffect(self.animatingButton ? 1 : 0)
               .frame(width: 88, height: 88, alignment: .center)
           }
-          //                    .animation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true))
-          
+          //          .animation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true))
+          // MARK: - ADD BUTTON
           Button(action: {
-//            self.showingAddTodoView.toggle()
-            self.todoModel.isNewTodo.toggle()
-          
+            //            self.showingAddTodoView.toggle()
+            print("Before - todoModel.isNewTodo: \(todoModel.isNewTodo)")
+            todoModel.isNewTodo.toggle()
+            print("After - todoModel.isNewTodo: \(todoModel.isNewTodo)")
+            
+            
+            
           }) {
             Image(systemName: "plus.circle.fill")
               .resizable()
               .scaledToFit()
               .background(Circle().fill(.white))
-              .frame(width: 48, height: 48, alignment: .center)
+              .frame(width: 50, alignment: .center)
             
             
           } //: BUTTON
           .accentColor(.blue)
-          .onAppear(perform: {
-            self.animatingButton.toggle()
-          })
+          // MARK: - ON APPEAR
+          .onAppear {
+            withAnimation(Animation.easeInOut(duration: 1.8).repeatForever(autoreverses: true)) {
+              animatingButton.toggle() // またはアニメーションする他の値
+            }
+          }
+          .onDisappear{
+            self.animatingButton=false
+          }
         } //: ZSTACK
           .padding(.bottom, 15)
           .padding(.trailing, 15)
@@ -139,14 +146,14 @@ struct ContentView: View {
     }
   }
   
-
+  
 }
 
 
-//// MARK: - PREVIEW
-//struct ContentView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-//    
-//  }
-//}
+// MARK: - PREVIEW
+struct ContentView_Previews: PreviewProvider {
+  static var previews: some View {
+    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    
+  }
+}
