@@ -16,6 +16,9 @@ struct TodoItemView: View {
     
     HStack {
       Image(systemName: todo.wrappedState ? "checkmark.circle" : "circle")
+        .resizable()
+        .scaledToFit()
+        .frame(width: 20, height: 20)
         .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedName) ? .red : .black))
         .onTapGesture {
           toggleState(for: todo)
@@ -30,21 +33,26 @@ struct TodoItemView: View {
       Text(todo.wrappedName)
         .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
         .strikethrough(todo.state, color: .black)
-      
+        .offset(x: 10)
       Spacer()
-      
-      Text(formatDate(todo.deadline))
+      if todo.deadline != nil{
+        HStack {
+          Image(systemName: "calendar")
+          Text(formatDate(todo.deadline))
+        }
         .font(.footnote)
         .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
         .opacity(0.5)
-      
-      Text(todo.priority ?? "Unknown")
+      }
+      Text(todo.priority ?? "")
         .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
         .padding(.vertical, 8)
     } // END: HSTACK
+    .padding(.vertical, 4)
+    
     // MARK: - ONTAPGESTURE
     .onTapGesture {
-      // 編集画面へ遷移
+      // 編集画面のsheetが出るようにする
       todoModel.editTodo(todo: todo)
     }
   }
@@ -82,7 +90,7 @@ struct TodoItemView_Previews: PreviewProvider {
   static var previews: some View {
     let todo = Todo(context: PersistenceController.preview.container.viewContext)
     todo.name = "サンプルTodo"
-    todo.priority = "高"
+    todo.priority = "中"
     todo.state = false
     todo.deadline = Date()
     todo.id = UUID()
