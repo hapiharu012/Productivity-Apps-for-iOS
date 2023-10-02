@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct EmptyView: View {
+  //MARK: - BODY
+  
     var body: some View {
+      
+      // MARK: - ZSTACK
+
       ZStack {
         VStack(alignment: .center, spacing: 20) {
           Image("back")
@@ -26,12 +31,15 @@ struct EmptyView: View {
         } //: VSTACK
           .padding(.horizontal)
       } //: ZSTACK
+      
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .background(.white)
         .edgesIgnoringSafeArea(.all)
-    }
+    }//: BODY
+  
 }
 
+//MARK: - PREVIEW
 struct EmptyView_Previews: PreviewProvider {
     static var previews: some View {
         EmptyView()

@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import Combine
 import CoreData
 import SwiftUI
 
-class TodoModel: ObservableObject {
+class TodoViewModel: ObservableObject {
+  // MARK: - PROPERTIES
+  
   @Published var name = ""
   @Published var priority = ""
   @Published var state = false
@@ -19,12 +22,54 @@ class TodoModel: ObservableObject {
   @Published var isNewTodo = false  // 新規作成か編集かを判断する: true -> 新規作成, false -> 編集
   @Published var isEditing: Todo!
   
+  // MARK: - GET TODOS
+  @Published var todos: [Todo] = []
+  private var context: NSManagedObjectContext
+  private var notificationSubscription: Any?
+  
+  init(context: NSManagedObjectContext) {
+    self.context = context
+    fetchTodos()
+    setupNotificationSubscription()
+  }
+  
+  deinit {
+    if let subscription = notificationSubscription {
+      NotificationCenter.default.removeObserver(subscription)
+    }
+  }
+  
+  private func setupNotificationSubscription() {
+    notificationSubscription = NotificationCenter.default.addObserver(
+      forName: NSNotification.Name.NSManagedObjectContextDidSave,
+      object: nil,
+      queue: nil
+    ) { [weak self] _ in
+      self?.fetchTodos()
+    }
+  }
+  
+  func fetchTodos() {
+    let request: NSFetchRequest<Todo> = Todo.fetchRequest() // Todo型のフェッチリクエストを作成
+    request.sortDescriptors = [NSSortDescriptor(keyPath: \Todo.name, ascending: true)]  // リクエストを実行し、結果をTodo型の配列として取得
+    
+    do {
+      self.todos = try context.fetch(request) // フェッチに失敗した場合のエラーハンドリング
+    } catch {
+      // handle error
+      print("Failed to fetch todos: \(error)")
+    }
+  }
+  // END: GET TODOS
+  
+  
   // MARK: - WRITE TODO
   func writeTodo(context : NSManagedObjectContext) {
     print("呼び出し - writeTodo")
     print(isEditing ?? "-X-")
     
     // ここで新規作成か編集かを判断する
+    // MARK: - EDITING
     if isEditing != nil {  // 編集の場合
       print("- 編集")
       print(isEditing ?? "-X-")
@@ -52,13 +97,13 @@ class TodoModel: ObservableObject {
       return
     } // END: if isEditing != nil : 編集の場合
     
-
-        // 新規作成の場合
+    // MARK: - NEW TODO
+    // 新規作成の場合
     print(name)
     print(priority)
     print(state)
     print(deadline ?? "")
-//    resetData()
+    //    resetData()
     
     let newTodo = Todo(context: context)
     newTodo.name = name

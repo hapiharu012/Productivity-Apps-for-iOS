@@ -7,14 +7,16 @@
 
 import SwiftUI
 import Combine
+import WidgetKit
 
 
 struct AddTodoView: View {
   // MARK: - PROPERTIES
+  
   @Environment(\.managedObjectContext) var context
   @Environment(\.presentationMode) var presentationMode
   
-  @ObservedObject var todoModel: TodoModel
+  @ObservedObject var todoModel: TodoViewModel
   
   let priorities = ["高", "中", "低"]
   let textLimit = 20 //最大文字数
@@ -29,7 +31,9 @@ struct AddTodoView: View {
   }
   @FocusState private var focusedField: Field?
   
+  
   // MARK: - BODY
+  
   var body: some View {
     
     NavigationView{
@@ -82,6 +86,16 @@ struct AddTodoView: View {
               print("保存ボタンが押されました")
               
               todoModel.writeTodo(context: context)
+              
+              do {
+                  try context.save()
+                  // 追加
+                  WidgetCenter.shared.reloadAllTimelines()
+                  
+              } catch {
+                  let nsError = error as NSError
+                  fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+              }
             } else {
               errorShowing = true
               errorTitle = "Todo名が入力されていません"
@@ -107,12 +121,13 @@ struct AddTodoView: View {
       .navigationBarTitle("New Todo", displayMode:.inline)
       .navigationBarItems(trailing:
                             Button(action: {
-        presentationMode.wrappedValue.dismiss() //dismiss関数は現在のViewを閉じる　＊しかし他のViewから呼ばれたViewではな場合は何も起きない
+        presentationMode.wrappedValue.dismiss()  //dismiss関数は現在のViewを閉じる　＊しかし他のViewから呼ばれたViewではな場合は何も起きない
         todoModel.isNewTodo = false
       }) {
         Image(systemName: "xmark")
       }
       )
+      // MARK: - ALERT
       .alert(isPresented: $errorShowing) {
         Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("OK")))
       }
@@ -127,11 +142,14 @@ struct AddTodoView: View {
       todoModel.resetData()
     }
   }
-}
+  
+}// END: BODY
+
 
 // MARK: - PREVIEW
+
 struct AddTodoView_Previews: PreviewProvider {
   static var previews: some View {
-    AddTodoView(todoModel: TodoModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    AddTodoView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext)).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }
 }
