@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct TodoItemView: View {
+  // MARK: - PROPERTIES
+
   @Environment(\.managedObjectContext) var managedObjectContext
-  @ObservedObject var todoModel: TodoModel
+  @ObservedObject var todoModel: TodoViewModel
   @ObservedObject var todo: Todo
   
+  
+  // MARK: - BODY
+
   var body: some View {
-    
     HStack {
       Image(systemName: todo.wrappedState ? "checkmark.circle" : "circle")
         .resizable()
         .scaledToFit()
         .frame(width: 20, height: 20)
-        .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedName) ? .red : .black))
+        .foregroundColor(todo.wrappedState ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : .black))
         .onTapGesture {
-          toggleState(for: todo)
+          toggleTodoState(for: todo)
           do {
             try managedObjectContext.save()
           } catch {
@@ -29,23 +33,22 @@ struct TodoItemView: View {
           }
         }
       
-      // MARK: - NAVIGATION LINK
       Text(todo.wrappedName)
-        .foregroundColor(todo.state ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .strikethrough(todo.state, color: .black)
         .offset(x: 10)
       Spacer()
       if todo.deadline != nil{
         HStack {
           Image(systemName: "calendar")
-          Text(formatDate(todo.deadline))
+          Text(dateFormatting(todo.deadline))
         }
         .font(.footnote)
-        .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
+        .foregroundColor(todo.wrappedState ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .opacity(0.5)
       }
       Text(todo.priority ?? "")
-        .foregroundColor(todo.wrappedState ? .gray : (determiningPriority(priority: todo.wrappedPriority) ? .red : .black))
+        .foregroundColor(todo.wrappedState ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .padding(.vertical, 8)
     } // END: HSTACK
     .padding(.vertical, 8)
@@ -55,17 +58,18 @@ struct TodoItemView: View {
       // 編集画面のsheetが出るようにする
       todoModel.editTodo(todo: todo)
     }
-  }
+  }// END: BODY
+  
   
   // MARK: - FUNCTIONS
-  private func formatDate(_ date: Date?) -> String {
+  
+  private func dateFormatting(_ date: Date?) -> String {
     guard let date = date else { return "" }
     let formatter = DateFormatter()
     formatter.dateFormat = "MM月dd日"
     return formatter.string(from: date)
   }
-  
-  private func toggleState(for todo: Todo) {
+  private func toggleTodoState(for todo: Todo) {
     todo.state.toggle()
     do {
       try managedObjectContext.save()
@@ -73,8 +77,7 @@ struct TodoItemView: View {
       print(error)
     }
   }
-  
-  private func determiningPriority (priority: String) -> Bool {
+  private func priorityJudgment (priority: String) -> Bool {
     switch priority {
     case "高":
       return true
@@ -82,7 +85,9 @@ struct TodoItemView: View {
       return false
     }
   }
-}
+  
+}// END: TODOITEMVIEW
+
 
 // MARK: - PREVIEW
 
@@ -95,6 +100,6 @@ struct TodoItemView_Previews: PreviewProvider {
     todo.deadline = Date()
     todo.id = UUID()
     
-    return TodoItemView(todoModel: TodoModel(), todo: todo).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }
 }

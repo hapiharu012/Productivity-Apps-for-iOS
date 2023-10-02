@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4160D57F2AC152EF00B99F6A /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoModel.swift */; };
+		415B21F42AC9BF60006CC1E8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F32AC9BF60006CC1E8 /* WidgetKit.framework */; };
+		415B21F62AC9BF60006CC1E8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F52AC9BF60006CC1E8 /* SwiftUI.framework */; };
+		415B21F92AC9BF60006CC1E8 /* EfficioWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415B21F82AC9BF60006CC1E8 /* EfficioWidgetBundle.swift */; };
+		415B21FB2AC9BF60006CC1E8 /* EfficioWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415B21FA2AC9BF60006CC1E8 /* EfficioWidget.swift */; };
+		415B21FD2AC9BF62006CC1E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 415B21FC2AC9BF62006CC1E8 /* Assets.xcassets */; };
+		415B22012AC9BF62006CC1E8 /* EfficioWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 415B21F12AC9BF60006CC1E8 /* EfficioWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		415B220B2AC9CECB006CC1E8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B7B2ABF67CF00ADBB9A /* Persistence.swift */; };
+		415B220C2AC9D082006CC1E8 /* Efficio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 41810B7D2ABF67CF00ADBB9A /* Efficio.xcdatamodeld */; };
+		4160D57F2AC152EF00B99F6A /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
 		4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
 		4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
 		41810B732ABF67CE00ADBB9A /* EfficioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B722ABF67CE00ADBB9A /* EfficioApp.swift */; };
@@ -19,10 +27,46 @@
 		41810B862ABF69E800ADBB9A /* AddTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B852ABF69E800ADBB9A /* AddTodoView.swift */; };
 		41810B882ABF6ACC00ADBB9A /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B872ABF6ACC00ADBB9A /* EmptyView.swift */; };
 		41810B8A2AC1449B00ADBB9A /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B892AC1449B00ADBB9A /* TodoItemView.swift */; };
+		41E0A13E2AC9D96E00D41144 /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
+		41E0A13F2AC9D97700D41144 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
+		41E0A1442ACA754B00D41144 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		415B21FF2AC9BF62006CC1E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41810B672ABF67CE00ADBB9A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 415B21F02AC9BF60006CC1E8;
+			remoteInfo = EfficioWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		415B22022AC9BF62006CC1E8 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				415B22012AC9BF62006CC1E8 /* EfficioWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		4160D57E2AC152EF00B99F6A /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
+		415B21F12AC9BF60006CC1E8 /* EfficioWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EfficioWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		415B21F32AC9BF60006CC1E8 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		415B21F52AC9BF60006CC1E8 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		415B21F82AC9BF60006CC1E8 /* EfficioWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidgetBundle.swift; sourceTree = "<group>"; };
+		415B21FA2AC9BF60006CC1E8 /* EfficioWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidget.swift; sourceTree = "<group>"; };
+		415B21FC2AC9BF62006CC1E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		415B21FE2AC9BF62006CC1E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		415B22062AC9BFAF006CC1E8 /* EfficioWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EfficioWidgetExtension.entitlements; sourceTree = "<group>"; };
+		415B22072AC9BFFB006CC1E8 /* Efficio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Efficio.entitlements; sourceTree = "<group>"; };
+		4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41810B6F2ABF67CE00ADBB9A /* Efficio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Efficio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,6 +82,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		415B21EE2AC9BF60006CC1E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				415B21F62AC9BF60006CC1E8 /* SwiftUI.framework in Frameworks */,
+				415B21F42AC9BF60006CC1E8 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41810B6C2ABF67CE00ADBB9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -48,9 +101,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		415B21F22AC9BF60006CC1E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				415B21F32AC9BF60006CC1E8 /* WidgetKit.framework */,
+				415B21F52AC9BF60006CC1E8 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		415B21F72AC9BF60006CC1E8 /* EfficioWidget */ = {
+			isa = PBXGroup;
+			children = (
+				415B21F82AC9BF60006CC1E8 /* EfficioWidgetBundle.swift */,
+				415B21FA2AC9BF60006CC1E8 /* EfficioWidget.swift */,
+				415B21FC2AC9BF62006CC1E8 /* Assets.xcassets */,
+				415B21FE2AC9BF62006CC1E8 /* Info.plist */,
+			);
+			path = EfficioWidget;
+			sourceTree = "<group>";
+		};
 		4160D5842AC1F38200B99F6A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				41810B7D2ABF67CF00ADBB9A /* Efficio.xcdatamodeld */,
 				4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */,
 				4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */,
 			);
@@ -60,7 +134,7 @@
 		4160D5852AC1F39900B99F6A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				4160D57E2AC152EF00B99F6A /* TodoModel.swift */,
+				4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -79,7 +153,10 @@
 		41810B662ABF67CE00ADBB9A = {
 			isa = PBXGroup;
 			children = (
+				415B22062AC9BFAF006CC1E8 /* EfficioWidgetExtension.entitlements */,
 				41810B712ABF67CE00ADBB9A /* Efficio */,
+				415B21F72AC9BF60006CC1E8 /* EfficioWidget */,
+				415B21F22AC9BF60006CC1E8 /* Frameworks */,
 				41810B702ABF67CE00ADBB9A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				41810B6F2ABF67CE00ADBB9A /* Efficio.app */,
+				415B21F12AC9BF60006CC1E8 /* EfficioWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,13 +173,13 @@
 		41810B712ABF67CE00ADBB9A /* Efficio */ = {
 			isa = PBXGroup;
 			children = (
+				415B22072AC9BFFB006CC1E8 /* Efficio.entitlements */,
 				41810B722ABF67CE00ADBB9A /* EfficioApp.swift */,
 				4160D5862AC1F3B300B99F6A /* Views */,
 				4160D5852AC1F39900B99F6A /* ViewModels */,
 				4160D5842AC1F38200B99F6A /* Models */,
 				41810B762ABF67CF00ADBB9A /* Assets.xcassets */,
 				41810B7B2ABF67CF00ADBB9A /* Persistence.swift */,
-				41810B7D2ABF67CF00ADBB9A /* Efficio.xcdatamodeld */,
 				41810B782ABF67CF00ADBB9A /* Preview Content */,
 			);
 			path = Efficio;
@@ -118,6 +196,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		415B21F02AC9BF60006CC1E8 /* EfficioWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 415B22052AC9BF62006CC1E8 /* Build configuration list for PBXNativeTarget "EfficioWidgetExtension" */;
+			buildPhases = (
+				415B21ED2AC9BF60006CC1E8 /* Sources */,
+				415B21EE2AC9BF60006CC1E8 /* Frameworks */,
+				415B21EF2AC9BF60006CC1E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EfficioWidgetExtension;
+			productName = EfficioWidgetExtension;
+			productReference = 415B21F12AC9BF60006CC1E8 /* EfficioWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		41810B6E2ABF67CE00ADBB9A /* Efficio */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 41810B822ABF67CF00ADBB9A /* Build configuration list for PBXNativeTarget "Efficio" */;
@@ -125,10 +220,12 @@
 				41810B6B2ABF67CE00ADBB9A /* Sources */,
 				41810B6C2ABF67CE00ADBB9A /* Frameworks */,
 				41810B6D2ABF67CE00ADBB9A /* Resources */,
+				415B22022AC9BF62006CC1E8 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				415B22002AC9BF62006CC1E8 /* PBXTargetDependency */,
 			);
 			name = Efficio;
 			productName = Efficio;
@@ -145,6 +242,9 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					415B21F02AC9BF60006CC1E8 = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					41810B6E2ABF67CE00ADBB9A = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -164,11 +264,20 @@
 			projectRoot = "";
 			targets = (
 				41810B6E2ABF67CE00ADBB9A /* Efficio */,
+				415B21F02AC9BF60006CC1E8 /* EfficioWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		415B21EF2AC9BF60006CC1E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				415B21FD2AC9BF62006CC1E8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41810B6D2ABF67CE00ADBB9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -181,11 +290,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		415B21ED2AC9BF60006CC1E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41E0A13F2AC9D97700D41144 /* Todo+CoreDataClass.swift in Sources */,
+				41E0A13E2AC9D96E00D41144 /* Todo+CoreDataProperties.swift in Sources */,
+				415B21F92AC9BF60006CC1E8 /* EfficioWidgetBundle.swift in Sources */,
+				415B220C2AC9D082006CC1E8 /* Efficio.xcdatamodeld in Sources */,
+				415B220B2AC9CECB006CC1E8 /* Persistence.swift in Sources */,
+				41E0A1442ACA754B00D41144 /* TodoViewModel.swift in Sources */,
+				415B21FB2AC9BF60006CC1E8 /* EfficioWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41810B6B2ABF67CE00ADBB9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4160D57F2AC152EF00B99F6A /* TodoModel.swift in Sources */,
+				4160D57F2AC152EF00B99F6A /* TodoViewModel.swift in Sources */,
 				41810B7C2ABF67CF00ADBB9A /* Persistence.swift in Sources */,
 				41810B7F2ABF67CF00ADBB9A /* Efficio.xcdatamodeld in Sources */,
 				4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */,
@@ -200,7 +323,71 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		415B22002AC9BF62006CC1E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 415B21F02AC9BF60006CC1E8 /* EfficioWidgetExtension */;
+			targetProxy = 415B21FF2AC9BF62006CC1E8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		415B22032AC9BF62006CC1E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = EfficioWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Q258H3VNH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EfficioWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EfficioWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hapiharu8610.Efficio.EfficioWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		415B22042AC9BF62006CC1E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = EfficioWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Q258H3VNH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EfficioWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EfficioWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hapiharu8610.Efficio.EfficioWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		41810B802ABF67CF00ADBB9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -323,8 +510,10 @@
 		41810B832ABF67CF00ADBB9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Efficio/Efficio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Efficio/Preview Content\"";
@@ -353,8 +542,10 @@
 		41810B842ABF67CF00ADBB9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Efficio/Efficio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Efficio/Preview Content\"";
@@ -383,6 +574,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		415B22052AC9BF62006CC1E8 /* Build configuration list for PBXNativeTarget "EfficioWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				415B22032AC9BF62006CC1E8 /* Debug */,
+				415B22042AC9BF62006CC1E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		41810B6A2ABF67CE00ADBB9A /* Build configuration list for PBXProject "Efficio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

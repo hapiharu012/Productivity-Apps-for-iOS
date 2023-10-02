@@ -42,7 +42,22 @@ struct PersistenceController {
   let container: NSPersistentContainer
   
   init(inMemory: Bool = false) {
-    container = NSPersistentContainer(name: "Efficio")
+    
+    //変更部分
+    let appGroupId = "group.efficio.coredatawidget"
+            guard let containerUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupId) else {
+                fatalError("Failure to init store URL for AppGroup ID: \(appGroupId)")
+            }
+            let storeUrl = containerUrl.appendingPathComponent("CoreDataWidgetFirst")
+
+            let description = NSPersistentStoreDescription(url: storeUrl)
+
+            container = NSPersistentContainer(name: "Efficio")
+            container.persistentStoreDescriptions = [description]
+    //変更部分ここまで
+    
+    
+//    container = NSPersistentContainer(name: "Efficio")
     if inMemory {
       container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
     }
