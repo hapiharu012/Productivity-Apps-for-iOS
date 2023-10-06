@@ -15,6 +15,9 @@ struct EfficioApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onOpenURL { url in
+                                    print("Received deep link: \(url)")
+                                }
         }
     }
 }

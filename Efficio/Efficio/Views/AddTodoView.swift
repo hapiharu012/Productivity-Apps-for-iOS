@@ -141,8 +141,10 @@ struct AddTodoView: View {
       print("onDisappear - todoModel.isNewTodo: \(todoModel.isNewTodo)")
       todoModel.resetData()
     }
+//    .widgetURL(URL(string: "addTodo://add"))
+
   }
-  
+
 }// END: BODY
 
 

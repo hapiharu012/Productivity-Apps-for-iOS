@@ -109,8 +109,8 @@ struct EfficioWidgetEntryView : View {
           } // END: FOREACH
 //          .position(CGPoint(x: 43.0, y: 8.0))
         }else {
-          EmptyWidget()
-            .position(CGPoint(x: 0, y: 50))
+          EmptyWidget(point: 13)
+            .position(CGPoint(x: 56, y: 50))
         }
       }//END: VSTACK
           .widgetBackground(Color.white)
@@ -120,24 +120,41 @@ struct EfficioWidgetEntryView : View {
         HStack {
           VStack(alignment: .leading,spacing: 10){
             Text("マイタスク")
-              .font(.system(size: 24,weight: .bold,design: .default))
+              .font(.system(size: 22,weight: .bold,design: .default))
 //              .padding(.bottom)
             HStack {
               //                    Spacer()
               Text(formatDateTitleDay(Date()))
-                .font(.system(size: 24))
+                .font(.system(size: 22))
               //                        .padding(.trailing)
               VStack(alignment: .leading) {
                 Text(formatDateTitleDayOfWeek(Date()))
-                  .font(.system(size: 11))
+                  .font(.system(size: 10))
                 Text(String(SameDayNum(todos: todoModel.todos))+"件")
-                  .font(.system(size: 11))
+                  .font(.system(size: 10))
               }
               //                    Spacer()
               
             } // END: HSTACK
+
+            Link(destination: URL(string: "addTodo://")!) {
+              Circle().fill()
+                .foregroundColor(.white)
+                .shadow(radius: 2)
+                .overlay(
+                  Image(systemName: "note.text.badge.plus")
+                    .resizable()
+                    .foregroundColor(.blue)
+                    .scaledToFit()
+                    .frame(width: 40)
+                    .position(CGPoint(x: 30.0, y: 28.0))
+                  )
+//                .position(CGPoint(x: 10.0, y: 10.0))
+            }
+//            .position(CGPoint(x: 10.0, y: 10.0))
+
           }
-          .position(CGPoint(x: 53.0, y: 45.0))
+//          .position(CGPoint(x: 53.0, y: 45.0))
           
           VStack(spacing: 15) {
             if !filteredTodos.isEmpty {
@@ -176,7 +193,7 @@ struct EfficioWidgetEntryView : View {
                 
               }// END: FOREACH
             }else {
-              EmptyWidget()
+              EmptyWidget(point: 17)
             }
           }
           
@@ -262,6 +279,7 @@ struct EfficioWidgetEntryView : View {
         EfficioWidgetEntryView()
           .environment(\.managedObjectContext, persistenceController.container.viewContext)
       }
+      .supportedFamilies([.systemSmall, .systemMedium])
       .configurationDisplayName("My Widget")
       .description("This is an example widget.")
     }
@@ -271,17 +289,16 @@ struct EfficioWidgetEntryView : View {
   struct EfficioWidget_Previews: PreviewProvider {
     static var previews: some View {
       //        let context = PersistenceController.preview.container.viewContext
-      return EfficioWidgetEntryView()
+      EfficioWidgetEntryView()
         .previewContext(WidgetPreviewContext(family: .systemSmall))
+      EfficioWidgetEntryView()
+        .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
   }
   
-  //#Preview(as: .systemSmall) {
-  //  EfficioWidget()
-  //} timeline: {
-  //  SimpleEntry(date: .now, emoji: "😀")
-  //  SimpleEntry(date: .now, emoji: "🤩")
-  //}
+//  #Preview(as: .systemSmall) {
+//    EfficioWidget()
+//  } timeline: <#@MainActor () async -> [TimelineEntry]#>
   
   extension View {
     func widgetBackground(_ backgroundView: some View) -> some View {
