@@ -191,6 +191,7 @@ struct EfficioWidgetEntryView : View {
             
         } //END: VSTACK
         .padding(.horizontal)
+        .widgetBackground(Color.white)
     }
   }
   func toggleState(for todo: Todo) {
@@ -275,3 +276,15 @@ struct EfficioWidget_Previews: PreviewProvider {
 //  SimpleEntry(date: .now, emoji: "😀")
 //  SimpleEntry(date: .now, emoji: "🤩")
 //}
+
+extension View {
+    func widgetBackground(_ backgroundView: some View) -> some View {
+        if #available(iOSApplicationExtension 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
+    }
+}
