@@ -49,9 +49,16 @@ struct TodoItemView: View {
         .foregroundColor(todo.wrappedState ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .opacity(0.5)
       }
-      Text(todo.priority ?? "")
-        .foregroundColor(todo.wrappedState ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
-        .padding(.vertical, 8)
+      if todo.priority != "" {
+        Text(todo.priority ?? "")
+          .font(.footnote)
+          .foregroundColor(Color(UIColor.systemGray2))
+          .padding(3)
+          .frame(minWidth: 62)
+          .overlay(
+            Capsule().stroke(Color(UIColor.systemGray2), lineWidth: 0.75)
+        )
+      }
     } // END: HSTACK
     .padding(.vertical, 8)
     
