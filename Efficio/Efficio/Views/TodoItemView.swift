@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct TodoItemView: View {
   // MARK: - PROPERTIES
@@ -28,6 +29,7 @@ struct TodoItemView: View {
           toggleTodoState(for: todo)
           do {
             try managedObjectContext.save()
+              WidgetCenter.shared.reloadAllTimelines()
           } catch {
             print(error)
           }
