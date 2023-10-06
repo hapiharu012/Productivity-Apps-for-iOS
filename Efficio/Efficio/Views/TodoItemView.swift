@@ -2,7 +2,7 @@
 //  TodoItemView.swift
 //  Efficio
 //
-//  Created by k21123kk on 2023/09/25.
+//  Created by hapiharu012 on 2023/09/25.
 //
 
 import SwiftUI
@@ -27,6 +27,10 @@ struct TodoItemView: View {
         .foregroundColor(todo.wrappedState ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : .black))
         .onTapGesture {
           toggleTodoState(for: todo)
+          UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+
+
           do {
             try managedObjectContext.save()
               WidgetCenter.shared.reloadAllTimelines()

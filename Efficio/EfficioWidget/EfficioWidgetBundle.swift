@@ -2,7 +2,7 @@
 //  EfficioWidgetBundle.swift
 //  EfficioWidget
 //
-//  Created by k21123kk on 2023/10/01.
+//  Created by hapiharu012 on 2023/10/01.
 //
 
 import WidgetKit
