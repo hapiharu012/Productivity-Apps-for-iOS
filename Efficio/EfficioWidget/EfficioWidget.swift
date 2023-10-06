@@ -2,7 +2,7 @@
 //  EfficioWidget.swift
 //  EfficioWidget
 //
-//  Created by k21123kk on 2023/10/01.
+//  Created by hapiharu012 on 2023/10/01.
 //
 
 import WidgetKit
@@ -98,7 +98,7 @@ struct EfficioWidgetEntryView : View {
 //              }
             .foregroundColor(todo.state ? Color.gray : Color.primary)
                 .strikethrough(todo.state)
-              
+              Spacer()
 //              if (!todo.priority? == "") {
                 Circle()
                   .frame(width: 6, height: 12, alignment: .center)
@@ -110,7 +110,7 @@ struct EfficioWidgetEntryView : View {
 //          .position(CGPoint(x: 43.0, y: 8.0))
         }else {
           EmptyWidget()
-            .position(CGPoint(x: 55, y: 50))
+            .position(CGPoint(x: 0, y: 50))
         }
       }//END: VSTACK
           .widgetBackground(Color.white)
@@ -118,10 +118,10 @@ struct EfficioWidgetEntryView : View {
     //MARK: - MEDIUM
       else if family == .systemMedium {
         HStack {
-          VStack(alignment: .leading){
+          VStack(alignment: .leading,spacing: 10){
             Text("マイタスク")
               .font(.system(size: 24,weight: .bold,design: .default))
-              .padding(.bottom)
+//              .padding(.bottom)
             HStack {
               //                    Spacer()
               Text(formatDateTitleDay(Date()))
@@ -137,9 +137,9 @@ struct EfficioWidgetEntryView : View {
               
             } // END: HSTACK
           }
-          //                Spacer()
+          .position(CGPoint(x: 53.0, y: 45.0))
           
-          VStack {
+          VStack(spacing: 15) {
             if !filteredTodos.isEmpty {
               ForEach(filteredTodos, id: \.self) { todo in
                 //                if isSameDay(date1: todo.deadline ?? Date(), date2: Date()) {
@@ -166,7 +166,7 @@ struct EfficioWidgetEntryView : View {
                     
                     
                     Circle()
-                      .frame(width: 5, height: 12, alignment: .center)
+                      .frame(width: 7, height: 12, alignment: .center)
                       .foregroundColor(self.colorize(priority: todo.priority ?? "中"))
                   }.foregroundColor(todo.state ? Color.gray : Color.primary)
                     .strikethrough(todo.state)
@@ -182,7 +182,6 @@ struct EfficioWidgetEntryView : View {
           
           
         } //END: VSTACK
-        .padding(.horizontal)
         .widgetBackground(Color.white)
       }
       

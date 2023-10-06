@@ -2,7 +2,7 @@
 //  EmptyView.swift
 //  ToDo-List
 //
-//  Created by 2023_intern05 on 2023/09/14.
+//  Created by hapiharu012 on 2023/09/14.
 //
 
 import SwiftUI
