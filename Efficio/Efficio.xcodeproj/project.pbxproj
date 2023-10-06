@@ -75,6 +75,7 @@
 		4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		417D1B842AD002A50095EC66 /* sound-tap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "sound-tap.mp3"; path = "../../../../../Udemy/SwiftUIマスタークラス2023/DEVOTE/Completed/Devote/Devote/Sound/sound-tap.mp3"; sourceTree = "<group>"; };
 		417D1B862AD002A90095EC66 /* sound-tap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sound-tap.mp3"; sourceTree = "<group>"; };
+		417D1B8C2AD00ECF0095EC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		41810B6F2ABF67CE00ADBB9A /* Efficio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Efficio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41810B722ABF67CE00ADBB9A /* EfficioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioApp.swift; sourceTree = "<group>"; };
 		41810B742ABF67CE00ADBB9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -180,6 +181,7 @@
 		41810B712ABF67CE00ADBB9A /* Efficio */ = {
 			isa = PBXGroup;
 			children = (
+				417D1B8C2AD00ECF0095EC66 /* Info.plist */,
 				415B22072AC9BFFB006CC1E8 /* Efficio.entitlements */,
 				41810B722ABF67CE00ADBB9A /* EfficioApp.swift */,
 				4160D5862AC1F3B300B99F6A /* Views */,
@@ -532,6 +534,7 @@
 				DEVELOPMENT_TEAM = 7Q258H3VNH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Efficio/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -564,6 +567,7 @@
 				DEVELOPMENT_TEAM = 7Q258H3VNH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Efficio/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

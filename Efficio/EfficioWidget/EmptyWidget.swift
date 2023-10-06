@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct EmptyWidget: View {
+  var point:CGFloat
   var body: some View {
+    
     Text("全てのタスクが完了しました。")
 //      .font(.caption)
-      .font(.system(size: 15, weight: .light, design: .default))
+      .font(.system(size: point, weight: .light, design: .default))
       .foregroundStyle(.gray)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
   }
@@ -19,6 +21,6 @@ struct EmptyWidget: View {
 
 struct EmptyWidget_Previews: PreviewProvider {
   static var previews: some View {
-    EmptyWidget()
+    EmptyWidget(point: 10)
   }
 }

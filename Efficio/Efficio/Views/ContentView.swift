@@ -111,6 +111,9 @@ struct ContentView: View {
           } // END: ADD BUTTON
       )
     }// END: NAVIGATION VIEW
+    .onOpenURL(perform: { url in
+      todoModel.isNewTodo = true
+    })
     
     
   } // END: BODY
