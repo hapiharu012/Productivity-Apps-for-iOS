@@ -2,12 +2,13 @@
 //  Todo+CoreDataProperties.swift
 //  Efficio
 //
-//  Created by k21123kk on 2023/09/26.
+//  Created by hapiharu012 on 2023/09/26.
 //
 //
 
 import Foundation
 import CoreData
+import AppIntents
 
 
 extension Todo {
@@ -36,3 +37,7 @@ extension Todo{
 extension Todo : Identifiable {
   
 }
+
+//extension Todo: _IntentValue {
+//    // 必要なメソッドやプロパティを実装する
+//}
