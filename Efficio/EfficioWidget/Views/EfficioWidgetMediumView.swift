@@ -7,11 +7,12 @@
 
 import SwiftUI
 import WidgetKit
+import CoreData
 
 struct EfficioWidgetMediumView: View {
   @Environment(\.managedObjectContext) private var viewContext
   @Environment(\.widgetFamily) var family
-  @ObservedObject var todoModel: TodoViewModel
+  @State var todos: [Todo]
   
     var body: some View {
       HStack {
@@ -27,7 +28,7 @@ struct EfficioWidgetMediumView: View {
             VStack(alignment: .leading) {
               Text(formatDateTitleDayOfWeek(Date()))
                 .font(.system(size: 10))
-              Text(String(SameDayNum(todos: todoModel.todos))+"件")
+              Text(String(SameDayNum(todos: todos))+"件")
                 .font(.system(size: 10))
             }
             //                    Spacer()
@@ -54,17 +55,20 @@ struct EfficioWidgetMediumView: View {
 //          .position(CGPoint(x: 53.0, y: 45.0))
         
         VStack(spacing: 15) {
-          if !todoModel.filteredTodos.isEmpty {
-            ForEach(todoModel.filteredTodos, id: \.self) { todo in
+          if !todos.isEmpty {
+            ForEach(todos, id: \.id) { todo in
               //                if isSameDay(date1: todo.deadline ?? Date(), date2: Date()) {
               HStack {
+                Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
+                  Image(systemName: todo.state ? "checkmark.circle" : "circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 12)
+                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                }
+                .buttonStyle(.plain)
                 
-                Image(systemName: todo.state ? "checkmark.circle" : "circle")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 12)
-                  .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                  .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
                 
                 
                 Group{
@@ -101,6 +105,15 @@ struct EfficioWidgetMediumView: View {
     }
 }
 
-#Preview {
-    EfficioWidgetMediumView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext))
+
+struct EfficioWidgetMediumView_Previews: PreviewProvider {
+    static var previews: some View {
+        let context = PersistenceController.preview.container.viewContext
+        let dummyTodos = createDummyTodos(context: context)
+
+        
+        return EfficioWidgetMediumView(todos: dummyTodos)
+            .environment(\.managedObjectContext, context)
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
+    }
 }

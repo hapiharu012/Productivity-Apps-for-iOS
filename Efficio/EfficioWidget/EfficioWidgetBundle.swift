@@ -10,6 +10,7 @@ import SwiftUI
 
 @main
 struct EfficioWidgetBundle: WidgetBundle {
+
     var body: some Widget {
         EfficioWidget()
     }

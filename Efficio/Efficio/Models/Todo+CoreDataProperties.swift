@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import AppIntents
 
 
 extension Todo {
@@ -36,3 +37,7 @@ extension Todo{
 extension Todo : Identifiable {
   
 }
+
+//extension Todo: _IntentValue {
+//    // 必要なメソッドやプロパティを実装する
+//}

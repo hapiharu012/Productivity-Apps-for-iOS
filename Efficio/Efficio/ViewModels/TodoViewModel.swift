@@ -11,6 +11,7 @@ import CoreData
 import SwiftUI
 
 class TodoViewModel: ObservableObject {
+//  static let shared = TodoViewModel(context: PersistenceController.shared.container.viewContext)
   // MARK: - PROPERTIES
   
   @Published var name = ""
@@ -83,6 +84,7 @@ class TodoViewModel: ObservableObject {
       do {
         try context.save()
       } catch {
+        print("writeTodo(1)でエラー")
         print(error)
       }
       
@@ -121,6 +123,7 @@ class TodoViewModel: ObservableObject {
       state = false
       deadline = nil
     } catch {
+      print("writeTodo(2)でエラー")
       print(error.localizedDescription)
     }
   } // END: WRITE TODO
@@ -151,6 +154,34 @@ class TodoViewModel: ObservableObject {
     isEditing = nil
     isNewTodo = false
   }
+  
+  // MARK: - TOGGLE TODO STATE BY ID
+  func toggleState(forTask id: String) {
+      guard let uuid = UUID(uuidString: id) else {
+          print("Invalid UUID string: \(id)")
+          return
+      }
+      
+      let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
+      
+      do {
+          let matchingTodos = try context.fetch(fetchRequest)
+          
+          if let matchingTodo = matchingTodos.first {
+              matchingTodo.state.toggle()
+              print("Toggled Todo state to: \(matchingTodo.state)")
+              
+              try context.save()
+              fetchTodos()
+          } else {
+              print("No Todo found with ID: \(id)")
+          }
+      } catch {
+          print("Error toggling Todo state: \(error)")
+      }
+  }
+
   
 }
 

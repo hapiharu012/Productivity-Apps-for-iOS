@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		414A6B272ACFB8F9002DFCA1 /* EmptyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */; };
+		411FF5F92AD82E3E005DD743 /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
 		414A6B282ACFBAB5002DFCA1 /* EmptyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */; };
 		415B21F42AC9BF60006CC1E8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F32AC9BF60006CC1E8 /* WidgetKit.framework */; };
 		415B21F62AC9BF60006CC1E8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F52AC9BF60006CC1E8 /* SwiftUI.framework */; };
@@ -21,7 +21,9 @@
 		4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
 		4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
 		417D1B852AD002A50095EC66 /* sound-tap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 417D1B842AD002A50095EC66 /* sound-tap.mp3 */; };
-		41810B732ABF67CE00ADBB9A /* EfficioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B722ABF67CE00ADBB9A /* EfficioApp.swift */; };
+		417D1B972AD058E10095EC66 /* EfficioWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B912AD0562B0095EC66 /* EfficioWidgetSmallView.swift */; };
+		417D1B982AD058E60095EC66 /* EfficioWidgetMediumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B932AD0564F0095EC66 /* EfficioWidgetMediumView.swift */; };
+		417D1B9A2AD05C120095EC66 /* CommonViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B952AD056F20095EC66 /* CommonViewFunctions.swift */; };
 		41810B752ABF67CE00ADBB9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B742ABF67CE00ADBB9A /* ContentView.swift */; };
 		41810B772ABF67CF00ADBB9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41810B762ABF67CF00ADBB9A /* Assets.xcassets */; };
 		41810B7A2ABF67CF00ADBB9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41810B792ABF67CF00ADBB9A /* Preview Assets.xcassets */; };
@@ -33,6 +35,8 @@
 		41E0A13E2AC9D96E00D41144 /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
 		41E0A13F2AC9D97700D41144 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
 		41E0A1442ACA754B00D41144 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
+		41F7BB812AD53CBD00C7E782 /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
+		41F7BB842AD5577300C7E782 /* EfficioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B722ABF67CE00ADBB9A /* EfficioApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +80,9 @@
 		417D1B842AD002A50095EC66 /* sound-tap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "sound-tap.mp3"; path = "../../../../../Udemy/SwiftUIマスタークラス2023/DEVOTE/Completed/Devote/Devote/Sound/sound-tap.mp3"; sourceTree = "<group>"; };
 		417D1B862AD002A90095EC66 /* sound-tap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sound-tap.mp3"; sourceTree = "<group>"; };
 		417D1B8C2AD00ECF0095EC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		417D1B912AD0562B0095EC66 /* EfficioWidgetSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidgetSmallView.swift; sourceTree = "<group>"; };
+		417D1B932AD0564F0095EC66 /* EfficioWidgetMediumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidgetMediumView.swift; sourceTree = "<group>"; };
+		417D1B952AD056F20095EC66 /* CommonViewFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewFunctions.swift; sourceTree = "<group>"; };
 		41810B6F2ABF67CE00ADBB9A /* Efficio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Efficio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41810B722ABF67CE00ADBB9A /* EfficioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioApp.swift; sourceTree = "<group>"; };
 		41810B742ABF67CE00ADBB9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +93,7 @@
 		41810B852ABF69E800ADBB9A /* AddTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoView.swift; sourceTree = "<group>"; };
 		41810B872ABF6ACC00ADBB9A /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		41810B892AC1449B00ADBB9A /* TodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemView.swift; sourceTree = "<group>"; };
+		41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoToggle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +130,9 @@
 			children = (
 				415B21F82AC9BF60006CC1E8 /* EfficioWidgetBundle.swift */,
 				415B21FA2AC9BF60006CC1E8 /* EfficioWidget.swift */,
-				414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */,
+				41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */,
+				41CCAC3B2AD3A51100247658 /* Views */,
+				417D1B952AD056F20095EC66 /* CommonViewFunctions.swift */,
 				415B21FC2AC9BF62006CC1E8 /* Assets.xcassets */,
 				415B21FE2AC9BF62006CC1E8 /* Info.plist */,
 			);
@@ -202,6 +212,16 @@
 				41810B792ABF67CF00ADBB9A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		41CCAC3B2AD3A51100247658 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */,
+				417D1B912AD0562B0095EC66 /* EfficioWidgetSmallView.swift */,
+				417D1B932AD0564F0095EC66 /* EfficioWidgetMediumView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,10 +328,14 @@
 			files = (
 				41E0A13F2AC9D97700D41144 /* Todo+CoreDataClass.swift in Sources */,
 				41E0A13E2AC9D96E00D41144 /* Todo+CoreDataProperties.swift in Sources */,
+				417D1B972AD058E10095EC66 /* EfficioWidgetSmallView.swift in Sources */,
+				41F7BB812AD53CBD00C7E782 /* TodoToggle.swift in Sources */,
 				415B21F92AC9BF60006CC1E8 /* EfficioWidgetBundle.swift in Sources */,
 				415B220C2AC9D082006CC1E8 /* Efficio.xcdatamodeld in Sources */,
+				417D1B982AD058E60095EC66 /* EfficioWidgetMediumView.swift in Sources */,
 				415B220B2AC9CECB006CC1E8 /* Persistence.swift in Sources */,
 				41E0A1442ACA754B00D41144 /* TodoViewModel.swift in Sources */,
+				417D1B9A2AD05C120095EC66 /* CommonViewFunctions.swift in Sources */,
 				415B21FB2AC9BF60006CC1E8 /* EfficioWidget.swift in Sources */,
 				414A6B282ACFBAB5002DFCA1 /* EmptyWidget.swift in Sources */,
 			);
@@ -326,12 +350,12 @@
 				41810B7F2ABF67CF00ADBB9A /* Efficio.xcdatamodeld in Sources */,
 				4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */,
 				41810B752ABF67CE00ADBB9A /* ContentView.swift in Sources */,
-				41810B732ABF67CE00ADBB9A /* EfficioApp.swift in Sources */,
 				4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */,
+				411FF5F92AD82E3E005DD743 /* TodoToggle.swift in Sources */,
 				41810B882ABF6ACC00ADBB9A /* EmptyView.swift in Sources */,
 				41810B8A2AC1449B00ADBB9A /* TodoItemView.swift in Sources */,
-				414A6B272ACFB8F9002DFCA1 /* EmptyWidget.swift in Sources */,
 				41810B862ABF69E800ADBB9A /* AddTodoView.swift in Sources */,
+				41F7BB842AD5577300C7E782 /* EfficioApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
