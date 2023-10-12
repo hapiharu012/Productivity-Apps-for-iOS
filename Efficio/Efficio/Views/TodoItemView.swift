@@ -35,6 +35,7 @@ struct TodoItemView: View {
             try managedObjectContext.save()
               WidgetCenter.shared.reloadAllTimelines()
           } catch {
+            print("TodoItemView_toggleState: 保存できませんでした")
             print(error)
           }
         }
@@ -87,6 +88,7 @@ struct TodoItemView: View {
     do {
       try managedObjectContext.save()
     } catch {
+      print("TodoItemView_toggleState: 保存できませんでした")
       print(error)
     }
   }
@@ -113,6 +115,7 @@ struct TodoItemView_Previews: PreviewProvider {
     todo.deadline = Date()
     todo.id = UUID()
     
-    return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo)
+      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }
 }

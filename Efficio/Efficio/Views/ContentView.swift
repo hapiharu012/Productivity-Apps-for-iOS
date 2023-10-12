@@ -14,10 +14,15 @@ struct ContentView: View {
   // MARK: - PROPERTIES
   
   @Environment(\.managedObjectContext) var context
-  @StateObject private var todoModel = TodoViewModel(context: PersistenceController.shared.container.viewContext)
+  @EnvironmentObject var todoModel: TodoViewModel
   
   @State private var animatingButton: Bool = false
-  
+  @Environment(\.widgetFamily) var family
+  @FetchRequest(entity: Todo.entity(),
+               sortDescriptors: [
+                 NSSortDescriptor(keyPath: \Todo.name, ascending: true)
+               ]
+  ) var todos:FetchedResults<Todo>
   
   // MARK: - BODY
   
@@ -25,16 +30,16 @@ struct ContentView: View {
     NavigationView {
       ZStack {
         List{
-          ForEach(todoModel.todos, id: \.self) { todo in
+          ForEach(todos, id: \.self) { todo in
             TodoItemView(todoModel: todoModel, todo: todo)
           }// END: FOREACH
           .onDelete(perform: deleteTodo)
         }// END: LIST
+        
         if todoModel.todos.count == 0 {
           EmptyView()
         }
       }  // END: ZSTACK
-      
       // MARK: - SHEET
       .sheet(isPresented: $todoModel.isNewTodo) {
         AddTodoView(todoModel: todoModel)
@@ -75,6 +80,9 @@ struct ContentView: View {
             print("Before - todoModel.isNewTodo: \(todoModel.isNewTodo)")
             todoModel.isNewTodo.toggle()
             print("After - todoModel.isNewTodo: \(todoModel.isNewTodo)")
+//            context.refreshAllObjects()
+//
+//            todoModel.fetchTodos()
           }) {
             Image(systemName: "plus.circle.fill")
               .resizable()
@@ -130,6 +138,7 @@ struct ContentView: View {
         WidgetCenter.shared.reloadAllTimelines()
       } catch {
         context.rollback()
+        print("ContentViewでエラー")
         print(error.localizedDescription)
       }
     }

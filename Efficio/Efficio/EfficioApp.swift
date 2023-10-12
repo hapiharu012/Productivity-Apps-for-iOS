@@ -9,15 +9,18 @@ import SwiftUI
 
 @main
 struct EfficioApp: App {
-    let persistenceController = PersistenceController.shared
-
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .onOpenURL { url in
-                                    print("Received deep link: \(url)")
-                                }
+  let persistenceController = PersistenceController.shared
+  @StateObject var todoModel = TodoViewModel(context: PersistenceController.shared.container.viewContext)
+  
+  
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        .environmentObject(todoModel)
+        .onOpenURL { url in
+          print("Received deep link: \(url)")
         }
     }
+  }
 }

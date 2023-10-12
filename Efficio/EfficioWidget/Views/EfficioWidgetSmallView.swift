@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import CoreData
 import WidgetKit
 
 struct EfficioWidgetSmallView: View {
   @Environment(\.managedObjectContext) private var viewContext
   @Environment(\.widgetFamily) var family
-  @ObservedObject var todoModel: TodoViewModel
+  @State var todos: [Todo]
   
   
     var body: some View {
@@ -21,8 +22,8 @@ struct EfficioWidgetSmallView: View {
             .fontWeight(.bold)
             .position(CGPoint(x: 38, y: 5))
         
-        if !todoModel.filteredTodos.isEmpty {
-          ForEach(todoModel.filteredTodos, id: \.self) { todo in
+        if !todos.isEmpty {
+          ForEach(todos, id: \.id) { todo in
             HStack {
               Image(systemName: todo.state ? "checkmark.circle" : "circle")
                 .resizable()
@@ -58,8 +59,19 @@ struct EfficioWidgetSmallView: View {
       }//END: VSTACK
           .widgetBackground(Color.white)
     }
+  
+
 }
 
-//#Preview {
-//    EfficioWidgetSmallView()
+
+//struct EfficioWidgetSmallView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let context = PersistenceController.preview.container.viewContext
+//        let dummyTodos = createDummyTodos(context: context)
+//
+//        
+//        return EfficioWidgetSmallView(todos: dummyTodos)
+//            .environment(\.managedObjectContext, context)
+//            .previewContext(WidgetPreviewContext(family: .systemSmall))
+//    }
 //}
