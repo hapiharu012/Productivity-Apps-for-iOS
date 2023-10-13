@@ -8,11 +8,12 @@
 
 import SwiftUI
 import AppIntents
-import CoreData
+//import CoreData
 
 struct TodoToggleIntent: AppIntent {
-//  @Environment(\.managedObjectContext) private var managedObjectContext
-//  @ObservedObject private var todoModel = TodoViewModel(context: PersistenceController.shared.container.viewContext)
+  @Environment(\.managedObjectContext) private var managedObjectContext
+
+  @ObservedObject private var todoModel = TodoViewModel(context: PersistenceController.shared.container.viewContext)
   
     static var title: LocalizedStringResource = "Toggle Task State"
   
@@ -30,9 +31,9 @@ struct TodoToggleIntent: AppIntent {
     }
     
     func perform() async throws -> some IntentResult {
-//      TodoViewModel.toggleState(byId: todo)
-      TodoViewModel(context: PersistenceController.shared.container.viewContext).toggleState(forTask: todo)
-//      TodoViewModel.fetchTodos()
+      todoModel.toggleState(forTask: todo)
+//      TodoViewModel(context: PersistenceController.shared.container.viewContext).toggleState(forTask: todo)
+
       return .result()
     }
   

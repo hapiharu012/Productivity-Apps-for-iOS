@@ -9,17 +9,6 @@ import SwiftUI
 import CoreData
 
 
-
-//  func toggleState(for todo: Todo, viewContext: NSManagedObjectContext) {
-//    todo.state.toggle()
-//    do {
-//      try viewContext.save()
-//    } catch {
-//      print("togglrstate - " )
-//      print(error)
-//      
-//    }
-//  }
   
   func isSameDay(date1: Date, date2: Date) -> Bool {
     let calendar = SwiftUI.Calendar.current

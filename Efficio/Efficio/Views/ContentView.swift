@@ -14,7 +14,8 @@ struct ContentView: View {
   // MARK: - PROPERTIES
   
   @Environment(\.managedObjectContext) var context
-  @EnvironmentObject var todoModel: TodoViewModel
+//  @EnvironmentObject var todoModel: TodoViewModel
+  @StateObject var todoModel = TodoViewModel(context: PersistenceController.shared.container.viewContext)
   
   @State private var animatingButton: Bool = false
   @Environment(\.widgetFamily) var family
@@ -75,6 +76,8 @@ struct ContentView: View {
               .frame(width: 88, height: 88, alignment: .center)
           }// MARK: - BACKGROUND CIRCLE
           
+          
+          
           // MARK: - ADD BUTTON
           Button(action: {
             print("Before - todoModel.isNewTodo: \(todoModel.isNewTodo)")
@@ -101,6 +104,45 @@ struct ContentView: View {
           .onDisappear{
             self.animatingButton=false
           }
+          
+          //実行済みのTodoがある場合のみ
+          if todos.filter({ $0.state }).count > 0 {
+          ZStack{
+              Circle()
+                .fill(.red)
+                .opacity(0.8)
+                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                .frame(width: 70, height: 88, alignment: .center)
+            
+            //実行済みのタスクを削除
+
+              // MARK: - DELETE BUTTON
+              Button(action: {
+                for todo in todos.filter({ $0.state })
+                {
+                    print("削除するtodo: \(todo.name!)")
+                    context.delete(todo)
+                    do {
+                      try context.save()
+                    } catch {
+                      print(error.localizedDescription)
+                    }
+                }
+                
+                WidgetCenter.shared.reloadAllTimelines()
+              }) {
+                Image(systemName: "trash")
+                  .resizable()
+                  .scaledToFit()
+                  .foregroundColor(.white)
+                  .frame(width: 30, alignment: .center)
+                
+              } //: BUTTON
+              
+              
+          }.offset(x: -275, y: 0)
+                    }
+
         } //: ZSTACK
           .padding(.bottom, 15)
           .padding(.trailing, 15)
@@ -108,16 +150,16 @@ struct ContentView: View {
       ) //: OVERLAY
       
       .navigationBarTitle("Todo", displayMode: .inline)
-      .navigationBarItems(
-        leading: EditButton(),
-        trailing:
-          Button(action: {
-            todoModel.isNewTodo.toggle()
-          }) {
-            Image(systemName: "pencil.and.outline")
-              .padding()
-          } // END: ADD BUTTON
-      )
+//      .navigationBarItems(
+//        leading: EditButton(),
+//        trailing:
+//          Button(action: {
+//            todoModel.isNewTodo.toggle()
+//          }) {
+//            Image(systemName: "pencil.and.outline")
+//              .padding()
+//          } // END: ADD BUTTON
+//      )
     }// END: NAVIGATION VIEW
     .onOpenURL(perform: { url in
       todoModel.isNewTodo = true

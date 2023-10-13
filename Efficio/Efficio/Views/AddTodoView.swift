@@ -152,7 +152,9 @@ struct AddTodoView: View {
 
 struct AddTodoView_Previews: PreviewProvider {
   static var previews: some View {
+//    AddTodoView(todoModel: TodoViewModel())
     AddTodoView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext))
+
       .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }
 }

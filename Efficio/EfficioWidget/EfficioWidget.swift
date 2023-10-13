@@ -65,13 +65,15 @@ struct SimpleEntry: TimelineEntry {
 // MARK: - EFFICIO WIDGET ENTRY VIEW
 struct EfficioWidgetEntryView : View {
   @Environment(\.widgetFamily) var family
-  @FetchRequest(entity: Todo.entity(),
-               sortDescriptors: [
-                 NSSortDescriptor(keyPath: \Todo.name, ascending: true)
-               ]
-  ) var todos:FetchedResults<Todo>
+//  @FetchRequest(entity: Todo.entity(),
+//               sortDescriptors: [
+//                 NSSortDescriptor(keyPath: \Todo.name, ascending: true)
+//               ]
+//  ) var todos:FetchedResults<Todo>
+//  
+//var todos = TodoViewModel().todos
   
-  
+  var todos = TodoViewModel(context: PersistenceController.shared.container.viewContext).todos
   //MARK: - BODY
   var body: some View {
     //MARK: - SWITCH

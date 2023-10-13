@@ -23,32 +23,39 @@ struct EfficioWidgetSmallView: View {
             .position(CGPoint(x: 38, y: 5))
         
         if !todos.isEmpty {
-          ForEach(todos, id: \.id) { todo in
-            HStack {
-              Image(systemName: todo.state ? "checkmark.circle" : "circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 15)
-//                .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-              
-//              Group{
-                Text(todo.name ?? "")
-                  .font(.custom("HelveticaNeue", size: 11))
+          ForEach(todos.prefix(4), id: \.id) { todo in
+            
+              Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
+                HStack {
+                Image(systemName: todo.state ? "checkmark.circle" : "circle")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 12)
                   .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                  .lineLimit(1)
-//                  .fixedSize(horizontal: true, vertical: false)
-//                  .background(Color.red)
+                  .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                  
+                  //              Group{
+                                  Text(todo.name ?? "")
+                                    .font(.custom("HelveticaNeue", size: 11))
+                                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                                    .lineLimit(1)
+                  //                  .fixedSize(horizontal: true, vertical: false)
+                  //                  .background(Color.red)
 
-//              }
-            .foregroundColor(todo.state ? Color.gray : Color.primary)
-                .strikethrough(todo.state)
-              Spacer()
-//              if (!todo.priority? == "") {
-                Circle()
-                  .frame(width: 6, height: 12, alignment: .center)
-                  .foregroundColor(colorize(priority: todo.priority ?? "中"))
-//              }
-            } //END: HSTACK
+                  //              }
+                              .foregroundColor(todo.state ? Color.gray : Color.primary)
+                                  .strikethrough(todo.state)
+                                Spacer()
+                  //              if (!todo.priority? == "") {
+                                  Circle()
+                                    .frame(width: 6, height: 12, alignment: .center)
+                                    .foregroundColor(colorize(priority: todo.priority ?? "中"))
+                  //              }
+                              } //END: HSTACK
+              }
+              .buttonStyle(.plain)
+              
+
             
           } // END: FOREACH
 //          .position(CGPoint(x: 43.0, y: 8.0))

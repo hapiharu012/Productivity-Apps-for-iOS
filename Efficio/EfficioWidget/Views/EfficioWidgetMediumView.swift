@@ -56,43 +56,45 @@ struct EfficioWidgetMediumView: View {
         
         VStack(spacing: 15) {
           if !todos.isEmpty {
-            ForEach(todos, id: \.id) { todo in
+            ForEach(todos.prefix(4), id: \.id) { todo in
               //                if isSameDay(date1: todo.deadline ?? Date(), date2: Date()) {
-              HStack {
+              
                 Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
+                  HStack {
                   Image(systemName: todo.state ? "checkmark.circle" : "circle")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 12)
                     .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
                     .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                    
+                    
+                    
+                    Group{
+                      Text(todo.name ?? "Unknown")
+                        .font(.custom("HelveticaNeue", size: 14))
+                        .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                      Spacer()
+                      
+                      Text(formatDate(todo.deadline))
+                        .font(.custom("HelveticaNeue", size: 10))
+                        .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                        .opacity(0.5)
+                      
+                      
+                      
+                      Circle()
+                        .frame(width: 7, height: 12, alignment: .center)
+                        .foregroundColor(colorize(priority: todo.priority ?? "中"))
+                    }.foregroundColor(todo.state ? Color.gray : Color.primary)
+                      .strikethrough(todo.state)
+                    
+                    
+                  } //END: HSTACK
+
                 }
                 .buttonStyle(.plain)
-                
-                
-                
-                Group{
-                  Text(todo.name ?? "Unknown")
-                    .font(.custom("HelveticaNeue", size: 14))
-                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                  Spacer()
-                  
-                  Text(formatDate(todo.deadline))
-                    .font(.custom("HelveticaNeue", size: 10))
-                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                    .opacity(0.5)
-                  
-                  
-                  
-                  Circle()
-                    .frame(width: 7, height: 12, alignment: .center)
-                    .foregroundColor(colorize(priority: todo.priority ?? "中"))
-                }.foregroundColor(todo.state ? Color.gray : Color.primary)
-                  .strikethrough(todo.state)
-                
-                
-              } //END: HSTACK
-              
+                              
             }// END: FOREACH
           }else {
             EmptyWidget(point: 17)
@@ -117,3 +119,4 @@ struct EfficioWidgetMediumView_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
+

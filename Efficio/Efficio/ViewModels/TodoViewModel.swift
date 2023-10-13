@@ -23,12 +23,16 @@ class TodoViewModel: ObservableObject {
   @Published var isNewTodo = false  // 新規作成か編集かを判断する: true -> 新規作成, false -> 編集
   @Published var isEditing: Todo!
   
+
+  
   // MARK: - GET TODOS
   @Published var todos: [Todo] = []
   private var context: NSManagedObjectContext
   private var notificationSubscription: Any?
   
+ 
   init(context: NSManagedObjectContext) {
+//    self.context = /*PersistenceController.shared.container.viewContext*/context
     self.context = context
     fetchTodos()
     setupNotificationSubscription()
@@ -40,7 +44,7 @@ class TodoViewModel: ObservableObject {
     }
   }
   
-  private func setupNotificationSubscription() {
+  private func setupNotificationSubscription() {// 通知を受け取る
     notificationSubscription = NotificationCenter.default.addObserver(
       forName: NSNotification.Name.NSManagedObjectContextDidSave,
       object: nil,
@@ -50,7 +54,7 @@ class TodoViewModel: ObservableObject {
     }
   }
   
-  func fetchTodos() {
+  func fetchTodos() {// データを取得する
     let request: NSFetchRequest<Todo> = Todo.fetchRequest() // Todo型のフェッチリクエストを作成
     request.sortDescriptors = [NSSortDescriptor(keyPath: \Todo.name, ascending: true)]  // リクエストを実行し、結果をTodo型の配列として取得
     
@@ -157,6 +161,7 @@ class TodoViewModel: ObservableObject {
   
   // MARK: - TOGGLE TODO STATE BY ID
   func toggleState(forTask id: String) {
+    print("呼び出し - toggleState")
       guard let uuid = UUID(uuidString: id) else {
           print("Invalid UUID string: \(id)")
           return

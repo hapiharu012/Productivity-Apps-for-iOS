@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		411FF5F92AD82E3E005DD743 /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
 		414A6B282ACFBAB5002DFCA1 /* EmptyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */; };
 		415B21F42AC9BF60006CC1E8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F32AC9BF60006CC1E8 /* WidgetKit.framework */; };
 		415B21F62AC9BF60006CC1E8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F52AC9BF60006CC1E8 /* SwiftUI.framework */; };
@@ -17,9 +16,9 @@
 		415B22012AC9BF62006CC1E8 /* EfficioWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 415B21F12AC9BF60006CC1E8 /* EfficioWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		415B220B2AC9CECB006CC1E8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B7B2ABF67CF00ADBB9A /* Persistence.swift */; };
 		415B220C2AC9D082006CC1E8 /* Efficio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 41810B7D2ABF67CF00ADBB9A /* Efficio.xcdatamodeld */; };
-		4160D57F2AC152EF00B99F6A /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
 		4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
 		4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
+		41660FF92AD9B6ED00825DEB /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
 		417D1B852AD002A50095EC66 /* sound-tap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 417D1B842AD002A50095EC66 /* sound-tap.mp3 */; };
 		417D1B972AD058E10095EC66 /* EfficioWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B912AD0562B0095EC66 /* EfficioWidgetSmallView.swift */; };
 		417D1B982AD058E60095EC66 /* EfficioWidgetMediumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B932AD0564F0095EC66 /* EfficioWidgetMediumView.swift */; };
@@ -32,10 +31,11 @@
 		41810B862ABF69E800ADBB9A /* AddTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B852ABF69E800ADBB9A /* AddTodoView.swift */; };
 		41810B882ABF6ACC00ADBB9A /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B872ABF6ACC00ADBB9A /* EmptyView.swift */; };
 		41810B8A2AC1449B00ADBB9A /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B892AC1449B00ADBB9A /* TodoItemView.swift */; };
+		418F5D522AD9A60600B0ED76 /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
+		418F5D532AD9A94600B0ED76 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
 		41E0A13E2AC9D96E00D41144 /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
 		41E0A13F2AC9D97700D41144 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
-		41E0A1442ACA754B00D41144 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
-		41F7BB812AD53CBD00C7E782 /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
+		41E0AC642AD99B4900FDC9E2 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
 		41F7BB842AD5577300C7E782 /* EfficioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B722ABF67CE00ADBB9A /* EfficioApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -326,15 +326,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				418F5D532AD9A94600B0ED76 /* TodoViewModel.swift in Sources */,
 				41E0A13F2AC9D97700D41144 /* Todo+CoreDataClass.swift in Sources */,
 				41E0A13E2AC9D96E00D41144 /* Todo+CoreDataProperties.swift in Sources */,
 				417D1B972AD058E10095EC66 /* EfficioWidgetSmallView.swift in Sources */,
-				41F7BB812AD53CBD00C7E782 /* TodoToggle.swift in Sources */,
+				418F5D522AD9A60600B0ED76 /* TodoToggle.swift in Sources */,
 				415B21F92AC9BF60006CC1E8 /* EfficioWidgetBundle.swift in Sources */,
 				415B220C2AC9D082006CC1E8 /* Efficio.xcdatamodeld in Sources */,
 				417D1B982AD058E60095EC66 /* EfficioWidgetMediumView.swift in Sources */,
 				415B220B2AC9CECB006CC1E8 /* Persistence.swift in Sources */,
-				41E0A1442ACA754B00D41144 /* TodoViewModel.swift in Sources */,
 				417D1B9A2AD05C120095EC66 /* CommonViewFunctions.swift in Sources */,
 				415B21FB2AC9BF60006CC1E8 /* EfficioWidget.swift in Sources */,
 				414A6B282ACFBAB5002DFCA1 /* EmptyWidget.swift in Sources */,
@@ -345,16 +345,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4160D57F2AC152EF00B99F6A /* TodoViewModel.swift in Sources */,
 				41810B7C2ABF67CF00ADBB9A /* Persistence.swift in Sources */,
 				41810B7F2ABF67CF00ADBB9A /* Efficio.xcdatamodeld in Sources */,
 				4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */,
 				41810B752ABF67CE00ADBB9A /* ContentView.swift in Sources */,
 				4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */,
-				411FF5F92AD82E3E005DD743 /* TodoToggle.swift in Sources */,
 				41810B882ABF6ACC00ADBB9A /* EmptyView.swift in Sources */,
+				41660FF92AD9B6ED00825DEB /* TodoToggle.swift in Sources */,
 				41810B8A2AC1449B00ADBB9A /* TodoItemView.swift in Sources */,
 				41810B862ABF69E800ADBB9A /* AddTodoView.swift in Sources */,
+				41E0AC642AD99B4900FDC9E2 /* TodoViewModel.swift in Sources */,
 				41F7BB842AD5577300C7E782 /* EfficioApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

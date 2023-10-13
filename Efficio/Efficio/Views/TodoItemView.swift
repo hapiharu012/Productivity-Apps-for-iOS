@@ -115,6 +115,7 @@ struct TodoItemView_Previews: PreviewProvider {
     todo.deadline = Date()
     todo.id = UUID()
     
+//    return TodoItemView(todoModel: TodoViewModel(), todo: todo)
     return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo)
       .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }
