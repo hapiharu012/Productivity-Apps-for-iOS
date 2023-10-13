@@ -9,30 +9,32 @@ import Foundation
 import Combine
 import CoreData
 import SwiftUI
+import WidgetKit
 
 class TodoViewModel: ObservableObject {
-//  static let shared = TodoViewModel(context: PersistenceController.shared.container.viewContext)
+  //  static let shared = TodoViewModel(context: PersistenceController.shared.container.viewContext)
   // MARK: - PROPERTIES
   
   @Published var name = ""
   @Published var priority = ""
   @Published var state = false
   @Published var deadline: Date?
-  var id = UUID()
+  @Published var id = UUID()
+  @Published var order:Int16 = 0
   
   @Published var isNewTodo = false  // 新規作成か編集かを判断する: true -> 新規作成, false -> 編集
   @Published var isEditing: Todo!
   
-
+  
   
   // MARK: - GET TODOS
   @Published var todos: [Todo] = []
   private var context: NSManagedObjectContext
   private var notificationSubscription: Any?
   
- 
+  
   init(context: NSManagedObjectContext) {
-//    self.context = /*PersistenceController.shared.container.viewContext*/context
+    //    self.context = /*PersistenceController.shared.container.viewContext*/context
     self.context = context
     fetchTodos()
     setupNotificationSubscription()
@@ -56,7 +58,8 @@ class TodoViewModel: ObservableObject {
   
   func fetchTodos() {// データを取得する
     let request: NSFetchRequest<Todo> = Todo.fetchRequest() // Todo型のフェッチリクエストを作成
-    request.sortDescriptors = [NSSortDescriptor(keyPath: \Todo.name, ascending: true)]  // リクエストを実行し、結果をTodo型の配列として取得
+    request.sortDescriptors = [/*NSSortDescriptor(keyPath: \Todo.name, ascending: true),*/
+      NSSortDescriptor(keyPath: \Todo.order, ascending: true)]  // リクエストを実行し、結果をTodo型の配列として取得
     
     do {
       self.todos = try context.fetch(request) // フェッチに失敗した場合のエラーハンドリング
@@ -99,6 +102,7 @@ class TodoViewModel: ObservableObject {
       priority = ""
       state = false
       deadline = nil
+      order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
       
       return
     } // END: if isEditing != nil : 編集の場合
@@ -116,6 +120,7 @@ class TodoViewModel: ObservableObject {
     newTodo.priority = priority
     newTodo.state = state
     newTodo.deadline = deadline
+    newTodo.order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
     newTodo.id = UUID()
     
     do {
@@ -126,6 +131,7 @@ class TodoViewModel: ObservableObject {
       priority = ""
       state = false
       deadline = nil
+      order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
     } catch {
       print("writeTodo(2)でエラー")
       print(error.localizedDescription)
@@ -142,8 +148,9 @@ class TodoViewModel: ObservableObject {
     name = todo.wrappedName
     priority = todo.wrappedPriority
     deadline = todo.deadline
-    state = todo.wrappedState
+    state = todo.state
     id = todo.wrappedId
+    order = todo.order
     
     isNewTodo.toggle()
   }
@@ -157,36 +164,83 @@ class TodoViewModel: ObservableObject {
     deadline =  nil
     isEditing = nil
     isNewTodo = false
+    order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
   }
   
   // MARK: - TOGGLE TODO STATE BY ID
   func toggleState(forTask id: String) {
     print("呼び出し - toggleState")
-      guard let uuid = UUID(uuidString: id) else {
-          print("Invalid UUID string: \(id)")
-          return
-      }
+    guard let uuid = UUID(uuidString: id) else {
+      print("Invalid UUID string: \(id)")
+      return
+    }
+    
+    let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
+    
+    do {
+      let matchingTodos = try context.fetch(fetchRequest)
       
-      let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
-      fetchRequest.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
-      
-      do {
-          let matchingTodos = try context.fetch(fetchRequest)
-          
-          if let matchingTodo = matchingTodos.first {
-              matchingTodo.state.toggle()
-              print("Toggled Todo state to: \(matchingTodo.state)")
-              
-              try context.save()
-              fetchTodos()
-          } else {
-              print("No Todo found with ID: \(id)")
-          }
-      } catch {
-          print("Error toggling Todo state: \(error)")
+      if let matchingTodo = matchingTodos.first {
+        matchingTodo.state.toggle()
+        print("Toggled Todo state to: \(matchingTodo.state)")
+        
+        try context.save()
+        fetchTodos()
+      } else {
+        print("No Todo found with ID: \(id)")
       }
+    } catch {
+      print("Error toggling Todo state: \(error)")
+    }
   }
-
+  
+  // MARK: - DELETE TODO
+  func deleteTodo(at offsets: IndexSet) {
+    for index in offsets {
+      let todo = todos[index]
+      context.delete(todo)
+      do {
+        try context.save()
+      } catch {
+        context.rollback()
+        print("ContentViewでエラー")
+        print(error.localizedDescription)
+      }
+    }
+    WidgetCenter.shared.reloadAllTimelines()
+  }
+  
+  // MARK: - DELETE ALL COMPLETED TODO
+  func deleteAllCompletedTodo() {
+    for todo in todos.filter({ $0.state }){
+      print("削除するtodo: \(todo.name!)")
+      context.delete(todo)
+      do {
+        try context.save()
+      } catch {
+        print(error.localizedDescription)
+      }
+    }
+    
+    WidgetCenter.shared.reloadAllTimelines()
+  }
+  
+  // MARK: - MOVE TODO
+  func moveTodo(from source: IndexSet, to destination: Int) {
+    var revisedItems: [Todo] = todos.map{$0}
+    revisedItems.move(fromOffsets: source, toOffset: destination)
+    for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
+      revisedItems[reverseIndex].order = Int16(reverseIndex)
+    }
+    do {
+      try context.save()
+    } catch {
+      // Handle the error
+    }
+    WidgetCenter.shared.reloadAllTimelines()
+  }
+  
   
 }
 

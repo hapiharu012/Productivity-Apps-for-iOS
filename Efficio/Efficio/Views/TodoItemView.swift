@@ -20,11 +20,11 @@ struct TodoItemView: View {
 
   var body: some View {
     HStack {
-      Image(systemName: todo.wrappedState ? "checkmark.circle" : "circle")
+      Image(systemName: todo.state ? "checkmark.circle" : "circle")
         .resizable()
         .scaledToFit()
         .frame(width: 20, height: 20)
-        .foregroundColor(todo.wrappedState ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : .black))
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : .black))
         .onTapGesture {
           toggleTodoState(for: todo)
           UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -51,7 +51,7 @@ struct TodoItemView: View {
           Text(dateFormatting(todo.deadline))
         }
         .font(.footnote)
-        .foregroundColor(todo.wrappedState ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .opacity(0.5)
       }
       if todo.priority != "" {
