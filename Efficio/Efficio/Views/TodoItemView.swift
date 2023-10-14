@@ -6,12 +6,10 @@
 //
 
 import SwiftUI
-import WidgetKit
 
 struct TodoItemView: View {
   // MARK: - PROPERTIES
 
-  @Environment(\.managedObjectContext) var managedObjectContext
   @ObservedObject var todoModel: TodoViewModel
   @ObservedObject var todo: Todo
   
@@ -20,31 +18,24 @@ struct TodoItemView: View {
 
   var body: some View {
     HStack {
+      // MARK: - CHECKMARK
       Image(systemName: todo.state ? "checkmark.circle" : "circle")
         .resizable()
         .scaledToFit()
         .frame(width: 20, height: 20)
         .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : .black))
+      // MARK: - CHECKMARK ONTAPGESTURE
         .onTapGesture {
-          toggleTodoState(for: todo)
+          todoModel.toggleTodoState(for: todo)
           UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
-
-
-          do {
-            try managedObjectContext.save()
-              WidgetCenter.shared.reloadAllTimelines()
-          } catch {
-            print("TodoItemView_toggleState: 保存できませんでした")
-            print(error)
-          }
         }
-      
+      // MARK: - TODO NAME
       Text(todo.wrappedName)
         .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .strikethrough(todo.state, color: .black)
         .offset(x: 10)
       Spacer()
+      // MARK: - DEADLINE
       if todo.deadline != nil{
         HStack {
           Image(systemName: "calendar")
@@ -54,6 +45,7 @@ struct TodoItemView: View {
         .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .opacity(0.5)
       }
+      // MARK: - PRIORITY
       if todo.priority != "" {
         Text(todo.priority ?? "")
           .font(.footnote)
@@ -64,8 +56,9 @@ struct TodoItemView: View {
             Capsule().stroke(Color(UIColor.systemGray2), lineWidth: 0.75)
         )
       }
-    } // END: HSTACK
-    .padding(.vertical, 8)
+    } //: HSTACK
+//    .padding(.vertical, 8)
+//    .background(.gray)
     
     // MARK: - ONTAPGESTURE
     .onTapGesture {
@@ -83,15 +76,7 @@ struct TodoItemView: View {
     formatter.dateFormat = "MM月dd日"
     return formatter.string(from: date)
   }
-  private func toggleTodoState(for todo: Todo) {
-    todo.state.toggle()
-    do {
-      try managedObjectContext.save()
-    } catch {
-      print("TodoItemView_toggleState: 保存できませんでした")
-      print(error)
-    }
-  }
+
   private func priorityJudgment (priority: String) -> Bool {
     switch priority {
     case "高":
@@ -101,7 +86,7 @@ struct TodoItemView: View {
     }
   }
   
-}// END: TODOITEMVIEW
+} //: TODOITEMVIEW
 
 
 // MARK: - PREVIEW
@@ -114,6 +99,12 @@ struct TodoItemView_Previews: PreviewProvider {
     todo.state = false
     todo.deadline = Date()
     todo.id = UUID()
+    
+//    todo.name = "サンプルTodo"
+//    todo.priority = ""
+//    todo.state = false
+//    todo.deadline = nil
+//    todo.id = UUID()
     
 //    return TodoItemView(todoModel: TodoViewModel(), todo: todo)
     return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo)

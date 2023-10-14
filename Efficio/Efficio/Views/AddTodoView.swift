@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import WidgetKit
 
 
 struct AddTodoView: View {
@@ -52,15 +51,19 @@ struct AddTodoView: View {
               }
             }
           
-          // MARK: - TODO PRI0RITIY
+          //: - TODO PRI0RITIY
           
-          Picker("優先度", selection: $todoModel.priority){
-            ForEach(priorities, id: \.self) {
-              Text($0) //メモ→   $0はクロージャが受け取る現在処理している要素を指す
+          HStack( spacing: 5) {
+            Text("優先度")
+              .font(.footnote)
+            Picker("優先度", selection: $todoModel.priority){
+              ForEach(priorities, id: \.self) {
+                Text($0) //メモ→   $0はクロージャが受け取る現在処理している要素を指す
+              }
             }
-          }
-          .pickerStyle(SegmentedPickerStyle())//ピッカーのデザインを変更
+            .pickerStyle(SegmentedPickerStyle())//ピッカーのデザインを変更
           .padding(10)
+          }.padding(10)
           
           // MARK: - TODO DEDLINE
           DatePicker(selection: Binding<Date>(
@@ -84,18 +87,8 @@ struct AddTodoView: View {
           Button(action: {
             if todoModel.name != "" {
               print("保存ボタンが押されました")
-              
               todoModel.writeTodo(context: context)
               
-              do {
-                  try context.save()
-                  // 追加
-                  WidgetCenter.shared.reloadAllTimelines()
-                  
-              } catch {
-                  let nsError = error as NSError
-                  fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-              }
             } else {
               errorShowing = true
               errorTitle = "Todo名が入力されていません"
@@ -139,13 +132,12 @@ struct AddTodoView: View {
     // MARK: - ON DISAPPEAR
     .onDisappear() {
       print("onDisappear - todoModel.isNewTodo: \(todoModel.isNewTodo)")
-      todoModel.resetData()
+      todoModel.resetForm()
     }
-//    .widgetURL(URL(string: "addTodo://add"))
 
   }
 
-}// END: BODY
+}//: BODY
 
 
 // MARK: - PREVIEW

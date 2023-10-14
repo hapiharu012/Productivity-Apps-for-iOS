@@ -7,13 +7,10 @@
 
 
 import SwiftUI
-import CoreData
-import WidgetKit
 
 struct ContentView: View {
   // MARK: - PROPERTIES
   
-  @Environment(\.managedObjectContext) var context
   @StateObject var todoModel = TodoViewModel(context: PersistenceController.shared.container.viewContext)
   @State private var animatingButton: Bool = false
   
@@ -25,26 +22,29 @@ struct ContentView: View {
         List{
           ForEach(todoModel.todos, id: \.self) { todo in
             TodoItemView(todoModel: todoModel, todo: todo)
-          }// END: FOREACH
+              .padding(.vertical, 9)
+          }// : FOREACH
           .onDelete(perform: todoModel.deleteTodo)
           .onMove(perform: todoModel.moveTodo)
-        }// END: LIST
+        }// : LIST
         
+
+
         if todoModel.todos.count == 0 {
           EmptyView()
         }
-      }  // END: ZSTACK
+      }  // : ZSTACK
       
       // MARK: - SHEET
       .sheet(isPresented: $todoModel.isNewTodo) {
         AddTodoView(todoModel: todoModel)
       }
       
-      // MARK: - ORVERLAY
       .overlay(
+        // MARK: - FOOTER BUTTONS
         HStack{
+          // MARK: - ADD BUTTON
           ZStack {
-            // MARK: - BACKGROUND CIRCLE
             Group {
               Circle()
                 .fill(LinearGradient(
@@ -85,11 +85,11 @@ struct ContentView: View {
                 .scaledToFit()
                 .background(Circle().fill(.white))
                 .frame(width: 50, alignment: .center)
-//                .shadow(radius: animatingButton ? 0 : 5)
             } //: BUTTON
-            .accentColor(.blue)
+//            .accentColor(.blue)
             
-          }.position(x: 325, y: 680)
+          }//: ADD BUTTON
+          .position(x: 325, y: 680)
           
           
           
@@ -114,15 +114,14 @@ struct ContentView: View {
               }
             }
             .position(x: -130, y: 680)
-          }//DELETE COMPLETED TODOS BUTTON
+          } //: DELETE COMPLETED TODOS BUTTON
           else {
             SwiftUI.EmptyView()
-          }
-        }// END: HSTACK
+          } //: ELSE
           
-//        } //: ZSTACK
-          
+        } //: FOOTER BUTTONS
       ) //: OVERLAY
+      .navigationBarTitle("Todo", displayMode: .inline)
       
       // MARK: - ON APPEAR
       .onAppear {
@@ -135,17 +134,16 @@ struct ContentView: View {
       .onDisappear{
         self.animatingButton=false
       }
-      .navigationBarTitle("Todo", displayMode: .inline)
-    }// END: NAVIGATION VIEW
+      
+    } //: NAVIGATION VIEW
     
     // MARK: - ON OPEN URL FROM WIDGET
     .onOpenURL(perform: { url in
       todoModel.isNewTodo = true
     })
     
-    
-  } // END: BODY
-}// END: CONTENTVIEW
+  } //: BODY
+} //: CONTENTVIEW
 
 
 // MARK: - PREVIEW

@@ -155,9 +155,9 @@ class TodoViewModel: ObservableObject {
     isNewTodo.toggle()
   }
   
-  // MARK: - RESET TODO
-  func resetData() {
-    print("呼び出し - resetData")
+  // MARK: - RESET FORM
+  func resetForm() {
+    print("呼び出し - resetForm")
     name = ""
     priority = ""
     state = false
@@ -167,8 +167,20 @@ class TodoViewModel: ObservableObject {
     order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
   }
   
+  // MARK: - DELETE TODO
+  func toggleTodoState(for todo: Todo) {
+    todo.state.toggle()
+    do {
+      try context.save()
+    } catch {
+      print("TodoItemView_toggleState: 保存できませんでした")
+      print(error)
+    }
+    WidgetCenter.shared.reloadAllTimelines()
+  }
+  
   // MARK: - TOGGLE TODO STATE BY ID
-  func toggleState(forTask id: String) {
+  func toggleTodoStateById(forTask id: String) {
     print("呼び出し - toggleState")
     guard let uuid = UUID(uuidString: id) else {
       print("Invalid UUID string: \(id)")
@@ -180,16 +192,7 @@ class TodoViewModel: ObservableObject {
     
     do {
       let matchingTodos = try context.fetch(fetchRequest)
-      
-      if let matchingTodo = matchingTodos.first {
-        matchingTodo.state.toggle()
-        print("Toggled Todo state to: \(matchingTodo.state)")
-        
-        try context.save()
-        fetchTodos()
-      } else {
-        print("No Todo found with ID: \(id)")
-      }
+      toggleTodoState(for: matchingTodos.first!)
     } catch {
       print("Error toggling Todo state: \(error)")
     }
@@ -219,10 +222,10 @@ class TodoViewModel: ObservableObject {
       do {
         try context.save()
       } catch {
+        print("deleteAllCompletedTodoでエラー")
         print(error.localizedDescription)
       }
     }
-    
     WidgetCenter.shared.reloadAllTimelines()
   }
   
@@ -236,7 +239,8 @@ class TodoViewModel: ObservableObject {
     do {
       try context.save()
     } catch {
-      // Handle the error
+      print("moveTodoでエラー")
+      print(error.localizedDescription)
     }
     WidgetCenter.shared.reloadAllTimelines()
   }
