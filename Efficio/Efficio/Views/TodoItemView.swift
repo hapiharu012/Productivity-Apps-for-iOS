@@ -31,6 +31,7 @@ struct TodoItemView: View {
         }
       // MARK: - TODO NAME
       Text(todo.wrappedName)
+        .font(.system(size: 14, weight: priorityJudgment(priority: todo.wrappedName) ? .bold : .medium, design: .none))
         .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .strikethrough(todo.state, color: .black)
         .offset(x: 10)
@@ -49,16 +50,18 @@ struct TodoItemView: View {
       if todo.priority != "" {
         Text(todo.priority ?? "")
           .font(.footnote)
-          .foregroundColor(Color(UIColor.systemGray2))
+          .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
+          .opacity(0.5)
           .padding(3)
           .frame(minWidth: 62)
           .overlay(
-            Capsule().stroke(Color(UIColor.systemGray2), lineWidth: 0.75)
+            Capsule().stroke(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black), lineWidth: 0.75)
+              .opacity(0.5)
         )
       }
     } //: HSTACK
 //    .padding(.vertical, 8)
-//    .background(.gray)
+    .background(.clear)
     
     // MARK: - ONTAPGESTURE
     .onTapGesture {

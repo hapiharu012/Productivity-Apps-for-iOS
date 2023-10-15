@@ -13,6 +13,7 @@ struct ContentView: View {
   
   @StateObject var todoModel = TodoViewModel(context: PersistenceController.shared.container.viewContext)
   @State private var animatingButton: Bool = false
+  @State private var showingSettingsView: Bool = false
   
   // MARK: - BODY
   
@@ -23,13 +24,23 @@ struct ContentView: View {
           ForEach(todoModel.todos, id: \.self) { todo in
             TodoItemView(todoModel: todoModel, todo: todo)
               .padding(.vertical, 9)
+              .shadow(radius: 1)
           }// : FOREACH
           .onDelete(perform: todoModel.deleteTodo)
           .onMove(perform: todoModel.moveTodo)
+          
+          .padding(.all, 10)
+          .frame(maxWidth: .infinity, minHeight: 60)
+          .background(Color("yellor").opacity(1))
+          .listRowBackground(Color("green"))
+          .listRowSeparator(.hidden)
+          .cornerRadius(10)
+          
         }// : LIST
+        .listStyle(.plain)
+        //        .edgesIgnoringSafeArea(.all)
+        .background(Color("green"))
         
-
-
         if todoModel.todos.count == 0 {
           EmptyView()
         }
@@ -49,24 +60,25 @@ struct ContentView: View {
               Circle()
                 .fill(LinearGradient(
                   colors: [
-                    .blue,
-                    .green
+                    Color("orange"),
+                    Color("green")
                   ],
                   startPoint: animatingButton ? .topLeading : .bottomLeading,
                   endPoint: animatingButton ? .bottomTrailing : .topTrailing
-                ))
+                )).contrast(5.0)
                 .opacity(self.animatingButton ? 0.2 : 0)
                 .scaleEffect(self.animatingButton ? 1 : 0)
                 .frame(width: 68, height: 68, alignment: .center)
               Circle()
                 .fill(LinearGradient(
                   colors: [
-                    .blue,
-                    .green
+                    
+                    Color("orange"),
+                    Color("green")
                   ],
                   startPoint: animatingButton ? .topLeading : .bottomLeading,
                   endPoint: animatingButton ? .bottomTrailing : .topTrailing
-                ))
+                )).contrast(5.0)
                 .opacity(self.animatingButton ? 0.15 : 0)
                 .scaleEffect(self.animatingButton ? 1 : 0)
                 .frame(width: 88, height: 88, alignment: .center)
@@ -83,10 +95,12 @@ struct ContentView: View {
               Image(systemName: "plus.circle.fill")
                 .resizable()
                 .scaledToFit()
-                .background(Circle().fill(.white))
+                .foregroundColor(Color("orange")).contrast(1.5)
+                .background(Circle().fill(Color("green")))
                 .frame(width: 50, alignment: .center)
+                .shadow(radius: animatingButton ? 6 : 0)
             } //: BUTTON
-//            .accentColor(.blue)
+            //            .accentColor(.blue)
             
           }//: ADD BUTTON
           .position(x: 325, y: 680)
@@ -97,8 +111,8 @@ struct ContentView: View {
           if todoModel.todos.filter({ $0.state }).count > 0 { //実行済みのTodoがある場合のみ
             ZStack{
               Circle()
-                .fill(.red)
-                .opacity(0.8)
+                .fill(.white)
+                .opacity(0.6)
                 .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 .frame(width: 60, height: 88, alignment: .center)
               
@@ -109,7 +123,7 @@ struct ContentView: View {
                 Image(systemName: "trash")
                   .resizable()
                   .scaledToFit()
-                  .foregroundColor(.white)
+                  .foregroundColor(Color("green"))
                   .frame(width: 30, alignment: .center)
               }
             }
@@ -122,6 +136,10 @@ struct ContentView: View {
         } //: FOOTER BUTTONS
       ) //: OVERLAY
       .navigationBarTitle("Todo", displayMode: .inline)
+      
+      .toolbarBackground(Color("green"),for: .navigationBar)
+      .toolbarBackground(.visible, for: .navigationBar)
+      .toolbarColorScheme(.dark)
       
       // MARK: - ON APPEAR
       .onAppear {

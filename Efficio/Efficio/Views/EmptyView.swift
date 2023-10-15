@@ -22,18 +22,18 @@ struct EmptyView: View {
             .scaledToFit()
             .frame(minWidth: 256, idealWidth: 280, maxWidth: 360, minHeight: 256, idealHeight: 280, maxHeight: 360, alignment: .center)
             .layoutPriority(1)
-            .foregroundColor(.blue)
+            .foregroundColor(Color("orange"))
           
           Text("Put hard tasks first.")
             .layoutPriority(0.5)
             .font(.system(.headline, design: .rounded))
-            .foregroundColor(.blue)
+            .foregroundColor(Color("orange"))
         } //: VSTACK
           .padding(.horizontal)
       } //: ZSTACK
       
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .background(.white)
+        .background(Color("green"))
         .edgesIgnoringSafeArea(.all)
     }//: BODY
   

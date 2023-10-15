@@ -23,7 +23,7 @@ struct AddTodoView: View {
   @State private var errorShowing: Bool = false
   @State private var errorTitle: String = ""
   @State private var errorMessage = ""
-  
+  @State private var dateSetting = false
   // フォーカスが当たるTextFieldを、判断するためのenumを作成します。
   enum Field: Hashable {
     case text
@@ -42,7 +42,8 @@ struct AddTodoView: View {
           TextField("Todo", text: $todoModel.name)
             .focused($focusedField, equals: .text)
             .padding()
-            .background(Color(UIColor.tertiarySystemFill))
+//            .background(Color(UIColor.tertiarySystemFill))
+            .background(Color("yellor"))
             .cornerRadius(9)
             .font(.system(size: 24, weight: .bold, design: .default))
             .onReceive(Just(todoModel.name)) { _ in
@@ -56,39 +57,72 @@ struct AddTodoView: View {
           HStack( spacing: 5) {
             Text("優先度")
               .font(.footnote)
+              .foregroundColor(.white)
+//              .foregroundColor(.black)
+//              .foregroundStyle(Color("yellor"))
             Picker("優先度", selection: $todoModel.priority){
               ForEach(priorities, id: \.self) {
                 Text($0) //メモ→   $0はクロージャが受け取る現在処理している要素を指す
               }
             }
             .pickerStyle(SegmentedPickerStyle())//ピッカーのデザインを変更
+            .background(Color("yellor"))
+            .cornerRadius(9)
           .padding(10)
           }.padding(10)
           
           // MARK: - TODO DEDLINE
-          DatePicker(selection: Binding<Date>(
-            get: { self.todoModel.deadline ?? Date() },
-            set: { newValue in
-              print("Selected date:", newValue)
-              self.todoModel.deadline = newValue
+          VStack {
+            HStack {
+              Text("期限")
+                .font(.footnote)
+                .foregroundColor(.white)
+//                .foregroundColor(.black)
+//                .foregroundStyle(Color("yellor"))
+
+             
+                Toggle(isOn: $dateSetting) {
+                  SwiftUI.EmptyView()
+                }
+                  .toggleStyle(CustomToggleStyle())
+  //              .cornerRadius()
+  //              .toggleStyle(SwitchToggleStyle(tint: Color.red))
+              
             }
-          ), label: {
-            Text("期限")
-              .font(.footnote)
-          }).onTapGesture {
-            if todoModel.deadline == nil {
-              todoModel.deadline = Date()
+              if dateSetting {
+                  DatePicker(selection: Binding<Date>(
+                    get: { self.todoModel.deadline ?? Date() },
+                    set: { newValue in
+                      print("Selected date:", newValue)
+                      self.todoModel.deadline = newValue
+                    }
+                  ), label: {
+                    SwiftUI.EmptyView()
+                  }
+                  ).onAppear() {
+                    if todoModel.deadline == nil {
+                      todoModel.deadline = Date()
+                    }
+                  }
+                  .onDisappear() {
+                    todoModel.deadline = nil
+                  }
+                  .padding(.leading, -8)
+                  .background(Color("yellor"))
+                  .cornerRadius(9)
+                  .frame(width: 10,alignment: .leading)
+                  .offset(x: 10)
+                  .environment(\.locale, Locale(identifier: "ja_JP"))
+                  
             }
-          }
-          .environment(\.locale, Locale(identifier: "ja_JP"))
-          .padding(10)
-          
+            
+          }.padding(10)
           //MARK: - SAVE BUTTON
           Button(action: {
             if todoModel.name != "" {
               print("保存ボタンが押されました")
               todoModel.writeTodo(context: context)
-              
+              UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
             } else {
               errorShowing = true
               errorTitle = "Todo名が入力されていません"
@@ -101,9 +135,11 @@ struct AddTodoView: View {
               .font(.system(size: 24, weight: .bold, design: .default))
               .padding()
               .frame(minWidth: 0, maxWidth: .infinity)
-              .background(Color.blue)
+              .background(Color("orange"))
               .cornerRadius(9)
-              .foregroundColor(.white)
+//              .foregroundColor(.white)
+//              .foregroundColor(Color("green"))
+              .foregroundColor(.black)
           }//END: SAVE BUTTON
         } //END: VSTACK
         .padding(.horizontal)
@@ -111,6 +147,7 @@ struct AddTodoView: View {
         
         Spacer()
       } // END: VSTACK
+      .background(Color("green"))
       .navigationBarTitle("New Todo", displayMode:.inline)
       .navigationBarItems(trailing:
                             Button(action: {
@@ -118,8 +155,13 @@ struct AddTodoView: View {
         todoModel.isNewTodo = false
       }) {
         Image(systemName: "xmark")
+          .foregroundColor(Color("orange"))
       }
       )
+      .toolbarBackground(Color("green"),for: .navigationBar)
+      .toolbarBackground(.visible, for: .navigationBar)
+      .toolbarColorScheme(.dark)
+//      .toolbarColorScheme(.light)
       // MARK: - ALERT
       .alert(isPresented: $errorShowing) {
         Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("OK")))
@@ -128,6 +170,14 @@ struct AddTodoView: View {
     // MARK: - ON APPEAR
     .onAppear() {
       focusedField = .text
+      dateSetting = { //期限の設定があるかどうかを判断
+        if todoModel.deadline != nil {
+          return true
+        } else {
+          return false
+        }
+      }()
+      
     }
     // MARK: - ON DISAPPEAR
     .onDisappear() {

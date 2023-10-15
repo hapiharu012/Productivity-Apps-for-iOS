@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		410944E02ADBD308005820F0 /* CustomToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944DF2ADBD308005820F0 /* CustomToggleStyle.swift */; };
+		410944E22ADBE23F005820F0 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E12ADBE23F005820F0 /* SettingView.swift */; };
+		410944E52ADBE2B6005820F0 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E42ADBE2B6005820F0 /* ThemeModel.swift */; };
+		410944E72ADBE2D7005820F0 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E62ADBE2D7005820F0 /* ThemeData.swift */; };
+		410944E92ADBE2F9005820F0 /* ThemeSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E82ADBE2F9005820F0 /* ThemeSetting.swift */; };
+		410944EB2ADBE960005820F0 /* SettingFormRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944EA2ADBE960005820F0 /* SettingFormRowView.swift */; };
 		414A6B282ACFBAB5002DFCA1 /* EmptyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */; };
 		415B21F42AC9BF60006CC1E8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F32AC9BF60006CC1E8 /* WidgetKit.framework */; };
 		415B21F62AC9BF60006CC1E8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F52AC9BF60006CC1E8 /* SwiftUI.framework */; };
@@ -64,6 +70,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		410944DF2ADBD308005820F0 /* CustomToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleStyle.swift; sourceTree = "<group>"; };
+		410944E12ADBE23F005820F0 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		410944E42ADBE2B6005820F0 /* ThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
+		410944E62ADBE2D7005820F0 /* ThemeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeData.swift; sourceTree = "<group>"; };
+		410944E82ADBE2F9005820F0 /* ThemeSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSetting.swift; sourceTree = "<group>"; };
+		410944EA2ADBE960005820F0 /* SettingFormRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFormRowView.swift; sourceTree = "<group>"; };
 		414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyWidget.swift; sourceTree = "<group>"; };
 		415B21F12AC9BF60006CC1E8 /* EfficioWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EfficioWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		415B21F32AC9BF60006CC1E8 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -116,6 +128,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		410944DE2ADBD2EA005820F0 /* CustomStyle */ = {
+			isa = PBXGroup;
+			children = (
+				410944DF2ADBD308005820F0 /* CustomToggleStyle.swift */,
+			);
+			path = CustomStyle;
+			sourceTree = "<group>";
+		};
+		410944E32ADBE2A4005820F0 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				410944E42ADBE2B6005820F0 /* ThemeModel.swift */,
+				410944E62ADBE2D7005820F0 /* ThemeData.swift */,
+				410944E82ADBE2F9005820F0 /* ThemeSetting.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		415B21F22AC9BF60006CC1E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,10 +190,13 @@
 		4160D5862AC1F3B300B99F6A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				410944DE2ADBD2EA005820F0 /* CustomStyle */,
 				41810B742ABF67CE00ADBB9A /* ContentView.swift */,
 				41810B892AC1449B00ADBB9A /* TodoItemView.swift */,
 				41810B852ABF69E800ADBB9A /* AddTodoView.swift */,
 				41810B872ABF6ACC00ADBB9A /* EmptyView.swift */,
+				410944E12ADBE23F005820F0 /* SettingView.swift */,
+				410944EA2ADBE960005820F0 /* SettingFormRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,6 +224,7 @@
 		41810B712ABF67CE00ADBB9A /* Efficio */ = {
 			isa = PBXGroup;
 			children = (
+				410944E32ADBE2A4005820F0 /* Theme */,
 				417D1B8C2AD00ECF0095EC66 /* Info.plist */,
 				415B22072AC9BFFB006CC1E8 /* Efficio.entitlements */,
 				41810B722ABF67CE00ADBB9A /* EfficioApp.swift */,
@@ -283,11 +317,12 @@
 			};
 			buildConfigurationList = 41810B6A2ABF67CE00ADBB9A /* Build configuration list for PBXProject "Efficio" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 41810B662ABF67CE00ADBB9A;
 			productRefGroup = 41810B702ABF67CE00ADBB9A /* Products */;
@@ -349,12 +384,18 @@
 				41810B7F2ABF67CF00ADBB9A /* Efficio.xcdatamodeld in Sources */,
 				4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */,
 				41810B752ABF67CE00ADBB9A /* ContentView.swift in Sources */,
+				410944E02ADBD308005820F0 /* CustomToggleStyle.swift in Sources */,
 				4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */,
+				410944E72ADBE2D7005820F0 /* ThemeData.swift in Sources */,
 				41810B882ABF6ACC00ADBB9A /* EmptyView.swift in Sources */,
+				410944E52ADBE2B6005820F0 /* ThemeModel.swift in Sources */,
 				41660FF92AD9B6ED00825DEB /* TodoToggle.swift in Sources */,
+				410944E22ADBE23F005820F0 /* SettingView.swift in Sources */,
 				41810B8A2AC1449B00ADBB9A /* TodoItemView.swift in Sources */,
 				41810B862ABF69E800ADBB9A /* AddTodoView.swift in Sources */,
 				41E0AC642AD99B4900FDC9E2 /* TodoViewModel.swift in Sources */,
+				410944EB2ADBE960005820F0 /* SettingFormRowView.swift in Sources */,
+				410944E92ADBE2F9005820F0 /* ThemeSetting.swift in Sources */,
 				41F7BB842AD5577300C7E782 /* EfficioApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
