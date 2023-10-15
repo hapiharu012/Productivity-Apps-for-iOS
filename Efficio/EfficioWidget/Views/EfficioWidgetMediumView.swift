@@ -14,6 +14,10 @@ struct EfficioWidgetMediumView: View {
   @Environment(\.widgetFamily) var family
   @State var todos: [Todo]
   
+  // THEME
+  @ObservedObject var theme = ThemeSettings.shared
+  var themes: [Theme] = themeData
+  
     var body: some View {
       HStack {
         VStack(alignment: .leading,spacing: 10){
@@ -21,44 +25,39 @@ struct EfficioWidgetMediumView: View {
             .font(.system(size: 22,weight: .bold,design: .default))
 //              .padding(.bottom)
           HStack {
-            //                    Spacer()
             Text(formatDateTitleDay(Date()))
               .font(.system(size: 22))
-            //                        .padding(.trailing)
             VStack(alignment: .leading) {
               Text(formatDateTitleDayOfWeek(Date()))
                 .font(.system(size: 10))
               Text(String(SameDayNum(todos: todos))+"件")
                 .font(.system(size: 10))
             }
-            //                    Spacer()
             
           } // END: HSTACK
 
           Link(destination: URL(string: "addTodo://")!) {
             Circle().fill()
               .foregroundColor(.white)
+//              .foregroundColor(themes[self.theme.themeSettings].backColor)
               .shadow(radius: 2)
+            
               .overlay(
                 Image(systemName: "note.text.badge.plus")
                   .resizable()
-                  .foregroundColor(.blue)
+                  .foregroundColor(.black)
+//                  .foregroundColor(themes[self.theme.themeSettings].accentColor)
                   .scaledToFit()
                   .frame(width: 40)
                   .position(CGPoint(x: 30.0, y: 28.0))
                 )
-//                .position(CGPoint(x: 10.0, y: 10.0))
           }
-//            .position(CGPoint(x: 10.0, y: 10.0))
 
         }
-//          .position(CGPoint(x: 53.0, y: 45.0))
         
-        VStack(spacing: 15) {
+        VStack(alignment: .leading,spacing: 15) {
           if !todos.isEmpty {
             ForEach(todos.prefix(4), id: \.id) { todo in
-              //                if isSameDay(date1: todo.deadline ?? Date(), date2: Date()) {
-              
                 Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
                   HStack {
                   Image(systemName: todo.state ? "checkmark.circle" : "circle")

@@ -30,7 +30,9 @@ struct AddTodoView: View {
   }
   @FocusState private var focusedField: Field?
   
-  
+  // THEME
+  @ObservedObject var theme = ThemeSettings.shared
+  var themes: [Theme] = themeData
   // MARK: - BODY
   
   var body: some View {
@@ -42,8 +44,8 @@ struct AddTodoView: View {
           TextField("Todo", text: $todoModel.name)
             .focused($focusedField, equals: .text)
             .padding()
-//            .background(Color(UIColor.tertiarySystemFill))
-            .background(Color("yellor"))
+//            .background( r(UIColor.tertiarySystemFill))
+            .background(themes[self.theme.themeSettings].rowColor)
             .cornerRadius(9)
             .font(.system(size: 24, weight: .bold, design: .default))
             .onReceive(Just(todoModel.name)) { _ in
@@ -57,7 +59,7 @@ struct AddTodoView: View {
           HStack( spacing: 5) {
             Text("優先度")
               .font(.footnote)
-              .foregroundColor(.white)
+              .foregroundColor(getNavigationForegroudColor() ? .white : .black)
 //              .foregroundColor(.black)
 //              .foregroundStyle(Color("yellor"))
             Picker("優先度", selection: $todoModel.priority){
@@ -66,7 +68,7 @@ struct AddTodoView: View {
               }
             }
             .pickerStyle(SegmentedPickerStyle())//ピッカーのデザインを変更
-            .background(Color("yellor"))
+            .background(themes[self.theme.themeSettings].rowColor)
             .cornerRadius(9)
           .padding(10)
           }.padding(10)
@@ -76,7 +78,7 @@ struct AddTodoView: View {
             HStack {
               Text("期限")
                 .font(.footnote)
-                .foregroundColor(.white)
+                .foregroundColor(getNavigationForegroudColor() ? .white : .black)
 //                .foregroundColor(.black)
 //                .foregroundStyle(Color("yellor"))
 
@@ -85,8 +87,7 @@ struct AddTodoView: View {
                   SwiftUI.EmptyView()
                 }
                   .toggleStyle(CustomToggleStyle())
-  //              .cornerRadius()
-  //              .toggleStyle(SwitchToggleStyle(tint: Color.red))
+  
               
             }
               if dateSetting {
@@ -108,7 +109,7 @@ struct AddTodoView: View {
                     todoModel.deadline = nil
                   }
                   .padding(.leading, -8)
-                  .background(Color("yellor"))
+                  .background(themes[self.theme.themeSettings].rowColor)
                   .cornerRadius(9)
                   .frame(width: 10,alignment: .leading)
                   .offset(x: 10)
@@ -135,11 +136,11 @@ struct AddTodoView: View {
               .font(.system(size: 24, weight: .bold, design: .default))
               .padding()
               .frame(minWidth: 0, maxWidth: .infinity)
-              .background(Color("orange"))
+              .background(themes[self.theme.themeSettings].accentColor)
               .cornerRadius(9)
 //              .foregroundColor(.white)
 //              .foregroundColor(Color("green"))
-              .foregroundColor(.black)
+              .foregroundColor(getSaveButtonForegroudColor() ? .black : .white)
           }//END: SAVE BUTTON
         } //END: VSTACK
         .padding(.horizontal)
@@ -147,7 +148,7 @@ struct AddTodoView: View {
         
         Spacer()
       } // END: VSTACK
-      .background(Color("green"))
+      .background(themes[self.theme.themeSettings].backColor)
       .navigationBarTitle("New Todo", displayMode:.inline)
       .navigationBarItems(trailing:
                             Button(action: {
@@ -155,12 +156,12 @@ struct AddTodoView: View {
         todoModel.isNewTodo = false
       }) {
         Image(systemName: "xmark")
-          .foregroundColor(Color("orange"))
+          .foregroundColor(themes[self.theme.themeSettings].accentColor)
       }
       )
-      .toolbarBackground(Color("green"),for: .navigationBar)
+      .toolbarBackground(themes[self.theme.themeSettings].backColor,for: .navigationBar)
       .toolbarBackground(.visible, for: .navigationBar)
-      .toolbarColorScheme(.dark)
+      .toolbarColorScheme(getNavigationForegroudColor() ? .dark : .light)
 //      .toolbarColorScheme(.light)
       // MARK: - ALERT
       .alert(isPresented: $errorShowing) {
@@ -186,7 +187,22 @@ struct AddTodoView: View {
     }
 
   }
-
+  func getNavigationForegroudColor() -> Bool {
+    if themes[theme.themeSettings].themeName == "ミッドナイトブルー" ||
+      themes[theme.themeSettings].themeName == "フォレストクリーム" {
+      return true
+    } else {
+      return false
+    }
+  }
+  func getSaveButtonForegroudColor() -> Bool {
+    if themes[theme.themeSettings].themeName == "リフレッシュ" ||
+      themes[theme.themeSettings].themeName == "フォレストクリーム" {
+      return true
+    } else {
+      return false
+    }
+  }
 }//: BODY
 
 

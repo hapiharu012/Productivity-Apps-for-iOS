@@ -5,7 +5,7 @@
 //  Created by hapiharu012 on 2023/10/15.
 //
 import SwiftUI
-
+//import WidgetKit
 struct SettingsView: View {
   // MARK: - PROPERTIES
   
@@ -29,6 +29,7 @@ struct SettingsView: View {
           Section(header:
             HStack {
               Text("テーマを変更:")
+              .foregroundStyle(Color.black)
               Image(systemName: "circle.fill")
                 .resizable()
                 .frame(width: 10, height: 10)
@@ -41,12 +42,14 @@ struct SettingsView: View {
                   self.theme.themeSettings = item.id
                   UserDefaults.standard.set(self.theme.themeSettings, forKey: "Theme")
                   self.isThemeChanged.toggle()
+//                  WidgetCenter.shared.reloadAllTimelines()
                 }) {
                   HStack {
                     Image(systemName: "circle.fill")
                       .foregroundColor(item.backColor)
                     
                     Text(item.themeName)
+                      .foregroundStyle(Color.black)
                   }
                 } //: BUTTON
                   .accentColor(Color.primary)
@@ -71,11 +74,11 @@ struct SettingsView: View {
             SettingFormRowView(icon: "flag", firstText: "バージョン", secondText: "1.0.0")
           } //: SECTION 4
             .padding(.vertical, 3)
+            .foregroundStyle(Color.black)
           
         } //: FORM
           .listStyle(GroupedListStyle())
           .environment(\.horizontalSizeClass, .regular)
-        
         // MARK: - FOOTER
         
         Text("Copyright © All rights reserved.")
@@ -85,18 +88,23 @@ struct SettingsView: View {
           .padding(.bottom, 8)
           .foregroundColor(Color.secondary)
       } //: VSTACK
+//      .background(themes[self.theme.themeSettings].backColor.edgesIgnoringSafeArea(.all))
+//      .background()
         .navigationBarItems(trailing:
           Button(action: {
             self.presentationMode.wrappedValue.dismiss()
           }) {
             Image(systemName: "xmark")
+              .foregroundColor(themes[self.theme.themeSettings].backColor)
           }
         )
         .navigationBarTitle("Settings", displayMode: .inline)
-        .background(Color("ColorBackground").edgesIgnoringSafeArea(.all))
+//        .background(Color("ColorBackground").edgesIgnoringSafeArea(.all))
+//        .background(themes[self.theme.themeSettings].backColor.edgesIgnoringSafeArea(.all))
     } //: NAVIGATION
       .accentColor(themes[self.theme.themeSettings].backColor)
       .navigationViewStyle(StackNavigationViewStyle())
+
   }//: BODY
 }//: SETTINGS
 

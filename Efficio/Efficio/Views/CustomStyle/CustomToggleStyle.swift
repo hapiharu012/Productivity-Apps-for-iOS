@@ -2,7 +2,7 @@
 //  ToggleView.swift
 //  Efficio
 //
-//  Created by k21123kk on 2023/10/15.
+//  Created by hapiharu012 on 2023/10/15.
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ struct CustomToggleStyle: ToggleStyle {
             configuration.label
             Spacer()
             Rectangle()
-                .fill(configuration.isOn ? Color.green : Color.gray) // ONの時は青、OFFの時は赤にする
+                .fill(configuration.isOn ? Color.green : Color("Toggle")) // ONの時は青、OFFの時は赤にする
                 .frame(width: 49, height: 30, alignment: .center)
                 .cornerRadius(100)
                 .overlay(

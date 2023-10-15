@@ -103,7 +103,7 @@ class TodoViewModel: ObservableObject {
       state = false
       deadline = nil
       order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
-      
+      WidgetCenter.shared.reloadAllTimelines()
       return
     } // END: if isEditing != nil : 編集の場合
     
@@ -136,6 +136,7 @@ class TodoViewModel: ObservableObject {
       print("writeTodo(2)でエラー")
       print(error.localizedDescription)
     }
+    WidgetCenter.shared.reloadAllTimelines()
   } // END: WRITE TODO
   
   // MARK: - EDIT TODO

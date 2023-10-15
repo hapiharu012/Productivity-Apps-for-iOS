@@ -15,6 +15,12 @@ struct ContentView: View {
   @State private var animatingButton: Bool = false
   @State private var showingSettingsView: Bool = false
   
+//  @EnvironmentObject var iconSettings: IconNames
+
+  // THEME
+  @ObservedObject var theme = ThemeSettings.shared
+  var themes: [Theme] = themeData
+  
   // MARK: - BODY
   
   var body: some View {
@@ -31,15 +37,15 @@ struct ContentView: View {
           
           .padding(.all, 10)
           .frame(maxWidth: .infinity, minHeight: 60)
-          .background(Color("yellor").opacity(1))
-          .listRowBackground(Color("green"))
+          .background(themes[self.theme.themeSettings].rowColor.opacity(1))
+          .listRowBackground(themes[self.theme.themeSettings].backColor)
           .listRowSeparator(.hidden)
           .cornerRadius(10)
           
         }// : LIST
         .listStyle(.plain)
         //        .edgesIgnoringSafeArea(.all)
-        .background(Color("green"))
+        .background(themes[self.theme.themeSettings].backColor)
         
         if todoModel.todos.count == 0 {
           EmptyView()
@@ -60,8 +66,8 @@ struct ContentView: View {
               Circle()
                 .fill(LinearGradient(
                   colors: [
-                    Color("orange"),
-                    Color("green")
+                    themes[self.theme.themeSettings].accentColor,
+                    themes[self.theme.themeSettings].backColor
                   ],
                   startPoint: animatingButton ? .topLeading : .bottomLeading,
                   endPoint: animatingButton ? .bottomTrailing : .topTrailing
@@ -72,9 +78,8 @@ struct ContentView: View {
               Circle()
                 .fill(LinearGradient(
                   colors: [
-                    
-                    Color("orange"),
-                    Color("green")
+                    themes[self.theme.themeSettings].accentColor,
+                    themes[self.theme.themeSettings].backColor
                   ],
                   startPoint: animatingButton ? .topLeading : .bottomLeading,
                   endPoint: animatingButton ? .bottomTrailing : .topTrailing
@@ -95,8 +100,8 @@ struct ContentView: View {
               Image(systemName: "plus.circle.fill")
                 .resizable()
                 .scaledToFit()
-                .foregroundColor(Color("orange")).contrast(1.5)
-                .background(Circle().fill(Color("green")))
+                .foregroundColor(themes[self.theme.themeSettings].accentColor).contrast(1.5)
+                .background(Circle().fill(themes[self.theme.themeSettings].backColor))
                 .frame(width: 50, alignment: .center)
                 .shadow(radius: animatingButton ? 6 : 0)
             } //: BUTTON
@@ -123,7 +128,7 @@ struct ContentView: View {
                 Image(systemName: "trash")
                   .resizable()
                   .scaledToFit()
-                  .foregroundColor(Color("green"))
+                  .foregroundColor(themes[self.theme.themeSettings].backColor)
                   .frame(width: 30, alignment: .center)
               }
             }
@@ -137,9 +142,24 @@ struct ContentView: View {
       ) //: OVERLAY
       .navigationBarTitle("Todo", displayMode: .inline)
       
-      .toolbarBackground(Color("green"),for: .navigationBar)
+      .navigationBarItems(
+//        leading: EditButton().accentColor(themes[self.theme.themeSettings].accentColor),
+        trailing:
+        Button(action: {
+          self.showingSettingsView.toggle()
+        }) {
+          Image(systemName: "paintbrush")
+            .imageScale(.large)
+        } //: SETTINGS BUTTON
+          .accentColor(themes[self.theme.themeSettings].accentColor)
+          .sheet(isPresented: $showingSettingsView) {
+            SettingsView()
+        }
+    )
+      
+      .toolbarBackground(themes[self.theme.themeSettings].backColor,for: .navigationBar)
       .toolbarBackground(.visible, for: .navigationBar)
-      .toolbarColorScheme(.dark)
+      .toolbarColorScheme(getNavigationForegroudColor() ? .dark : .light)
       
       // MARK: - ON APPEAR
       .onAppear {
@@ -161,7 +181,18 @@ struct ContentView: View {
     })
     
   } //: BODY
+  // themes[self.theme.themeSettings].themeNameがミッドナイトブルーとフォレストクリームの時だけtrueを返す。それ以外はfalse
+  func getNavigationForegroudColor() -> Bool {
+    if themes[theme.themeSettings].themeName == "ミッドナイトブルー" ||
+      themes[theme.themeSettings].themeName == "フォレストクリーム" {
+      return true
+    } else {
+      return false
+    }
+  }
+
 } //: CONTENTVIEW
+
 
 
 // MARK: - PREVIEW

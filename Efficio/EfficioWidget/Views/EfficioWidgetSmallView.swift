@@ -55,7 +55,6 @@ struct EfficioWidgetSmallView: View {
           
           
         } //: FOREACH
-        //          .position(CGPoint(x: 43.0, y: 8.0))
       }else {
         EmptyWidget(point: 13)
           .position(CGPoint(x: 56, y: 50))

@@ -9,6 +9,9 @@ import SwiftUI
 
 struct EmptyView: View {
   //MARK: - BODY
+  // THEME
+  @ObservedObject var theme = ThemeSettings.shared
+  var themes: [Theme] = themeData
   
     var body: some View {
       
@@ -22,18 +25,18 @@ struct EmptyView: View {
             .scaledToFit()
             .frame(minWidth: 256, idealWidth: 280, maxWidth: 360, minHeight: 256, idealHeight: 280, maxHeight: 360, alignment: .center)
             .layoutPriority(1)
-            .foregroundColor(Color("orange"))
+            .foregroundColor(themes[self.theme.themeSettings].accentColor)
           
           Text("Put hard tasks first.")
             .layoutPriority(0.5)
             .font(.system(.headline, design: .rounded))
-            .foregroundColor(Color("orange"))
+            .foregroundColor(themes[self.theme.themeSettings].accentColor)
         } //: VSTACK
           .padding(.horizontal)
       } //: ZSTACK
       
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .background(Color("green"))
+        .background(themes[self.theme.themeSettings].backColor)
         .edgesIgnoringSafeArea(.all)
     }//: BODY
   
