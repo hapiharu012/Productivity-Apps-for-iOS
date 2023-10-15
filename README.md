@@ -9,7 +9,7 @@
 7. [言語](#今後実装予定)
 <hr>
 
-## アプリイメージ
+## 簡易紹介スライド
 ![I am Rich Image Assets](https://github.com/hapiharu012/Productivity-Apps-for-iOS/assets/120043995/f1404d62-31ae-4884-9171-e51ea591143a)
 ![IMG_5369](https://github.com/hapiharu012/Productivity-Apps-for-iOS/assets/120043995/e9d2007d-cfed-4c34-8707-e289befd1d70)
 ![aaaaaa](https://github.com/hapiharu012/Productivity-Apps-for-iOS/assets/120043995/5d9be1f8-3a24-4314-aa5d-29b12d5ea7fe)
