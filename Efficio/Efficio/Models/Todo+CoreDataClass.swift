@@ -2,7 +2,7 @@
 //  Todo+CoreDataClass.swift
 //  Efficio
 //
-//  Created by k21123kk on 2023/09/26.
+//  Created by hapiharu012 on 2023/09/26.
 //
 //
 
@@ -13,3 +13,4 @@ import CoreData
 public class Todo: NSManagedObject {
 
 }
+
