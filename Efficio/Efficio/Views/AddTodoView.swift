@@ -33,8 +33,14 @@ struct AddTodoView: View {
   @FocusState private var focusedField: Field?
   
   // THEME
-  @ObservedObject var theme = ThemeSettings.shared
-  var themes: [Theme] = themeData
+  @ObservedObject var theme: ThemeViewModel
+  
+  // 端末の環境設定を取得
+  @Environment(\.colorScheme) var colorScheme
+  
+  
+  let calendar = Calendar.current
+  
   // MARK: - BODY
   
   var body: some View {
@@ -42,12 +48,12 @@ struct AddTodoView: View {
     NavigationView{
       VStack {
         VStack(alignment: .leading, spacing: 20) {  //画面全体を覆うスクロールリストの生成
+          
           // MARK: - TODO NAME
           TextField("Todo", text: $todoModel.name)
             .focused($focusedField, equals: .text)
             .padding()
-          //            .background( r(UIColor.tertiarySystemFill))
-            .background(themes[self.theme.themeSettings].rowColor)
+            .background(theme.rowColor)
             .cornerRadius(9)
             .font(.system(size: 24, weight: .bold, design: .default))
             .onReceive(Just(todoModel.name)) { _ in
@@ -56,30 +62,30 @@ struct AddTodoView: View {
               }
             }
           
-          //: - TODO PRI0RITIY
           
+          //: - TODO PRI0RITIY
           HStack() {
             Text("優先度")
               .font(.footnote)
-              .foregroundColor(getNavigationForegroudColor() ? .white : .black)
-            //              .foregroundColor(.black)
-            //              .foregroundStyle(Color("yellor"))
+              .foregroundColor(theme.getNavigationForegroundColor(for: colorScheme) ? .white : colorScheme == .dark ? .white : .black)
+            
+            //MARK: - PRIORITY PICKER
             Picker("優先度", selection: $todoModel.priority){
               ForEach(priorities, id: \.self) {
                 Text($0) //メモ→   $0はクロージャが受け取る現在処理している要素を指す
               }
             }
             .pickerStyle(SegmentedPickerStyle())//ピッカーのデザインを変更
-            .background(themes[self.theme.themeSettings].rowColor)
+            .background(theme.rowColor)
             .cornerRadius(9)
-            .padding(10)
+            .padding(.horizontal,10)
             //リセットボタン
             if todoModel.priority != "" {
               Button(action: {
                 todoModel.priority = ""
               }) {
                 Image(systemName: "clear")
-                  .foregroundColor(themes[self.theme.themeSettings].accentColor)
+                  .foregroundColor(theme.accentColor)
                   .font(.system(size: 20, weight: .bold, design: .default))
               }
             }
@@ -94,20 +100,46 @@ struct AddTodoView: View {
               VStack(alignment: .leading) {
                 Text("日付")
                   .font(.footnote)
-                  .foregroundColor(getNavigationForegroudColor() ? .white : .black)
-                
-                
-                if todoModel.deadline_date != nil {
-                  Text(getTodayOrTomorrowOrDayAfterTomorrow(date: todoModel.deadline_date ?? Date()))
-                    .foregroundColor(Color.blue)
-                    .font(.footnote)
-                }
+                  .foregroundColor(theme.getNavigationForegroundColor(for: colorScheme) ? .white : colorScheme == .dark ? .white : .black)
+               
               }
-              //              Spacer()
-              //                .foregroundColor(.black)
-              //                .foregroundStyle(Color("yellor"))
+              Spacer()
               
+              // MARK: - TODO DATE PICKER
+              if dateSetting {
+                DatePicker(selection: Binding<Date>(
+                  get: { self.todoModel.deadline_date ?? Date() },
+                  set: { newValue in
+                    print("Selected date:", newValue)
+                    self.todoModel.deadline_date = newValue
+                  }
+                ), displayedComponents: .date, label: {
+                  SwiftUI.EmptyView()
+                }
+                )
+                .onAppear() {
+                  if todoModel.deadline_date == nil {
+                    todoModel.deadline_date = Date()
+                  }
+                }
+                .onDisappear() {
+                  if !dateSetting {
+                    todoModel.deadline_date = nil
+                  }
+                }
+                .padding(.leading, -8)
+                .background(theme.rowColor)
+                .cornerRadius(9)
+                .frame(width: 10,alignment: .leading)
+                .environment(\.locale, Locale(identifier: "ja_JP"))
+                .padding(10)
+                
+              }
               
+              Spacer()
+                .frame(width: 90)
+              
+              // MARK: - TODO DATE TOGGLE
               Toggle(isOn: $dateSetting) {
                 SwiftUI.EmptyView()
               }
@@ -115,112 +147,68 @@ struct AddTodoView: View {
               
               
             }
-            //            Spacer()
-            //               .frame(height: dateSetting ? 0 : 55)
-            
-            if dateSetting {
-              
-              
-              //                    .position(x: 35, y: 15)
-              
-              DatePicker(selection: Binding<Date>(
-                get: { self.todoModel.deadline_date ?? Date() },
-                set: { newValue in
-                  print("Selected date:", newValue)
-                  self.todoModel.deadline_date = newValue
-                }
-              ), displayedComponents: .date, label: {
-                SwiftUI.EmptyView()
-              }
-              )
-              .onAppear() {
-                if todoModel.deadline_date == nil {
-                  todoModel.deadline_date = Date()
-                }
-              }
-              .onDisappear() {
-                if !dateSetting {
-                  todoModel.deadline_date = nil
-                }
-              }
-              .padding(.leading, -8)
-              .background(themes[self.theme.themeSettings].rowColor)
-              .cornerRadius(9)
-              .frame(width: 10,alignment: .leading)
-              //                  .position(x: 102, y:15)
-              .offset(x: 70, y:0)
-              .environment(\.locale, Locale(identifier: "ja_JP"))
-              .padding(10)
-              
-            }
-            
             
             //MARK: - TODO TIME
             HStack {
               VStack(alignment: .leading) {
                 Text("日時")
                   .font(.footnote)
-                  .foregroundColor(getNavigationForegroudColor() ? .white : .black)
+                  .foregroundColor(theme.getNavigationForegroundColor(for: colorScheme) ? .white : colorScheme == .dark ? .white : .black)
+                
                 
                 if todoModel.deadline_time != nil {
-                  Text(formatTime(date: todoModel.deadline_time ?? Date()))
+                  Text(calendar.formatTime(date: todoModel.deadline_time!))
                     .foregroundColor(Color.blue)
                     .font(.footnote)
                 }
               }
-              //              Spacer()
-              //                .foregroundColor(.black)
-              //                .foregroundStyle(Color("yellor"))
+              Spacer()
               
+              // MARK: - TODO TIME PICKER
+              if timeSetting {
+                DatePicker(selection: Binding<Date>(
+                  get: { self.todoModel.deadline_time ?? Date() },
+                  set: { newValue in
+                    print("Selected date:", newValue)
+                    self.todoModel.deadline_time = newValue
+                  }
+                ), displayedComponents: .hourAndMinute, label: {
+                  SwiftUI.EmptyView()
+                }
+                )
+                .onAppear() {
+                  if todoModel.deadline_time == nil {
+                    todoModel.deadline_time = Date()
+                  }
+                }
+                .onDisappear() {
+                  if !timeSetting {
+                    todoModel.deadline_time = nil
+                  }
+                }
+                .padding(.leading, -8)
+                .background(theme.rowColor)
+                .cornerRadius(9)
+                .frame(width: 10,alignment: .leading)
+                .environment(\.locale, Locale(identifier: "ja_JP"))
+                .padding(10)
+              }
               
+              Spacer()
+                .frame(width: 60)
+              
+              //MARK: - TODO TIME TOGGLE
               Toggle(isOn: $timeSetting) {
                 SwiftUI.EmptyView()
               }
               .toggleStyle(CustomToggleStyle())
-              
-              
             }
-            //            Spacer()
-            //               .frame(height: dateSetting ? 0 : 54)
+            Spacer()
             
-            if timeSetting {
-              //                    .position(x: 35, y: 15)
-              
-              DatePicker(selection: Binding<Date>(
-                get: { self.todoModel.deadline_time ?? Date() },
-                set: { newValue in
-                  print("Selected date:", newValue)
-                  self.todoModel.deadline_time = newValue
-                }
-              ), displayedComponents: .hourAndMinute, label: {
-                SwiftUI.EmptyView()
-              }
-              )
-              .onAppear() {
-                if todoModel.deadline_time == nil && timeSetting {
-                  todoModel.deadline_time = Date()
-                }
-              }
-              .onDisappear() {
-                if !timeSetting {
-                  todoModel.deadline_time = nil
-                }
-              }
-              
-              
-              
-              .padding(.leading, -8)
-              .background(themes[self.theme.themeSettings].rowColor)
-              .cornerRadius(9)
-              .frame(width: 10,alignment: .leading)
-              //                  .position(x: 102, y:15)
-              .offset(x: 102, y:0)
-              .environment(\.locale, Locale(identifier: "ja_JP"))
-              .padding(10)
-              
-            }
-          }
-          .padding(10)
+            
+          } //VStack
+          .padding(.horizontal,10)
+          
           //MARK: - SAVE BUTTON
           Button(action: {
             if todoModel.name != "" {
@@ -239,19 +227,16 @@ struct AddTodoView: View {
               .font(.system(size: 24, weight: .bold, design: .default))
               .padding()
               .frame(minWidth: 0, maxWidth: .infinity)
-              .background(themes[self.theme.themeSettings].accentColor)
+              .background(theme.accentColor)
               .cornerRadius(9)
-            //              .foregroundColor(.white)
-            //              .foregroundColor(Color("green"))
-              .foregroundColor(getSaveButtonForegroudColor() ? .black : .white)
-          }//END: SAVE BUTTON
-        } //END: VSTACK
+              .foregroundColor(theme.getSaveButtonForegroudColor() ? .black : colorScheme == .dark ? .black : .white)
+          } //: SAVE BUTTON
+        } //: VSTACK
         .padding(.horizontal)
-        .padding(.vertical, 30)
+        .padding(.vertical, 10)
         
-        Spacer()
-      } // END: VSTACK
-      .background(themes[self.theme.themeSettings].backColor)
+      } // : VSTACK
+      .background(theme.backgroundColor)
       .navigationBarTitle("New Todo", displayMode:.inline)
       .navigationBarItems(trailing:
                             Button(action: {
@@ -259,19 +244,20 @@ struct AddTodoView: View {
         todoModel.isNewTodo = false
       }) {
         Image(systemName: "xmark")
-          .foregroundColor(themes[self.theme.themeSettings].accentColor)
+          .foregroundColor(theme.accentColor)
           .padding()
       }
       )
-      .toolbarBackground(themes[self.theme.themeSettings].backColor,for: .navigationBar)
+      .toolbarBackground(theme.backgroundColor,for: .navigationBar)
       .toolbarBackground(.visible, for: .navigationBar)
-      .toolbarColorScheme(getNavigationForegroudColor() ? .dark : .light)
-      //      .toolbarColorScheme(.light)
+      .toolbarColorScheme(theme.getNavigationForegroundColor(for: colorScheme) ? .dark : .light)
+      
       // MARK: - ALERT
       .alert(isPresented: $errorShowing) {
         Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("OK")))
       }
-    } // END: NAVIGATION
+    } // : NAVIGATION
+    
     // MARK: - ON APPEAR
     .onAppear() {
       focusedField = .text
@@ -290,77 +276,22 @@ struct AddTodoView: View {
           return false
         }
       }()
-      
-      
     }
+    
     // MARK: - ON DISAPPEAR
     .onDisappear() {
       print("onDisappear - todoModel.isNewTodo: \(todoModel.isNewTodo)")
       todoModel.resetForm()
     }
     
-  }
-  func getNavigationForegroudColor() -> Bool {
-    if themes[theme.themeSettings].themeName == "ミッドナイトブルー" ||
-        themes[theme.themeSettings].themeName == "フォレストクリーム" {
-      return true
-    } else {
-      return false
-    }
-  }
-  func getSaveButtonForegroudColor() -> Bool {
-    if themes[theme.themeSettings].themeName == "リフレッシュ" ||
-        themes[theme.themeSettings].themeName == "フォレストクリーム" {
-      return true
-    } else {
-      return false
-    }
-  }
-//  // 日付をフォーマットする関数
-//  func formatDate(date: Date) -> String {
-//    let formatter = DateFormatter()
-//    formatter.dateStyle = .short
-//    formatter.timeStyle = .none
-//    formatter.locale = Locale(identifier: "ja_JP")
-//    return formatter.string(from: date)
-//  }
-  
-  // 時刻をフォーマットする関数
-  func formatTime(date: Date) -> String {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .none
-    formatter.timeStyle = .short
-    formatter.locale = Locale(identifier: "ja_JP")
-    return formatter.string(from: date)
-  }
-  
-  
-}//: BODY
-func getTodayOrTomorrowOrDayAfterTomorrow(date: Date) -> String {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .none
-    formatter.locale = Locale(identifier: "ja_JP")
-    let today = Date()
-    let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
-    let dayAfterTomorrow = Calendar.current.date(byAdding: .day, value: 2, to: today)!
-    if formatter.string(from: date) == formatter.string(from: today) {
-      return "今日"
-    } else if formatter.string(from: date) == formatter.string(from: tomorrow) {
-      return "明日"
-    } else if formatter.string(from: date) == formatter.string(from: dayAfterTomorrow) {
-      return "明後日"
-    } else {
-      return formatter.string(from: date)
-    }
-  }
+  } // : BODY
+} //: VIEW
 
 // MARK: - PREVIEW
 
 struct AddTodoView_Previews: PreviewProvider {
   static var previews: some View {
-    //    AddTodoView(todoModel: TodoViewModel())
-    AddTodoView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext))
+    AddTodoView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), theme: ThemeViewModel.shared)
     
       .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }

@@ -13,104 +13,113 @@ struct EfficioWidgetMediumView: View {
   @Environment(\.managedObjectContext) private var viewContext
   @Environment(\.widgetFamily) var family
   @State var todos: [Todo]
+
   
-//  // THEME
-//  @ObservedObject var theme = ThemeSettings.shared
-//  var themes: [Theme] = themeData
-//  
+  // 端末の環境設定を取得
+  @Environment(\.colorScheme) var colorScheme
+  
+  let calendar = Calendar.current
+  
+  // MARK: - BODY
     var body: some View {
+      
+      // MARK: - HSTACK
       HStack {
+        
         VStack(alignment: .leading,spacing: 10){
           Text("マイタスク")
             .font(.system(size: 22,weight: .bold,design: .default))
-//              .padding(.bottom)
           HStack {
-            Text(formatDateTitleDay(Date()))
+            Text(calendar.formatDateTitleDay(Date()))
               .font(.system(size: 22))
             VStack(alignment: .leading) {
-              Text(formatDateTitleDayOfWeek(Date()))
+              Text(calendar.formatDateTitleDayOfWeek(Date()))
                 .font(.system(size: 10))
-              Text(String(SameDayNum(todos: todos))+"件")
+              Text(String(calendar.SameDayNum(todos: todos))+"件")
                 .font(.system(size: 10))
-            }
+            }//: VSTACK
             
-          } // END: HSTACK
+          } //: HSTACK
 
           Link(destination: URL(string: "addTodo://")!) {
             Circle().fill()
-              .foregroundColor(.white)
-//              .foregroundColor(themes[self.theme.themeSettings].backColor)
+              .foregroundColor(Color("ItoW"))
               .shadow(radius: 2)
             
               .overlay(
                 Image(systemName: "note.text.badge.plus")
                   .resizable()
-                  .foregroundColor(.black)
-//                  .foregroundColor(themes[self.theme.themeSettings].accentColor)
+                  .foregroundColor(Color("WtoB"))
                   .scaledToFit()
                   .frame(width: 40)
                   .position(CGPoint(x: 30.0, y: 28.0))
                 )
-          }
+          }//: LINK
 
-        }
+        }//: VSTACK
+        
         
         VStack(alignment: .leading,spacing: 15) {
           if !todos.isEmpty {
+            
+            // MARK: - FOREACH
             ForEach(todos.prefix(4), id: \.id) { todo in
+              
+              // MARK: - BUTTON
                 Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
                   HStack {
                   Image(systemName: todo.state ? "checkmark.circle" : "circle")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 12)
-                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                    .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                    .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
                     
                     
                     
                     Group{
                       Text(todo.name ?? "Unknown")
                         .font(.custom("HelveticaNeue", size: 14))
-                        .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                        .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
                       Spacer()
                       
-                      Text(formatDate(todo.deadline_date))
+                      Text(calendar.formatDate(todo.deadline_date))
                         .font(.custom("HelveticaNeue", size: 10))
-                        .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                        .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
                         .opacity(0.5)
                       
                       
                       
                       Circle()
                         .frame(width: 7, height: 12, alignment: .center)
-                        .foregroundColor(colorize(priority: todo.priority ?? "中"))
+                        .foregroundColor(Utility.colorize(priority: todo.priority ?? "中"))
                     }.foregroundColor(todo.state ? Color.gray : Color.primary)
                       .strikethrough(todo.state)
                     
                     
-                  } //END: HSTACK
+                  } //: HSTACK
 
-                }
+                } //: BUTTON
                 .buttonStyle(.plain)
                               
-            }// END: FOREACH
+            } //: FOREACH
           }else {
             EmptyWidget(point: 17)
           }
-        }
+        } //: VSTACK
         
         
-      } //END: VSTACK
-      .widgetBackground(Color.white)
-    }
-}
+      } //: VSTACK
+      .widgetBackground(Color("BtoW"))
+
+    } //: BODY
+} //: VIEW
 
 
+// MARK: - PREVIEW
 struct EfficioWidgetMediumView_Previews: PreviewProvider {
     static var previews: some View {
         let context = PersistenceController.preview.container.viewContext
-        let dummyTodos = createDummyTodos(context: context)
+      let dummyTodos = Utility.createDummyTodos(context: context)
 
         
         return EfficioWidgetMediumView(todos: dummyTodos)

@@ -11,9 +11,12 @@
 		410944E22ADBE23F005820F0 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E12ADBE23F005820F0 /* SettingView.swift */; };
 		410944E52ADBE2B6005820F0 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E42ADBE2B6005820F0 /* ThemeModel.swift */; };
 		410944E72ADBE2D7005820F0 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E62ADBE2D7005820F0 /* ThemeData.swift */; };
-		410944E92ADBE2F9005820F0 /* ThemeSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E82ADBE2F9005820F0 /* ThemeSetting.swift */; };
+		410944E92ADBE2F9005820F0 /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E82ADBE2F9005820F0 /* ThemeViewModel.swift */; };
 		410944EB2ADBE960005820F0 /* SettingFormRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944EA2ADBE960005820F0 /* SettingFormRowView.swift */; };
-		410AB73F2ADC0F3200915BA2 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 410AB73E2ADC0F3200915BA2 /* Media.xcassets */; };
+		4118D63B2ADEEC8C0034938A /* Calendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4118D6392ADEEC870034938A /* Calendar+Extensions.swift */; };
+		4118D63E2ADEED370034938A /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4118D63C2ADEECFE0034938A /* View+Extension.swift */; };
+		4118D6412ADEEDB60034938A /* Calendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4118D6402ADEEDB60034938A /* Calendar+Extensions.swift */; };
+		4118D6422ADEF9D90034938A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41810B762ABF67CF00ADBB9A /* Assets.xcassets */; };
 		413283622ADDA6DE00EBCF1C /* EfficioWidgetCircular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413283612ADDA6DE00EBCF1C /* EfficioWidgetCircular.swift */; };
 		414A6B282ACFBAB5002DFCA1 /* EmptyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */; };
 		415B21F42AC9BF60006CC1E8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415B21F32AC9BF60006CC1E8 /* WidgetKit.framework */; };
@@ -29,7 +32,7 @@
 		417D1B852AD002A50095EC66 /* sound-tap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 417D1B842AD002A50095EC66 /* sound-tap.mp3 */; };
 		417D1B972AD058E10095EC66 /* EfficioWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B912AD0562B0095EC66 /* EfficioWidgetSmallView.swift */; };
 		417D1B982AD058E60095EC66 /* EfficioWidgetMediumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B932AD0564F0095EC66 /* EfficioWidgetMediumView.swift */; };
-		417D1B9A2AD05C120095EC66 /* CommonViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B952AD056F20095EC66 /* CommonViewFunctions.swift */; };
+		417D1B9A2AD05C120095EC66 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B952AD056F20095EC66 /* Utility.swift */; };
 		41810B752ABF67CE00ADBB9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B742ABF67CE00ADBB9A /* ContentView.swift */; };
 		41810B772ABF67CF00ADBB9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41810B762ABF67CF00ADBB9A /* Assets.xcassets */; };
 		41810B7A2ABF67CF00ADBB9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41810B792ABF67CF00ADBB9A /* Preview Assets.xcassets */; };
@@ -41,7 +44,7 @@
 		418F5D522AD9A60600B0ED76 /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
 		418F5D532AD9A94600B0ED76 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
 		41A611B42ADC0AFE009DC661 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E42ADBE2B6005820F0 /* ThemeModel.swift */; };
-		41A611B52ADC0B18009DC661 /* ThemeSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E82ADBE2F9005820F0 /* ThemeSetting.swift */; };
+		41A611B52ADC0B18009DC661 /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E82ADBE2F9005820F0 /* ThemeViewModel.swift */; };
 		41A611B62ADC0B31009DC661 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E62ADBE2D7005820F0 /* ThemeData.swift */; };
 		41DAE1F52ADD330F006EC850 /* EfficioWidgetRectangular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DAE1F42ADD330F006EC850 /* EfficioWidgetRectangular.swift */; };
 		41E0A13E2AC9D96E00D41144 /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
@@ -79,9 +82,11 @@
 		410944E12ADBE23F005820F0 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		410944E42ADBE2B6005820F0 /* ThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
 		410944E62ADBE2D7005820F0 /* ThemeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeData.swift; sourceTree = "<group>"; };
-		410944E82ADBE2F9005820F0 /* ThemeSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSetting.swift; sourceTree = "<group>"; };
+		410944E82ADBE2F9005820F0 /* ThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewModel.swift; sourceTree = "<group>"; };
 		410944EA2ADBE960005820F0 /* SettingFormRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFormRowView.swift; sourceTree = "<group>"; };
-		410AB73E2ADC0F3200915BA2 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		4118D6392ADEEC870034938A /* Calendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extensions.swift"; sourceTree = "<group>"; };
+		4118D63C2ADEECFE0034938A /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		4118D6402ADEEDB60034938A /* Calendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extensions.swift"; sourceTree = "<group>"; };
 		413283612ADDA6DE00EBCF1C /* EfficioWidgetCircular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidgetCircular.swift; sourceTree = "<group>"; };
 		414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyWidget.swift; sourceTree = "<group>"; };
 		415B21F12AC9BF60006CC1E8 /* EfficioWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EfficioWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,7 +105,7 @@
 		417D1B8C2AD00ECF0095EC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		417D1B912AD0562B0095EC66 /* EfficioWidgetSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidgetSmallView.swift; sourceTree = "<group>"; };
 		417D1B932AD0564F0095EC66 /* EfficioWidgetMediumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidgetMediumView.swift; sourceTree = "<group>"; };
-		417D1B952AD056F20095EC66 /* CommonViewFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewFunctions.swift; sourceTree = "<group>"; };
+		417D1B952AD056F20095EC66 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		41810B6F2ABF67CE00ADBB9A /* Efficio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Efficio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41810B722ABF67CE00ADBB9A /* EfficioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioApp.swift; sourceTree = "<group>"; };
 		41810B742ABF67CE00ADBB9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -148,9 +153,18 @@
 			children = (
 				410944E42ADBE2B6005820F0 /* ThemeModel.swift */,
 				410944E62ADBE2D7005820F0 /* ThemeData.swift */,
-				410944E82ADBE2F9005820F0 /* ThemeSetting.swift */,
+				410944E82ADBE2F9005820F0 /* ThemeViewModel.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		4118D63F2ADEED600034938A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4118D6392ADEEC870034938A /* Calendar+Extensions.swift */,
+				4118D63C2ADEECFE0034938A /* View+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		415B21F22AC9BF60006CC1E8 /* Frameworks */ = {
@@ -168,10 +182,10 @@
 				415B21F82AC9BF60006CC1E8 /* EfficioWidgetBundle.swift */,
 				415B21FA2AC9BF60006CC1E8 /* EfficioWidget.swift */,
 				41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */,
+				4118D63F2ADEED600034938A /* Extensions */,
+				417D1B952AD056F20095EC66 /* Utility.swift */,
 				41CCAC3B2AD3A51100247658 /* Views */,
-				417D1B952AD056F20095EC66 /* CommonViewFunctions.swift */,
 				415B21FE2AC9BF62006CC1E8 /* Info.plist */,
-				410AB73E2ADC0F3200915BA2 /* Media.xcassets */,
 			);
 			path = EfficioWidget;
 			sourceTree = "<group>";
@@ -235,6 +249,7 @@
 				417D1B8C2AD00ECF0095EC66 /* Info.plist */,
 				415B22072AC9BFFB006CC1E8 /* Efficio.entitlements */,
 				41810B722ABF67CE00ADBB9A /* EfficioApp.swift */,
+				4118D6402ADEEDB60034938A /* Calendar+Extensions.swift */,
 				4160D5862AC1F3B300B99F6A /* Views */,
 				4160D5852AC1F39900B99F6A /* ViewModels */,
 				4160D5842AC1F38200B99F6A /* Models */,
@@ -349,7 +364,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				410AB73F2ADC0F3200915BA2 /* Media.xcassets in Resources */,
+				4118D6422ADEF9D90034938A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +390,7 @@
 				41E0A13E2AC9D96E00D41144 /* Todo+CoreDataProperties.swift in Sources */,
 				417D1B972AD058E10095EC66 /* EfficioWidgetSmallView.swift in Sources */,
 				418F5D522AD9A60600B0ED76 /* TodoToggle.swift in Sources */,
+				4118D63B2ADEEC8C0034938A /* Calendar+Extensions.swift in Sources */,
 				41A611B42ADC0AFE009DC661 /* ThemeModel.swift in Sources */,
 				41A611B62ADC0B31009DC661 /* ThemeData.swift in Sources */,
 				415B21F92AC9BF60006CC1E8 /* EfficioWidgetBundle.swift in Sources */,
@@ -382,9 +398,10 @@
 				417D1B982AD058E60095EC66 /* EfficioWidgetMediumView.swift in Sources */,
 				41DAE1F52ADD330F006EC850 /* EfficioWidgetRectangular.swift in Sources */,
 				415B220B2AC9CECB006CC1E8 /* Persistence.swift in Sources */,
-				417D1B9A2AD05C120095EC66 /* CommonViewFunctions.swift in Sources */,
+				417D1B9A2AD05C120095EC66 /* Utility.swift in Sources */,
 				415B21FB2AC9BF60006CC1E8 /* EfficioWidget.swift in Sources */,
-				41A611B52ADC0B18009DC661 /* ThemeSetting.swift in Sources */,
+				4118D63E2ADEED370034938A /* View+Extension.swift in Sources */,
+				41A611B52ADC0B18009DC661 /* ThemeViewModel.swift in Sources */,
 				413283622ADDA6DE00EBCF1C /* EfficioWidgetCircular.swift in Sources */,
 				414A6B282ACFBAB5002DFCA1 /* EmptyWidget.swift in Sources */,
 			);
@@ -399,6 +416,7 @@
 				4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */,
 				41810B752ABF67CE00ADBB9A /* ContentView.swift in Sources */,
 				410944E02ADBD308005820F0 /* CustomToggleStyle.swift in Sources */,
+				4118D6412ADEEDB60034938A /* Calendar+Extensions.swift in Sources */,
 				4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */,
 				410944E72ADBE2D7005820F0 /* ThemeData.swift in Sources */,
 				41810B882ABF6ACC00ADBB9A /* EmptyView.swift in Sources */,
@@ -409,7 +427,7 @@
 				41810B862ABF69E800ADBB9A /* AddTodoView.swift in Sources */,
 				41E0AC642AD99B4900FDC9E2 /* TodoViewModel.swift in Sources */,
 				410944EB2ADBE960005820F0 /* SettingFormRowView.swift in Sources */,
-				410944E92ADBE2F9005820F0 /* ThemeSetting.swift in Sources */,
+				410944E92ADBE2F9005820F0 /* ThemeViewModel.swift in Sources */,
 				41F7BB842AD5577300C7E782 /* EfficioApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,6 +14,8 @@ struct EfficioWidgetSmallView: View {
   @Environment(\.widgetFamily) var family
   @State var todos: [Todo]
   
+  // 端末の環境設定を取得
+    @Environment(\.colorScheme) var colorScheme
   
   var body: some View {
     VStack(alignment: .leading){
@@ -33,12 +35,11 @@ struct EfficioWidgetSmallView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 12)
-                .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-                .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
               
               Text(todo.name ?? "")
                 .font(.custom("HelveticaNeue", size: 13))
-                .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+                .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
                 .lineLimit(1)
                 .foregroundColor(todo.state ? Color.gray : Color.primary)
                 .strikethrough(todo.state)
@@ -47,7 +48,7 @@ struct EfficioWidgetSmallView: View {
               
               Circle()
                 .frame(width: 6, height: 12, alignment: .center)
-                .foregroundColor(colorize(priority: todo.priority ?? ""))
+                .foregroundColor(Utility.colorize(priority: todo.priority ?? ""))
             } //: HSTACK
           }//: BUTTON
           .buttonStyle(.plain)
@@ -59,12 +60,12 @@ struct EfficioWidgetSmallView: View {
         EmptyWidget(point: 13)
           .position(CGPoint(x: 56, y: 50))
       }
-    }//END: VSTACK
-    .widgetBackground(Color.white)
-  }
+    } //: VSTACK
+    .widgetBackground(Color("BtoW"))
+  } //: BODY
   
   
-}
+} //: VIEW
 
 
 //struct EfficioWidgetSmallView_Previews: PreviewProvider {

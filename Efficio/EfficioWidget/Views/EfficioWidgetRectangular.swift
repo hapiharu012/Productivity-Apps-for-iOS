@@ -2,7 +2,7 @@
 //  EfficioWidgetRectangular.swift
 //  EfficioWidgetExtension
 //
-//  Created by k21123kk on 2023/10/16.
+//  Created by hapiharu012 on 2023/10/16.
 //
 
 import SwiftUI
@@ -18,7 +18,6 @@ struct EfficioWidgetRectangular: View {
                 ]
   ) var todos:FetchedResults<Todo>
   
-//  @State var todos: [Todo]
   
   var body: some View {
     
@@ -33,12 +32,11 @@ struct EfficioWidgetRectangular: View {
               .resizable()
               .scaledToFit()
               .frame(width: 14)
-              .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
-              .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+              .foregroundColor(Color("BtoW"))
             
             Text(todo.name ?? "")
               .font(.custom("HelveticaNeue", size: 15))
-              .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
+              .foregroundColor(Color("BtoW"))
               .lineLimit(1)
               .foregroundColor(todo.state ? Color.gray : Color.primary)
               .strikethrough(todo.state)
@@ -50,7 +48,7 @@ struct EfficioWidgetRectangular: View {
         }//: BUTTON
         .buttonStyle(.plain)
         .padding(.vertical, 2)
-        .widgetBackground(Color.white)
+        .widgetBackground(Color("BtoW"))
         
       } //: FOREACH
     }else {
@@ -58,11 +56,12 @@ struct EfficioWidgetRectangular: View {
         .position(CGPoint(x: 56, y: 50))
         .widgetBackground(Color.white)
     }
-      
-  }
     
-}
+  } //: BODY
+  
+} //: VIEW
 
+// MARK: - PREVIEW
 struct EfficioWidgetRectangular_Previews: PreviewProvider {
   static var previews: some View {
     EfficioWidgetEntryView()

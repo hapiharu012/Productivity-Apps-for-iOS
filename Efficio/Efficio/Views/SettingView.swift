@@ -12,73 +12,77 @@ struct SettingsView: View {
   @Environment(\.presentationMode) var presentationMode
   
   // THEME
+  @ObservedObject var theme : ThemeViewModel
   
-  let themes: [Theme] = themeData
-  @ObservedObject var theme = ThemeSettings.shared
+  
   @State private var isThemeChanged: Bool = false
   
-  // MARK: - BODY
+  // 端末の環境設定を取得
+  @Environment(\.colorScheme) var colorScheme
   
+  
+  // MARK: - BODY
   var body: some View {
     NavigationView {
       VStack(alignment: .center, spacing: 0) {
         // MARK: - FORM
         
         Form {
-          // MARK: - SECTION 2
+          // MARK: - THEME SECTION
           Section(header:
-            HStack {
-              Text("テーマを変更:")
-              .foregroundStyle(Color.black)
-              Image(systemName: "circle.fill")
-                .resizable()
-                .frame(width: 10, height: 10)
-                .foregroundColor(themes[self.theme.themeSettings].backColor)
-            }
+                    HStack {
+            Text("テーマを変更:")
+              .foregroundStyle(colorScheme == .dark ? .white : .black)
+            Image(systemName: "circle.fill")
+              .resizable()
+              .frame(width: 10, height: 10)
+              .foregroundColor(theme.backgroundColor)
+          }
           ) {
             List {
-              ForEach(themes, id: \.id) { item in
+              ForEach(theme.themes, id: \.id) { item in
                 Button(action: {
                   self.theme.themeSettings = item.id
                   UserDefaults.standard.set(self.theme.themeSettings, forKey: "Theme")
                   self.isThemeChanged.toggle()
-//                  WidgetCenter.shared.reloadAllTimelines()
+                  //                  WidgetCenter.shared.reloadAllTimelines()
                 }) {
                   HStack {
                     Image(systemName: "circle.fill")
                       .foregroundColor(item.backColor)
                     
                     Text(item.themeName)
-                      .foregroundStyle(Color.black)
+                      .foregroundStyle(colorScheme == .dark ? .white : .black)
                   }
                 } //: BUTTON
-                  .accentColor(Color.primary)
+                .accentColor(Color.primary)
               }
             }
-          } //: SECTION 2
-            .padding(.vertical, 3)
-            .alert(isPresented: $isThemeChanged) {
-              Alert(
-                title: Text("SUCCESS!"),
-                message: Text("App has been changed to the \(themes[self.theme.themeSettings].themeName)!"),
-                dismissButton: .default(Text("OK"))
-              )
+          } //: THEME SECTION
+          
+          .padding(.vertical, 3)
+          .alert(isPresented: $isThemeChanged) {
+            Alert(
+              title: Text("テーマを変更しました。"),
+              message: Text("変更後 :  \(theme.themeName)"),
+              dismissButton: .default(Text("OK"))
+            )
           }
           
-          // MARK: - SECTION 4
-          
+          // MARK: - ABOUT APP SECTION
           Section(header: Text("アプリケーションについて")) {
             SettingFormRowView(icon: "gear", firstText: "アプリケーション", secondText: "Efficio")
             SettingFormRowView(icon: "checkmark.seal", firstText: "互換性", secondText: "iPhone, iPad")
             SettingFormRowView(icon: "keyboard", firstText: "開発者", secondText: "Haruto Morishige")
             SettingFormRowView(icon: "flag", firstText: "バージョン", secondText: "1.0.0")
-          } //: SECTION 4
-            .padding(.vertical, 3)
-            .foregroundStyle(Color.black)
+          } //: ABOUT APP SECTION
+          .padding(.vertical, 3)
+          .foregroundStyle(colorScheme == .dark ? .white : .black)
           
         } //: FORM
-          .listStyle(GroupedListStyle())
-          .environment(\.horizontalSizeClass, .regular)
+        .listStyle(GroupedListStyle())
+        .environment(\.horizontalSizeClass, .regular)
+        .foregroundStyle(colorScheme == .dark ? .white : .black)
         // MARK: - FOOTER
         
         Text("Copyright © All rights reserved.")
@@ -88,36 +92,28 @@ struct SettingsView: View {
           .padding(.bottom, 8)
           .foregroundColor(Color.secondary)
       } //: VSTACK
-//      .background(themes[self.theme.themeSettings].backColor.edgesIgnoringSafeArea(.all))
-//      .background()
-        .navigationBarItems(trailing:
-          Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-          }) {
-            Image(systemName: "xmark")
-              .padding()
-              .foregroundColor(themes[self.theme.themeSettings].backColor)
-          }
-        )
-        .navigationBarTitle("Settings", displayMode: .inline)
-//        .background(Color("ColorBackground").edgesIgnoringSafeArea(.all))
-//        .background(themes[self.theme.themeSettings].backColor.edgesIgnoringSafeArea(.all))
+      .navigationBarItems(trailing:
+                            Button(action: {
+        self.presentationMode.wrappedValue.dismiss()
+      }) {
+        Image(systemName: "xmark")
+          .padding()
+          .foregroundColor(colorScheme == .dark ? .white : .black)
+      }
+      )
+      .navigationBarTitle("Settings", displayMode: .inline)
     } //: NAVIGATION
-      .accentColor(themes[self.theme.themeSettings].backColor)
-      .navigationViewStyle(StackNavigationViewStyle())
-
+    .navigationViewStyle(StackNavigationViewStyle())
+    .accentColor(theme.backgroundColor)
+    
+    
   }//: BODY
 }//: SETTINGS
 
 // MARK: - PREIVEW
 
-struct SettingsView_Previews: PreviewProvider {
-  static var previews: some View {
-    SettingsView()
-  }
-}
-
-
-//#Preview {
-//    SettingView()
+//struct SettingsView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    SettingsView()
+//  }
 //}

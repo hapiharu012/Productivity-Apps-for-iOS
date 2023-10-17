@@ -15,7 +15,6 @@ struct SettingFormRowView: View {
   var secondText: String
   
   // MARK: - BODY
-  
   var body: some View {
     HStack {
       ZStack {
@@ -29,16 +28,16 @@ struct SettingFormRowView: View {
       Text(firstText).foregroundColor(Color.gray)
       Spacer()
       Text(secondText)
-    }
-  }
-}
+    } //: HSTACK
+    
+  } //: BODY
+} //: VIEW
+
 
 // MARK: - PREVIEW
 
 struct FormRowStaticView_Previews: PreviewProvider {
   static var previews: some View {
     SettingFormRowView(icon: "gear", firstText: "Application", secondText: "Todo")
-//      .previewLayout(.fixed(width: 375, height: 60))
-//      .padding()
   }
 }

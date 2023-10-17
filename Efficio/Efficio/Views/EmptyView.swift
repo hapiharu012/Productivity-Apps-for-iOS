@@ -8,43 +8,43 @@
 import SwiftUI
 
 struct EmptyView: View {
-  //MARK: - BODY
   // THEME
-  @ObservedObject var theme = ThemeSettings.shared
-  var themes: [Theme] = themeData
+  @ObservedObject var theme: ThemeViewModel
   
-    var body: some View {
-      
-      // MARK: - ZSTACK
+  //MARK: - BODY
 
-      ZStack {
-        VStack(alignment: .center, spacing: 20) {
-          Image("back")
-            .renderingMode(.template)
-            .resizable()
-            .scaledToFit()
-            .frame(minWidth: 256, idealWidth: 280, maxWidth: 360, minHeight: 256, idealHeight: 280, maxHeight: 360, alignment: .center)
-            .layoutPriority(1)
-            .foregroundColor(themes[self.theme.themeSettings].accentColor)
-          
-          Text("Put hard tasks first.")
-            .layoutPriority(0.5)
-            .font(.system(.headline, design: .rounded))
-            .foregroundColor(themes[self.theme.themeSettings].accentColor)
-        } //: VSTACK
-          .padding(.horizontal)
-      } //: ZSTACK
-      
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .background(themes[self.theme.themeSettings].backColor)
-        .edgesIgnoringSafeArea(.all)
-    }//: BODY
+  var body: some View {
+    
+    // MARK: - ZSTACK
+    
+    ZStack {
+      VStack(alignment: .center, spacing: 20) {
+        Image("back")
+          .renderingMode(.template)
+          .resizable()
+          .scaledToFit()
+          .frame(minWidth: 256, idealWidth: 280, maxWidth: 360, minHeight: 256, idealHeight: 280, maxHeight: 360, alignment: .center)
+          .layoutPriority(1)
+          .foregroundColor(theme.accentColor)
+        
+        Text("Put hard tasks first.")
+          .layoutPriority(0.5)
+          .font(.system(.headline, design: .rounded))
+          .foregroundColor(theme.accentColor)
+      } //: VSTACK
+      .padding(.horizontal)
+    } //: ZSTACK
+    
+    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+    .background(theme.backgroundColor)
+    .edgesIgnoringSafeArea(.all)
+  } //: BODY
   
-}
+} //: VIEW
 
-//MARK: - PREVIEW
-struct EmptyView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmptyView()
-    }
-}
+////MARK: - PREVIEW
+//struct EmptyView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EmptyView()
+//    }
+//}
