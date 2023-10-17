@@ -172,7 +172,9 @@ struct ContentView: View {
       }
       
     } // : NAVIGATION
-    
+    .onOpenURL(perform: { url in
+          todoModel.isNewTodo = true
+        })
   } //: BODY
   
 } //: CONTENTVIEW

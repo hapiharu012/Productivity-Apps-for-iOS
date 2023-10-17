@@ -35,11 +35,11 @@ struct EfficioWidgetSmallView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 12)
-                .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
+                .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
               
               Text(todo.name ?? "")
                 .font(.custom("HelveticaNeue", size: 13))
-                .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
+                .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
                 .lineLimit(1)
                 .foregroundColor(todo.state ? Color.gray : Color.primary)
                 .strikethrough(todo.state)
@@ -61,7 +61,8 @@ struct EfficioWidgetSmallView: View {
           .position(CGPoint(x: 56, y: 50))
       }
     } //: VSTACK
-    .widgetBackground(Color("BtoW"))
+//    .widgetBackground(Color("BtoW"))
+    .widgetBackground(Color("WidgetBackground"))
   } //: BODY
   
   

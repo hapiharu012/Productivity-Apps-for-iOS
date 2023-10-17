@@ -32,11 +32,11 @@ struct EfficioWidgetRectangular: View {
               .resizable()
               .scaledToFit()
               .frame(width: 14)
-              .foregroundColor(Color("BtoW"))
+              .foregroundColor(Color("WidgetBackground"))
             
             Text(todo.name ?? "")
               .font(.custom("HelveticaNeue", size: 15))
-              .foregroundColor(Color("BtoW"))
+              .foregroundColor(Color("WidgetBackground"))
               .lineLimit(1)
               .foregroundColor(todo.state ? Color.gray : Color.primary)
               .strikethrough(todo.state)
@@ -48,13 +48,15 @@ struct EfficioWidgetRectangular: View {
         }//: BUTTON
         .buttonStyle(.plain)
         .padding(.vertical, 2)
-        .widgetBackground(Color("BtoW"))
+//        .widgetBackground(Color("WidgetBackground"))
+        .widgetBackground(Color("WidgetBackground"))
         
       } //: FOREACH
     }else {
       EmptyWidget(point: 13)
         .position(CGPoint(x: 56, y: 50))
-        .widgetBackground(Color.white)
+//        .widgetBackground(Color("BtoW"))
+        .widgetBackground(Color("WidgetBackground"))
     }
     
   } //: BODY

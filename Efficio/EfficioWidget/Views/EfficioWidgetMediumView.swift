@@ -72,19 +72,19 @@ struct EfficioWidgetMediumView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 12)
-                    .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
+                    .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
                     
                     
                     
                     Group{
                       Text(todo.name ?? "Unknown")
                         .font(.custom("HelveticaNeue", size: 14))
-                        .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
+                        .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
                       Spacer()
                       
                       Text(calendar.formatDate(todo.deadline_date))
                         .font(.custom("HelveticaNeue", size: 10))
-                        .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("BtoW"))
+                        .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
                         .opacity(0.5)
                       
                       
@@ -109,7 +109,8 @@ struct EfficioWidgetMediumView: View {
         
         
       } //: VSTACK
-      .widgetBackground(Color("BtoW"))
+//      .widgetBackground(Color("BtoW"))
+      .widgetBackground(Color("WidgetBackground"))
 
     } //: BODY
 } //: VIEW

@@ -29,6 +29,7 @@
 		4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
 		4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
 		41660FF92AD9B6ED00825DEB /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
+		4179361B2ADF383E002E7136 /* SprashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179361A2ADF383E002E7136 /* SprashView.swift */; };
 		417D1B852AD002A50095EC66 /* sound-tap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 417D1B842AD002A50095EC66 /* sound-tap.mp3 */; };
 		417D1B972AD058E10095EC66 /* EfficioWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B912AD0562B0095EC66 /* EfficioWidgetSmallView.swift */; };
 		417D1B982AD058E60095EC66 /* EfficioWidgetMediumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B932AD0564F0095EC66 /* EfficioWidgetMediumView.swift */; };
@@ -100,6 +101,7 @@
 		4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4179361A2ADF383E002E7136 /* SprashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SprashView.swift; sourceTree = "<group>"; };
 		417D1B842AD002A50095EC66 /* sound-tap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "sound-tap.mp3"; path = "../../../../../Udemy/SwiftUIマスタークラス2023/DEVOTE/Completed/Devote/Devote/Sound/sound-tap.mp3"; sourceTree = "<group>"; };
 		417D1B862AD002A90095EC66 /* sound-tap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sound-tap.mp3"; sourceTree = "<group>"; };
 		417D1B8C2AD00ECF0095EC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				41810B872ABF6ACC00ADBB9A /* EmptyView.swift */,
 				410944E12ADBE23F005820F0 /* SettingView.swift */,
 				410944EA2ADBE960005820F0 /* SettingFormRowView.swift */,
+				4179361A2ADF383E002E7136 /* SprashView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				410944E02ADBD308005820F0 /* CustomToggleStyle.swift in Sources */,
 				4118D6412ADEEDB60034938A /* Calendar+Extensions.swift in Sources */,
 				4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */,
+				4179361B2ADF383E002E7136 /* SprashView.swift in Sources */,
 				410944E72ADBE2D7005820F0 /* ThemeData.swift in Sources */,
 				41810B882ABF6ACC00ADBB9A /* EmptyView.swift in Sources */,
 				410944E52ADBE2B6005820F0 /* ThemeModel.swift in Sources */,
