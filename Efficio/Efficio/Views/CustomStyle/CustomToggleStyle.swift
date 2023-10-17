@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CustomToggleStyle: ToggleStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
-        HStack {
-            configuration.label
-            Spacer()
+//        HStack {
+//            configuration.label
+//            Spacer()
             Rectangle()
                 .fill(configuration.isOn ? Color.green : Color("Toggle")) // ONの時は青、OFFの時は赤にする
                 .frame(width: 49, height: 30, alignment: .center)
@@ -27,8 +27,9 @@ struct CustomToggleStyle: ToggleStyle {
                 
                 .onTapGesture {
                     configuration.isOn.toggle()
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
                 }
-        }
+//        }
     }
 }
 
