@@ -74,6 +74,7 @@ struct EfficioWidgetEntryView : View {
 //var todos = TodoViewModel().todos
   
   var todos = TodoViewModel(context: PersistenceController.shared.container.viewContext).todos
+  
   //MARK: - BODY
   var body: some View {
     //MARK: - SWITCH
@@ -82,10 +83,15 @@ struct EfficioWidgetEntryView : View {
       EfficioWidgetSmallView(todos: Array(todos))
     case .systemMedium:
       EfficioWidgetMediumView(todos: Array(todos))
+    case .accessoryCircular:
+      EfficioWidgetCircular()
+    case .accessoryRectangular:
+      EfficioWidgetRectangular()
     default:
       fatalError()
     }
   }
+    
 }
 
 
@@ -102,10 +108,28 @@ struct EfficioWidget: Widget {
       EfficioWidgetEntryView()
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
     }
-    .supportedFamilies([.systemSmall, .systemMedium])
+    .supportedFamilies(supportedFamilies)
     .configurationDisplayName("Efficio")
     .description("This is a widget where you can see your task list.")
   }
+  private var supportedFamilies: [WidgetFamily] {
+          if #available(iOSApplicationExtension 16.0, *) {
+              return [
+                  .systemSmall,
+                  .systemMedium,
+//                  .systemLarge,
+//                  .systemExtraLarge,
+                  .accessoryCircular,
+                  .accessoryRectangular
+              ]
+          } else {
+              return [
+                  .systemSmall,
+                  .systemMedium,
+                  .systemLarge
+              ]
+          }
+      }
 }
 
 
@@ -120,5 +144,7 @@ struct EfficioWidget_Previews: PreviewProvider {
       .previewContext(WidgetPreviewContext(family: .systemSmall))
     EfficioWidgetEntryView()
       .previewContext(WidgetPreviewContext(family: .systemMedium))
+    EfficioWidgetEntryView()
+      .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
   }
 }

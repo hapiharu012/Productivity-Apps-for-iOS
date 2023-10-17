@@ -14,10 +14,10 @@ struct EfficioWidgetMediumView: View {
   @Environment(\.widgetFamily) var family
   @State var todos: [Todo]
   
-  // THEME
-  @ObservedObject var theme = ThemeSettings.shared
-  var themes: [Theme] = themeData
-  
+//  // THEME
+//  @ObservedObject var theme = ThemeSettings.shared
+//  var themes: [Theme] = themeData
+//  
     var body: some View {
       HStack {
         VStack(alignment: .leading,spacing: 10){
@@ -75,7 +75,7 @@ struct EfficioWidgetMediumView: View {
                         .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
                       Spacer()
                       
-                      Text(formatDate(todo.deadline))
+                      Text(formatDate(todo.deadline_date))
                         .font(.custom("HelveticaNeue", size: 10))
                         .foregroundColor(determiningPriority(priority: todo.priority!) ? .red : .black)
                         .opacity(0.5)
