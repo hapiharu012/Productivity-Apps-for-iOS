@@ -37,10 +37,20 @@ struct TodoItemView: View {
         .offset(x: 10)
       Spacer()
       // MARK: - DEADLINE
-      if todo.deadline != nil{
-        HStack {
-          Image(systemName: "calendar")
-          Text(dateFormatting(todo.deadline))
+      if todo.deadline_date != nil || todo.deadline_time != nil {
+        VStack {
+          if todo.deadline_date != nil {
+            HStack {
+              Image(systemName: "calendar")
+              Text(dateFormatting(todo.deadline_date))
+            }
+          }
+          if todo.deadline_time != nil{
+            HStack {
+              Image(systemName: "clock")
+              Text(timeFormatting(todo.deadline_time))
+            }
+          }
         }
         .font(.footnote)
         .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
@@ -80,6 +90,12 @@ struct TodoItemView: View {
     return formatter.string(from: date)
   }
 
+  private func timeFormatting(_ date: Date?) -> String {
+    guard let date = date else { return "" }
+    let formatter = DateFormatter()
+    formatter.dateFormat = "hh時mm分"
+    return formatter.string(from: date)
+  }
   private func priorityJudgment (priority: String) -> Bool {
     switch priority {
     case "高":
@@ -100,7 +116,8 @@ struct TodoItemView_Previews: PreviewProvider {
     todo.name = "サンプルTodo"
     todo.priority = "中"
     todo.state = false
-    todo.deadline = Date()
+    todo.deadline_date = Date()
+    todo.deadline_time = Date()
     todo.id = UUID()
     
 //    todo.name = "サンプルTodo"

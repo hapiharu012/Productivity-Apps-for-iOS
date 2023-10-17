@@ -95,6 +95,7 @@ struct SettingsView: View {
             self.presentationMode.wrappedValue.dismiss()
           }) {
             Image(systemName: "xmark")
+              .padding()
               .foregroundColor(themes[self.theme.themeSettings].backColor)
           }
         )

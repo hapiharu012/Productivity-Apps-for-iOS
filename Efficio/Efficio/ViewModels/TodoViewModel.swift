@@ -18,7 +18,9 @@ class TodoViewModel: ObservableObject {
   @Published var name = ""
   @Published var priority = ""
   @Published var state = false
-  @Published var deadline: Date?
+  @Published var deadline_date: Date?
+  @Published var deadline_time: Date?
+
   @Published var id = UUID()
   @Published var order:Int16 = 0
   
@@ -86,8 +88,8 @@ class TodoViewModel: ObservableObject {
       isEditing.name = name
       isEditing.priority = priority
       isEditing.state = state
-      isEditing.deadline = deadline
-      
+      isEditing.deadline_date = deadline_date
+      isEditing.deadline_time = deadline_time
       do {
         try context.save()
       } catch {
@@ -101,7 +103,8 @@ class TodoViewModel: ObservableObject {
       name = ""
       priority = ""
       state = false
-      deadline = nil
+      deadline_date = nil
+      deadline_time = nil
       order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
       WidgetCenter.shared.reloadAllTimelines()
       return
@@ -112,14 +115,16 @@ class TodoViewModel: ObservableObject {
     print(name)
     print(priority)
     print(state)
-    print(deadline ?? "")
+    print(deadline_date ?? "")
+    print(deadline_time ?? "")
     //    resetData()
     
     let newTodo = Todo(context: context)
     newTodo.name = name
     newTodo.priority = priority
     newTodo.state = state
-    newTodo.deadline = deadline
+    newTodo.deadline_date = deadline_date
+    newTodo.deadline_time = deadline_time
     newTodo.order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
     newTodo.id = UUID()
     
@@ -130,7 +135,8 @@ class TodoViewModel: ObservableObject {
       name = ""
       priority = ""
       state = false
-      deadline = nil
+      deadline_date = nil
+      deadline_time = nil
       order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
     } catch {
       print("writeTodo(2)でエラー")
@@ -148,7 +154,8 @@ class TodoViewModel: ObservableObject {
     
     name = todo.wrappedName
     priority = todo.wrappedPriority
-    deadline = todo.deadline
+    deadline_date = todo.deadline_date
+    deadline_time = todo.deadline_time
     state = todo.state
     id = todo.wrappedId
     order = todo.order
@@ -162,7 +169,8 @@ class TodoViewModel: ObservableObject {
     name = ""
     priority = ""
     state = false
-    deadline =  nil
+    deadline_date =  nil
+    deadline_time = nil
     isEditing = nil
     isNewTodo = false
     order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0

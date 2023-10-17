@@ -26,7 +26,8 @@ struct PersistenceController {
     newTodo.name = "NewTodo"
     newTodo.priority = ""
     newTodo.state = false
-    newTodo.deadline = Date()
+    newTodo.deadline_date = Date()
+    newTodo.deadline_time = Date()
     
     do {
       try viewContext.save()
@@ -44,7 +45,7 @@ struct PersistenceController {
   init(inMemory: Bool = false) {
     
     //変更部分
-    let appGroupId = "group.efficio.coredatawidget"
+    let appGroupId = "group.hapiharu012.Efficio.app"
             guard let containerUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupId) else {
                 fatalError("Failure to init store URL for AppGroup ID: \(appGroupId)")
             }

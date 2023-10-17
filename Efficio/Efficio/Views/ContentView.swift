@@ -30,7 +30,7 @@ struct ContentView: View {
           ForEach(todoModel.todos, id: \.self) { todo in
             TodoItemView(todoModel: todoModel, todo: todo)
               .padding(.vertical, 9)
-              .shadow(radius: 1)
+//              .shadow(radius: 1)
           }// : FOREACH
           .onDelete(perform: todoModel.deleteTodo)
           .onMove(perform: todoModel.moveTodo)

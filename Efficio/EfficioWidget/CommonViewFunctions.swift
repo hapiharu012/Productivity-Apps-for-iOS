@@ -18,7 +18,7 @@ import CoreData
     let calendar = SwiftUI.Calendar.current
     var count = 0
     for todo in todos { // ForEachの代わりに通常のforループを使用
-      if calendar.isDate(todo.deadline ?? Date(), inSameDayAs: Date()) {
+      if calendar.isDate(todo.deadline_date ?? Date(), inSameDayAs: Date()) {
         count += 1
       }
     }
@@ -70,7 +70,7 @@ func createDummyTodos(context: NSManagedObjectContext) -> [Todo] {
         let todo = Todo(context: context)
         todo.name = "タスク \(i)"
         todo.state = false
-        todo.deadline = Date()
+        todo.deadline_date = Date()
         todo.priority = "中"
         todo.id = UUID()  // このid属性が必要です。
         // 他の属性もここで設定できます
@@ -83,10 +83,10 @@ extension View {
   func widgetBackground(_ backgroundView: some View) -> some View {
     if #available(iOSApplicationExtension 17.0, *) {
       return containerBackground(for: .widget) {
-        backgroundView
+        Color.clear
       }
     } else {
-      return background(backgroundView)
+      return background(Color.clear)
     }
   }
   
