@@ -16,9 +16,10 @@ struct EmptyWidget: View {
       .font(.system(size: point, weight: .light, design: .default))
       .foregroundStyle(.gray)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-  }
-}
+  } //: BODY
+} //: VIEW
 
+// MARK: - PREVIEW
 struct EmptyWidget_Previews: PreviewProvider {
   static var previews: some View {
     EmptyWidget(point: 10)

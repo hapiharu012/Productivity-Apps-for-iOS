@@ -12,15 +12,16 @@ import SwiftUI
 import WidgetKit
 
 class TodoViewModel: ObservableObject {
+  
   //  static let shared = TodoViewModel(context: PersistenceController.shared.container.viewContext)
   // MARK: - PROPERTIES
   
+  // todoのプロパティ
   @Published var name = ""
   @Published var priority = ""
   @Published var state = false
   @Published var deadline_date: Date?
   @Published var deadline_time: Date?
-
   @Published var id = UUID()
   @Published var order:Int16 = 0
   

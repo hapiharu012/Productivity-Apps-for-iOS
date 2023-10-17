@@ -9,14 +9,18 @@ import SwiftUI
 
 struct TodoItemView: View {
   // MARK: - PROPERTIES
-
+  
   @ObservedObject var todoModel: TodoViewModel
   @ObservedObject var todo: Todo
   
+  let calendar = Calendar.current
+  
   
   // MARK: - BODY
-
+  
   var body: some View {
+    @Environment(\.colorScheme) var colorScheme
+    
     HStack {
       // MARK: - CHECKMARK
       Image(systemName: todo.state ? "checkmark.circle" : "circle")
@@ -32,27 +36,28 @@ struct TodoItemView: View {
       // MARK: - TODO NAME
       Text(todo.wrappedName)
         .font(.system(size: 14, weight: priorityJudgment(priority: todo.wrappedName) ? .bold : .medium, design: .none))
-        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black))
         .strikethrough(todo.state, color: .black)
         .offset(x: 10)
       Spacer()
       // MARK: - DEADLINE
       if todo.deadline_date != nil || todo.deadline_time != nil {
-        VStack {
+        VStack(alignment: .leading) {
           if todo.deadline_date != nil {
             HStack {
               Image(systemName: "calendar")
-              Text(dateFormatting(todo.deadline_date))
+              Text(calendar.formatDateAndOptimization(date : todo.deadline_date!))
             }
           }
           if todo.deadline_time != nil{
             HStack {
               Image(systemName: "clock")
-              Text(timeFormatting(todo.deadline_time))
+              Text(calendar.formatTime(date: todo.deadline_time!))
             }
           }
         }
-        .font(.footnote)
+        //フォントのサイズ変更
+        .font(.system(size: 10, weight: .medium, design: .none))
         .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
         .opacity(0.5)
       }
@@ -60,17 +65,16 @@ struct TodoItemView: View {
       if todo.priority != "" {
         Text(todo.priority ?? "")
           .font(.footnote)
-          .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
+          .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black))
           .opacity(0.5)
           .padding(3)
           .frame(minWidth: 62)
           .overlay(
-            Capsule().stroke(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black), lineWidth: 0.75)
+            Capsule().stroke(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black), lineWidth: 0.75)
               .opacity(0.5)
-        )
+          )
       }
     } //: HSTACK
-//    .padding(.vertical, 8)
     .background(.clear)
     
     // MARK: - ONTAPGESTURE
@@ -80,22 +84,10 @@ struct TodoItemView: View {
     }
   }// END: BODY
   
-  
   // MARK: - FUNCTIONS
   
-  private func dateFormatting(_ date: Date?) -> String {
-    guard let date = date else { return "" }
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MM月dd日"
-    return formatter.string(from: date)
-  }
-
-  private func timeFormatting(_ date: Date?) -> String {
-    guard let date = date else { return "" }
-    let formatter = DateFormatter()
-    formatter.dateFormat = "hh時mm分"
-    return formatter.string(from: date)
-  }
+  
+// MARK: - PRIORITY JUDGMENT
   private func priorityJudgment (priority: String) -> Bool {
     switch priority {
     case "高":
@@ -110,24 +102,24 @@ struct TodoItemView: View {
 
 // MARK: - PREVIEW
 
-struct TodoItemView_Previews: PreviewProvider {
-  static var previews: some View {
-    let todo = Todo(context: PersistenceController.preview.container.viewContext)
-    todo.name = "サンプルTodo"
-    todo.priority = "中"
-    todo.state = false
-    todo.deadline_date = Date()
-    todo.deadline_time = Date()
-    todo.id = UUID()
-    
+//struct TodoItemView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    let todo = Todo(context: PersistenceController.preview.container.viewContext)
 //    todo.name = "サンプルTodo"
-//    todo.priority = ""
+//    todo.priority = "中"
 //    todo.state = false
-//    todo.deadline = nil
+//    todo.deadline_date = Date()
+//    todo.deadline_time = Date()
 //    todo.id = UUID()
-    
-//    return TodoItemView(todoModel: TodoViewModel(), todo: todo)
-    return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo)
-      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-  }
-}
+//
+////    todo.name = "サンプルTodo"
+////    todo.priority = ""
+////    todo.state = false
+////    todo.deadline = nil
+////    todo.id = UUID()
+//
+////    return TodoItemView(todoModel: TodoViewModel(), todo: todo)
+//    return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo)
+//      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//  }
+//}

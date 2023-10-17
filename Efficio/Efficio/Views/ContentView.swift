@@ -15,11 +15,12 @@ struct ContentView: View {
   @State private var animatingButton: Bool = false
   @State private var showingSettingsView: Bool = false
   
-//  @EnvironmentObject var iconSettings: IconNames
-
   // THEME
-  @ObservedObject var theme = ThemeSettings.shared
-  var themes: [Theme] = themeData
+  @ObservedObject var theme = ThemeViewModel.shared
+  
+  // 端末の環境設定を取得
+  @Environment(\.colorScheme) var colorScheme
+  
   
   // MARK: - BODY
   
@@ -30,31 +31,29 @@ struct ContentView: View {
           ForEach(todoModel.todos, id: \.self) { todo in
             TodoItemView(todoModel: todoModel, todo: todo)
               .padding(.vertical, 9)
-//              .shadow(radius: 1)
           }// : FOREACH
           .onDelete(perform: todoModel.deleteTodo)
           .onMove(perform: todoModel.moveTodo)
           
           .padding(.all, 10)
           .frame(maxWidth: .infinity, minHeight: 60)
-          .background(themes[self.theme.themeSettings].rowColor.opacity(1))
-          .listRowBackground(themes[self.theme.themeSettings].backColor)
+          .background(theme.rowColor.opacity(1))
+          .listRowBackground(theme.backgroundColor)
           .listRowSeparator(.hidden)
           .cornerRadius(10)
           
         }// : LIST
         .listStyle(.plain)
-        //        .edgesIgnoringSafeArea(.all)
-        .background(themes[self.theme.themeSettings].backColor)
+        .background(theme.backgroundColor)
         
         if todoModel.todos.count == 0 {
-          EmptyView()
+          EmptyView(theme: theme)
         }
       }  // : ZSTACK
       
       // MARK: - SHEET
       .sheet(isPresented: $todoModel.isNewTodo) {
-        AddTodoView(todoModel: todoModel)
+        AddTodoView(todoModel: todoModel, theme: theme)
       }
       
       .overlay(
@@ -66,8 +65,8 @@ struct ContentView: View {
               Circle()
                 .fill(LinearGradient(
                   colors: [
-                    themes[self.theme.themeSettings].accentColor,
-                    themes[self.theme.themeSettings].backColor
+                    theme.accentColor,
+                    theme.backgroundColor
                   ],
                   startPoint: animatingButton ? .topLeading : .bottomLeading,
                   endPoint: animatingButton ? .bottomTrailing : .topTrailing
@@ -78,8 +77,8 @@ struct ContentView: View {
               Circle()
                 .fill(LinearGradient(
                   colors: [
-                    themes[self.theme.themeSettings].accentColor,
-                    themes[self.theme.themeSettings].backColor
+                    theme.accentColor,
+                    theme.backgroundColor
                   ],
                   startPoint: animatingButton ? .topLeading : .bottomLeading,
                   endPoint: animatingButton ? .bottomTrailing : .topTrailing
@@ -100,12 +99,11 @@ struct ContentView: View {
               Image(systemName: "plus.circle.fill")
                 .resizable()
                 .scaledToFit()
-                .foregroundColor(themes[self.theme.themeSettings].accentColor).contrast(1.5)
-                .background(Circle().fill(themes[self.theme.themeSettings].backColor))
+                .foregroundColor(theme.accentColor).contrast(1.5)
+                .background(Circle().fill(theme.backgroundColor))
                 .frame(width: 50, alignment: .center)
                 .shadow(radius: animatingButton ? 6 : 0)
             } //: BUTTON
-            //            .accentColor(.blue)
             
           }//: ADD BUTTON
           .position(x: 325, y: 680)
@@ -128,7 +126,7 @@ struct ContentView: View {
                 Image(systemName: "trash")
                   .resizable()
                   .scaledToFit()
-                  .foregroundColor(themes[self.theme.themeSettings].backColor)
+                  .foregroundColor(theme.backgroundColor)
                   .frame(width: 30, alignment: .center)
               }
             }
@@ -143,28 +141,28 @@ struct ContentView: View {
       .navigationBarTitle("Todo", displayMode: .inline)
       
       .navigationBarItems(
-//        leading: EditButton().accentColor(themes[self.theme.themeSettings].accentColor),
         trailing:
-        Button(action: {
-          self.showingSettingsView.toggle()
-        }) {
-          Image(systemName: "paintbrush")
-            .imageScale(.large)
-        } //: SETTINGS BUTTON
-          .accentColor(themes[self.theme.themeSettings].accentColor)
+          Button(action: {
+            self.showingSettingsView.toggle()
+          }) {
+            Image(systemName: "paintbrush")
+              .imageScale(.large)
+              .foregroundColor(.white)
+          } //: SETTINGS BUTTON
+          .accentColor(theme.accentColor)
           .sheet(isPresented: $showingSettingsView) {
-            SettingsView()
-        }
-    )
+            SettingsView(theme: theme)
+          }
+      )
       
-      .toolbarBackground(themes[self.theme.themeSettings].backColor,for: .navigationBar)
+      .toolbarBackground(theme.backgroundColor,for: .navigationBar)
       .toolbarBackground(.visible, for: .navigationBar)
-      .toolbarColorScheme(getNavigationForegroudColor() ? .dark : .light)
+      .toolbarColorScheme(theme.getNavigationForegroundColor(for: colorScheme) ? .dark : .light)
       
       // MARK: - ON APPEAR
       .onAppear {
         withAnimation(Animation.easeInOut(duration: 1.8).repeatForever(autoreverses: true)) {
-          animatingButton.toggle() // またはアニメーションする他の値
+          animatingButton.toggle() // アニメーションする値
         }
       }
       
@@ -173,24 +171,10 @@ struct ContentView: View {
         self.animatingButton=false
       }
       
-    } //: NAVIGATION VIEW
-    
-    // MARK: - ON OPEN URL FROM WIDGET
-    .onOpenURL(perform: { url in
-      todoModel.isNewTodo = true
-    })
+    } // : NAVIGATION
     
   } //: BODY
-  // themes[self.theme.themeSettings].themeNameがミッドナイトブルーとフォレストクリームの時だけtrueを返す。それ以外はfalse
-  func getNavigationForegroudColor() -> Bool {
-    if themes[theme.themeSettings].themeName == "ミッドナイトブルー" ||
-      themes[theme.themeSettings].themeName == "フォレストクリーム" {
-      return true
-    } else {
-      return false
-    }
-  }
-
+  
 } //: CONTENTVIEW
 
 
