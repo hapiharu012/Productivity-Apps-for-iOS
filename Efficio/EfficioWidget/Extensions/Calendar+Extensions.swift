@@ -13,7 +13,7 @@ extension Calendar {
     let calendar = SwiftUI.Calendar.current
     var count = 0
     for todo in todos { // ForEachの代わりに通常のforループを使用
-      if calendar.isDate(todo.deadline_date ?? Date(), inSameDayAs: Date()) {
+      if calendar.isDate(todo.deadline_date ?? Date(), inSameDayAs: Date()) && !todo.state {
         count += 1
       }
     }
