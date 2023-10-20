@@ -32,18 +32,19 @@ struct EmptyView: View {
         VStack {
           Text("75%")
             .fontWeight(.heavy)
-            .foregroundColor(theme.backgroundColor)
+//            .foregroundColor(theme.backgroundColor)
+            .foregroundColor(theme.determineEmptyViewFontColor(for: colorScheme) ? .black : theme.backgroundColor)
             .font(.system(.title, design: .rounded))
             .padding(.top)
           Text("この数字が何だかわかりますか？")
             .font(.title3)
+            .foregroundColor(theme.determineEmptyViewFontColor(for: colorScheme) ? .black : theme.backgroundColor)
           (
             Text("Todoリストの半分(50%)は手をつけられない、さらに残りの半分の半分(25%)は手をつければ5分以内で終わる様なタスクだと言われています。最低限をリストアップし今日の「")
             +
             Text("マストワン")
               .bold()
               .font(.title3)
-              .foregroundColor(theme.backgroundColor)
             +
             Text("」(Todoリストの優先度の高いタスク)を決めてから1日を過ごしましょう。")
             
@@ -51,15 +52,15 @@ struct EmptyView: View {
           .lineSpacing(3)
           .layoutPriority(0.5)
           .font(.system(.footnote, design: .rounded))
-          .foregroundColor(theme.getNavigationForegroundColor(for: colorScheme) ? .black : .white)
+          .foregroundColor(theme.determineEmptyViewFontColor(for: colorScheme) ? .black : theme.backgroundColor)
+          
           .padding()
         }.background(theme.accentColor)
           .overlay(RoundedRectangle(cornerRadius: 20)
             .stroke(theme.accentColor, lineWidth: 1)
-            .contrast(3.0)
+//            .contrast(3.0)
           )
           .clipShape(RoundedRectangle(cornerRadius: 20))
-        
       } //: VSTACK
       .padding(.horizontal)
     } //: ZSTACK

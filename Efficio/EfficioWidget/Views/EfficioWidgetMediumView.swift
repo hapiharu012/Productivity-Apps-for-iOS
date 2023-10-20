@@ -10,7 +10,6 @@ import WidgetKit
 import CoreData
 
 struct EfficioWidgetMediumView: View {
-  @Environment(\.managedObjectContext) private var viewContext
   @Environment(\.widgetFamily) var family
   @State var todos: [Todo]
 
@@ -40,22 +39,29 @@ struct EfficioWidgetMediumView: View {
             }//: VSTACK
             
           } //: HSTACK
-
-          Link(destination: URL(string: "addTodo://")!) {
-            Circle().fill()
-              .foregroundColor(Color("ItoW"))
-              .shadow(radius: 2)
-            
-              .overlay(
-                Image(systemName: "note.text.badge.plus")
-                  .resizable()
-                  .foregroundColor(Color("WtoB"))
-                  .scaledToFit()
-                  .frame(width: 40)
-                  .position(CGPoint(x: 30.0, y: 28.0))
+          GeometryReader { geometry in
+            Link(destination: URL(string: "addTodo://")!) {
+              
+              Circle().fill()
+                .foregroundColor(Color("ItoW"))
+                .shadow(radius: 2)
+                
+                .overlay(
+                  Image(systemName: "note.text.badge.plus")
+                    .resizable()
+                    .foregroundColor(Color("WtoB"))
+                    .scaledToFit()
+                    .padding(geometry.size.width / 27)
+                    .offset(x: geometry.size.width / 47, y: geometry.size.height / 37)
+                  
                 )
-          }//: LINK
-
+                
+                .position(CGPoint(x: geometry.size.width / 5.7, y: geometry.size.height / 1.9))
+            }//: LINK
+            .frame(width: geometry.size.width/0.3 ,height: geometry.size.height/1)
+            
+//            .position(CGPoint(x: geometry.size.width / 2.3, y: geometry.size.height / 2.8))
+          }//: GEOMETRY READER
         }//: VSTACK
         
         

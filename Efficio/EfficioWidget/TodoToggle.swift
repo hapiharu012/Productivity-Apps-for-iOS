@@ -32,7 +32,6 @@ struct TodoToggleIntent: AppIntent {
     
     func perform() async throws -> some IntentResult {
       todoModel.toggleTodoStateById(forTask: todo)
-//      TodoViewModel(context: PersistenceController.shared.container.viewContext).toggleState(forTask: todo)
 
       return .result()
     }

@@ -36,8 +36,8 @@ struct SettingFormRowView: View {
 
 // MARK: - PREVIEW
 
-struct FormRowStaticView_Previews: PreviewProvider {
-  static var previews: some View {
-    SettingFormRowView(icon: "gear", firstText: "Application", secondText: "Todo")
-  }
-}
+//struct FormRowStaticView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    SettingFormRowView(icon: "gear", firstText: "Application", secondText: "Todo")
+//  }
+//}

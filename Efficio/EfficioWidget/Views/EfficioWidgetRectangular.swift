@@ -10,13 +10,7 @@ import WidgetKit
 
 struct EfficioWidgetRectangular: View {
   @Environment(\.widgetFamily) var family
-  @Environment(\.managedObjectContext) private var viewContext
-  @FetchRequest(entity: Todo.entity(),
-                sortDescriptors: [
-                  NSSortDescriptor(keyPath: \Todo.state, ascending: true),
-                  NSSortDescriptor(keyPath: \Todo.name, ascending: true)
-                ]
-  ) var todos:FetchedResults<Todo>
+  @State var todos: [Todo]
   
   
   var body: some View {

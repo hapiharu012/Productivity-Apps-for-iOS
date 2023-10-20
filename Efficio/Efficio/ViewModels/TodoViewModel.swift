@@ -18,7 +18,11 @@ class TodoViewModel: ObservableObject {
   
   // todoのプロパティ
   @Published var name = ""
-  @Published var priority = ""
+  @Published var priority = "" {
+    didSet {
+      generateHapticFeedback()
+    }
+  }
   @Published var state = false
   @Published var deadline_date: Date?
   @Published var deadline_time: Date?
@@ -28,7 +32,11 @@ class TodoViewModel: ObservableObject {
   @Published var isNewTodo = false  // 新規作成か編集かを判断する: true -> 新規作成, false -> 編集
   @Published var isEditing: Todo!
   
+  @Published var errorShowing1: Bool = false
+  @Published var errorShowing2: Bool = false
   
+  @Published var errorTitle: String = ""
+  @Published var errorMessage = ""
   
   // MARK: - GET TODOS
   @Published var todos: [Todo] = []
@@ -59,6 +67,10 @@ class TodoViewModel: ObservableObject {
     }
   }
   
+  private func generateHapticFeedback() {
+    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+  }
+  
   func fetchTodos() {// データを取得する
     let request: NSFetchRequest<Todo> = Todo.fetchRequest() // Todo型のフェッチリクエストを作成
     request.sortDescriptors = [/*NSSortDescriptor(keyPath: \Todo.name, ascending: true),*/
@@ -67,8 +79,9 @@ class TodoViewModel: ObservableObject {
     do {
       self.todos = try context.fetch(request) // フェッチに失敗した場合のエラーハンドリング
     } catch {
-      // handle error
-      print("Failed to fetch todos: \(error)")
+      self.errorShowing2 = true
+      self.errorTitle = "データの取得に失敗しました"
+      self.errorMessage = "再起動してください。"
     }
   }
   // END: GET TODOS
@@ -76,14 +89,10 @@ class TodoViewModel: ObservableObject {
   
   // MARK: - WRITE TODO
   func writeTodo(context : NSManagedObjectContext) {
-    print("呼び出し - writeTodo")
-    print(isEditing ?? "-X-")
     
     // ここで新規作成か編集かを判断する
     // MARK: - EDITING
     if isEditing != nil {  // 編集の場合
-      print("- 編集")
-      print(isEditing ?? "-X-")
       
       
       isEditing.name = name
@@ -94,8 +103,9 @@ class TodoViewModel: ObservableObject {
       do {
         try context.save()
       } catch {
-        print("writeTodo(1)でエラー")
-        print(error)
+        self.errorShowing1 = true
+        self.errorTitle = "データの保存に失敗しました."
+        self.errorMessage = "再度登録をしてください。"
       }
       
       isEditing = nil
@@ -113,12 +123,6 @@ class TodoViewModel: ObservableObject {
     
     // MARK: - NEW TODO
     // 新規作成の場合
-    print(name)
-    print(priority)
-    print(state)
-    print(deadline_date ?? "")
-    print(deadline_time ?? "")
-    //    resetData()
     
     let newTodo = Todo(context: context)
     newTodo.name = name
@@ -133,16 +137,19 @@ class TodoViewModel: ObservableObject {
       try context.save()
       isNewTodo.toggle()
       
-      name = ""
-      priority = ""
-      state = false
-      deadline_date = nil
-      deadline_time = nil
-      order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
+      
     } catch {
-      print("writeTodo(2)でエラー")
-      print(error.localizedDescription)
+      self.errorShowing1 = true
+      self.errorTitle = "データの保存に失敗しました。"
+      self.errorMessage = "再度登録をしてください。"
     }
+    name = ""
+    priority = ""
+    state = false
+    deadline_date = nil
+    deadline_time = nil
+    order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
+    //    resetForm()
     WidgetCenter.shared.reloadAllTimelines()
   } // END: WRITE TODO
   
@@ -166,7 +173,6 @@ class TodoViewModel: ObservableObject {
   
   // MARK: - RESET FORM
   func resetForm() {
-    print("呼び出し - resetForm")
     name = ""
     priority = ""
     state = false
@@ -177,23 +183,22 @@ class TodoViewModel: ObservableObject {
     order = todos.max(by: { a, b in a.order < b.order })?.order ?? 0
   }
   
-  // MARK: - DELETE TODO
+  // MARK: - TGGLE TODO
   func toggleTodoState(for todo: Todo) {
     todo.state.toggle()
     do {
       try context.save()
     } catch {
-      print("TodoItemView_toggleState: 保存できませんでした")
-      print(error)
+      self.errorShowing2 = true
+      self.errorTitle = "データの保存に失敗しました。"
+      self.errorMessage = "再度操作をしてください。"
     }
     WidgetCenter.shared.reloadAllTimelines()
   }
   
   // MARK: - TOGGLE TODO STATE BY ID
   func toggleTodoStateById(forTask id: String) {
-    print("呼び出し - toggleState")
     guard let uuid = UUID(uuidString: id) else {
-      print("Invalid UUID string: \(id)")
       return
     }
     
@@ -204,7 +209,7 @@ class TodoViewModel: ObservableObject {
       let matchingTodos = try context.fetch(fetchRequest)
       toggleTodoState(for: matchingTodos.first!)
     } catch {
-      print("Error toggling Todo state: \(error)")
+      return
     }
   }
   
@@ -217,8 +222,9 @@ class TodoViewModel: ObservableObject {
         try context.save()
       } catch {
         context.rollback()
-        print("ContentViewでエラー")
-        print(error.localizedDescription)
+        self.errorShowing2 = true
+        self.errorTitle = "データの削除に失敗しました。"
+        self.errorMessage = "再度操作をしてください。"
       }
     }
     WidgetCenter.shared.reloadAllTimelines()
@@ -227,13 +233,13 @@ class TodoViewModel: ObservableObject {
   // MARK: - DELETE ALL COMPLETED TODO
   func deleteAllCompletedTodo() {
     for todo in todos.filter({ $0.state }){
-      print("削除するtodo: \(todo.name!)")
       context.delete(todo)
       do {
         try context.save()
       } catch {
-        print("deleteAllCompletedTodoでエラー")
-        print(error.localizedDescription)
+        self.errorShowing2 = true
+        self.errorTitle = "データの削除に失敗しました。"
+        self.errorMessage = "再度操作をしてください。"
       }
     }
     WidgetCenter.shared.reloadAllTimelines()
@@ -249,8 +255,9 @@ class TodoViewModel: ObservableObject {
     do {
       try context.save()
     } catch {
-      print("moveTodoでエラー")
-      print(error.localizedDescription)
+      self.errorShowing2 = true
+      self.errorTitle = "データの移動に失敗しました。"
+      
     }
     WidgetCenter.shared.reloadAllTimelines()
   }

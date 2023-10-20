@@ -10,12 +10,9 @@ import CoreData
 import WidgetKit
 
 struct EfficioWidgetSmallView: View {
-  @Environment(\.managedObjectContext) private var viewContext
   @Environment(\.widgetFamily) var family
   @State var todos: [Todo]
   
-  // 端末の環境設定を取得
-    @Environment(\.colorScheme) var colorScheme
   
   var body: some View {
     VStack(alignment: .leading){
