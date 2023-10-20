@@ -155,10 +155,8 @@ class TodoViewModel: ObservableObject {
   
   // MARK: - EDIT TODO
   func editTodo(todo: Todo) {  // 編集ボタンを押した時に呼び出される
-    print("呼び出し - editTodo")
-    isEditing = todo  // 編集対象のTodoを受け取る
     
-    print(todo)
+    isEditing = todo  // 編集対象のTodoを受け取る
     
     name = todo.wrappedName
     priority = todo.wrappedPriority
