@@ -21,7 +21,7 @@ struct ContentView: View {
   // 端末の環境設定を取得
   @Environment(\.colorScheme) var colorScheme
   
-  
+
   // MARK: - BODY
   
   var body: some View {
@@ -50,8 +50,7 @@ struct ContentView: View {
           EmptyView(theme: theme)
         }
       }  // : ZSTACK
-      
-     
+    
       
       .overlay(
         // MARK: - FOOTER BUTTONS
@@ -150,6 +149,9 @@ struct ContentView: View {
         })
         
       }
+#if !os(macOS)
+
+//      .navigationViewStyle(StackNavigationViewStyle())
       .navigationBarTitle("Todo", displayMode: .inline)
       
       .navigationBarItems(
@@ -169,10 +171,12 @@ struct ContentView: View {
       )
       
       
+      
       .toolbarBackground(theme.backgroundColor,for: .navigationBar)
       .toolbarBackground(.visible, for: .navigationBar)
       .toolbarColorScheme(theme.determineTheFontColor(for: colorScheme) ? .dark : .light)
-      
+#endif
+
       // MARK: - ON APPEAR
       .onAppear {
         withAnimation(Animation.easeInOut(duration: 1.8).repeatForever(autoreverses: true)) {
@@ -190,6 +194,7 @@ struct ContentView: View {
     .onOpenURL(perform: { url in
           todoModel.isNewTodo = true
         })
+    .navigationViewStyle(StackNavigationViewStyle())
     
   } //: BODY
   

@@ -42,15 +42,22 @@ struct AddTodoView: View {
   
   let calendar = Calendar.current
   
+#if os(iOS)
   let width = Int(UIScreen.main.bounds.width)
   let height = Int(UIScreen.main.bounds.height)
+#elseif os(macOS)
+  let width = NSScreen.main?.frame.width ?? 0
+  let height = NSScreen.main?.frame.height ?? 0
+
+#endif
+ 
   // MARK: - BODY
   
   var body: some View {
     
     NavigationView{
       VStack {
-        VStack(alignment: .leading,spacing: 20) {  //画面全体を覆うスクロールリストの生成
+        VStack(alignment: .leading,spacing: 15) {  //画面全体を覆うスクロールリストの生成
           
           // MARK: - TODO NAME
           TextField("Todo", text: $todoModel.name)
@@ -71,7 +78,6 @@ struct AddTodoView: View {
             Text("優先度")
               .font(.footnote)
               .foregroundColor(theme.determineTheFontColor(for: colorScheme) ? .white : colorScheme == .dark ? .white : .black)
-            
             //MARK: - PRIORITY PICKER
             Picker("優先度", selection: $todoModel.priority){
               ForEach(priorities, id: \.self) {
@@ -93,7 +99,6 @@ struct AddTodoView: View {
               }
             }
           }
-          .padding(.horizontal, 12)
           .padding(.top, 5)
           
           // MARK: - TODO DEDLINE
@@ -125,7 +130,7 @@ struct AddTodoView: View {
               if dateSetting {
                 Rectangle()
                   .fill(theme.backgroundColor)
-                  .frame(width:10,height: 40)
+                  .frame(width:30,height: 40)
                   .overlay(
                 DatePicker(selection: Binding<Date>(
                   get: { self.todoModel.deadline_date ?? Date() },
@@ -275,7 +280,6 @@ struct AddTodoView: View {
           Button(action: {
             if todoModel.name != "" {
               todoModel.writeTodo(context: context)
-              
               UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
             } else {
               focusedField = nil
@@ -294,10 +298,11 @@ struct AddTodoView: View {
               .cornerRadius(9)
               .foregroundColor(theme.getSaveButtonForegroudColor() ? .black : colorScheme == .dark ? .black : .white)
           } //: SAVE BUTTON
-          .position(x: CGFloat(width/2 - 15), y: CGFloat(height/6 - 100))
           Spacer()
         } //: VSTACK
+//        .padding()
         .padding(.horizontal)
+        .padding(.top, 10)
         
       } // : VSTACK
      
@@ -320,7 +325,7 @@ struct AddTodoView: View {
       
       
     } // : NAVIGATION
-    
+    .navigationViewStyle(StackNavigationViewStyle())
     // MARK: - ALERT
     .alert(isPresented: $todoModel.errorShowing1) {
       Alert(title: Text(todoModel.errorTitle),

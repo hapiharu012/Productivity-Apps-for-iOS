@@ -20,7 +20,33 @@ struct EfficioWidgetRectangular: View {
       ForEach(todos.prefix(2), id: \.id) { todo in
         
         // MARK: - BUTTON
-        Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
+        if #available(iOS 17.0, *) {
+          Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
+            HStack {
+              Image(systemName: todo.state ? "checkmark.circle" : "circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 14)
+                .foregroundColor(Color("WidgetBackground"))
+              
+              Text(todo.name ?? "")
+                .font(.custom("HelveticaNeue", size: 15))
+                .foregroundColor(Color("WidgetBackground"))
+                .lineLimit(1)
+                .foregroundColor(todo.state ? Color.gray : Color.primary)
+                .strikethrough(todo.state)
+              
+              Spacer()
+              
+              
+            } //: HSTACK
+          }//: BUTTON
+          .buttonStyle(.plain)
+          .padding(.vertical, 2)
+          //        .widgetBackground(Color("WidgetBackground"))
+          .widgetBackground(Color("WidgetBackground"))
+        } else {
+          // Fallback on earlier versions
           HStack {
             Image(systemName: todo.state ? "checkmark.circle" : "circle")
               .resizable()
@@ -39,17 +65,15 @@ struct EfficioWidgetRectangular: View {
             
             
           } //: HSTACK
-        }//: BUTTON
-        .buttonStyle(.plain)
-        .padding(.vertical, 2)
-//        .widgetBackground(Color("WidgetBackground"))
-        .widgetBackground(Color("WidgetBackground"))
-        
+          .padding(.vertical, 2)
+          //        .widgetBackground(Color("WidgetBackground"))
+          .widgetBackground(Color("WidgetBackground"))
+        }
       } //: FOREACH
     }else {
       EmptyWidget(point: 13)
         .position(CGPoint(x: 56, y: 50))
-//        .widgetBackground(Color("BtoW"))
+      //        .widgetBackground(Color("BtoW"))
         .widgetBackground(Color("WidgetBackground"))
     }
     

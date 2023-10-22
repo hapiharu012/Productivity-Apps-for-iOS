@@ -57,7 +57,7 @@ struct SprashView: View {
   }
 }
 
-//
+
 //  struct SprashView_Previews: PreviewProvider {
 //      static var previews: some View {
 //        SprashView()
