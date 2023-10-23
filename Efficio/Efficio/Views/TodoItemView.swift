@@ -54,6 +54,11 @@ struct TodoItemView: View {
               Image(systemName: "clock")
               Text(calendar.formatTime(date: todo.deadline_time!))
             }
+          } else {
+            HStack {
+              Image(systemName: "clock")
+              Text("00時00分")
+            }.hidden()
           }
         }
         //フォントのサイズ変更
@@ -73,6 +78,17 @@ struct TodoItemView: View {
             Capsule().stroke(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black), lineWidth: 0.75)
               .opacity(0.5)
           )
+      } else {
+        Text(todo.priority ?? "")
+          .font(.footnote)
+          .opacity(0.5)
+          .padding(3)
+          .frame(minWidth: 62)
+          .overlay(
+            Capsule().stroke(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black), lineWidth: 0.75)
+              .opacity(0.5)
+          )
+          .hidden()
       }
     } //: HSTACK
     .background(.clear)

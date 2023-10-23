@@ -31,7 +31,7 @@ extension Calendar {
   // MARK: - FORMAT TIME
   func formatTime(date: Date) -> String {
     let formatter = DateFormatter()
-    formatter.dateFormat = "H時m分"
+    formatter.dateFormat = "H時mm分"
     formatter.locale = Locale(identifier: "ja_JP")
     return formatter.string(from: date)
   }

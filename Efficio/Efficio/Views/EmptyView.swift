@@ -40,7 +40,7 @@ struct EmptyView: View {
             .font(.title3)
             .foregroundColor(theme.determineEmptyViewFontColor(for: colorScheme) ? .black : theme.backgroundColor)
           (
-            Text("Todoリストの半分(50%)は手をつけられない、さらに残りの半分の半分(25%)は手をつければ5分以内で終わる様なタスクだと言われています。最低限をリストアップし今日の「")
+            Text("Todoリストに書いてあるタスクの中で無駄なタスクの割合です。Todoリストをつけた場合半分(50%)は手をつけられないタスク、さらに残りの半分の半分(25%)は手をつければ5分以内で終わる様なタスクだと言われています。最低限をリストアップし今日の「")
             +
             Text("マストワン")
               .bold()
