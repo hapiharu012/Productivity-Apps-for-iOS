@@ -16,6 +16,9 @@ struct EmptyWidget: View {
       .font(.system(size: point, weight: .light, design: .default))
       .foregroundStyle(.gray)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
+//      .widgetBackground(Color("BtoW"))
+      .widgetBackground(Color("WidgetBackground"))
+
   } //: BODY
 } //: VIEW
 

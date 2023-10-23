@@ -25,7 +25,8 @@ struct EfficioWidgetCircular: View {
                 .position(CGPoint(x: 33.0, y: 31.0))
               )
         } //: LINK
-        .widgetBackground(Color("BtoW"))
+//        .widgetBackground(Color("BtoW"))
+        .widgetBackground(Color("WidgetBackground"))
     } //: BODY
 } //: VIEW
 

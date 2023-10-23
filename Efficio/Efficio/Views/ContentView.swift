@@ -21,7 +21,7 @@ struct ContentView: View {
   // 端末の環境設定を取得
   @Environment(\.colorScheme) var colorScheme
   
-  
+
   // MARK: - BODY
   
   var body: some View {
@@ -50,94 +50,108 @@ struct ContentView: View {
           EmptyView(theme: theme)
         }
       }  // : ZSTACK
+    
       
+      .overlay(
+        // MARK: - FOOTER BUTTONS
+        VStack {
+          Spacer()
+          HStack{
+            //MARK: - DELETE COMPLETED TODOS BUTTON
+            if todoModel.todos.filter({ $0.state }).count > 0 { //実行済みのTodoがある場合のみ
+              ZStack{
+                Circle()
+                  .fill(.white)
+                  .opacity(0.6)
+                  .shadow(radius: 10)
+                  .frame(width: 60, height: 88, alignment: .center)
+                
+                Button(action: {  //実行済みのタスクを削除
+                  todoModel.deleteAllCompletedTodo()
+                }) {
+                  Image(systemName: "trash")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(theme.backgroundColor)
+                    .frame(width: 30, alignment: .center)
+                }
+              }
+              .padding(.leading, 17)
+  //            .position(x: -130, y: 680)
+            } //: DELETE COMPLETED TODOS BUTTON
+            else {
+              Spacer()
+            } //: ELSE
+            
+            Spacer()
+            
+            // MARK: - ADD BUTTON
+            ZStack {
+              // MARK: - BACKGROUND CIRCLE
+              Group {
+                Circle()
+                  .fill(LinearGradient(
+                    colors: [
+                      theme.accentColor,
+                      theme.backgroundColor
+                    ],
+                    startPoint: animatingButton ? .topLeading : .bottomLeading,
+                    endPoint: animatingButton ? .bottomTrailing : .topTrailing
+                  ))
+                  .contrast(5.0)
+                  .opacity(self.animatingButton ? 0.2 : 0)
+                  .scaleEffect(self.animatingButton ? 1 : 0)
+                  .frame(width: 68, height: 68, alignment: .center)
+                Circle()
+                  .fill(LinearGradient(
+                    colors: [
+                      theme.accentColor,
+                      theme.backgroundColor
+                    ],
+                    startPoint: animatingButton ? .topLeading : .bottomLeading,
+                    endPoint: animatingButton ? .bottomTrailing : .topTrailing
+                  ))
+                  .contrast(5.0)
+                  .opacity(self.animatingButton ? 0.15 : 0)
+                  .scaleEffect(self.animatingButton ? 1 : 0)
+                  .frame(width: 88, height: 88, alignment: .center)
+              } // :GROUP
+              
+              
+              // MARK: - ADD BUTTON
+              Button(action: {
+                todoModel.isNewTodo = true
+              }) {
+                Image(systemName: "plus.circle.fill")
+                  .resizable()
+                  .scaledToFit()
+                  .foregroundColor(theme.accentColor).contrast(1.5)
+                  .background(Circle().fill(theme.backgroundColor).frame(width: 30))
+                  .frame(width: 50, alignment: .center)
+                  .shadow(radius: animatingButton ? 6 : 0)
+              }
+            }//: ADD BUTTON
+  //          .position(x: 325, y: 680)
+            
+          } //: HSTACK
+        } //: FOOTER BUTTONS
+          .padding(.horizontal, 15)
+        
+      ) //: OVERLAY
       // MARK: - SHEET
       .sheet(isPresented: $todoModel.isNewTodo) {
         AddTodoView(todoModel: todoModel, theme: theme)
       }
-      
-      .overlay(
-        // MARK: - FOOTER BUTTONS
-        HStack{
-          // MARK: - ADD BUTTON
-          ZStack {
-            Group {
-              Circle()
-                .fill(LinearGradient(
-                  colors: [
-                    theme.accentColor,
-                    theme.backgroundColor
-                  ],
-                  startPoint: animatingButton ? .topLeading : .bottomLeading,
-                  endPoint: animatingButton ? .bottomTrailing : .topTrailing
-                )).contrast(5.0)
-                .opacity(self.animatingButton ? 0.2 : 0)
-                .scaleEffect(self.animatingButton ? 1 : 0)
-                .frame(width: 68, height: 68, alignment: .center)
-              Circle()
-                .fill(LinearGradient(
-                  colors: [
-                    theme.accentColor,
-                    theme.backgroundColor
-                  ],
-                  startPoint: animatingButton ? .topLeading : .bottomLeading,
-                  endPoint: animatingButton ? .bottomTrailing : .topTrailing
-                )).contrast(5.0)
-                .opacity(self.animatingButton ? 0.15 : 0)
-                .scaleEffect(self.animatingButton ? 1 : 0)
-                .frame(width: 88, height: 88, alignment: .center)
-            }// MARK: - BACKGROUND CIRCLE
-            
-            
-            
-            // MARK: - ADD BUTTON
-            Button(action: {
-              print("Before - todoModel.isNewTodo: \(todoModel.isNewTodo)")
-              todoModel.isNewTodo.toggle()
-              print("After - todoModel.isNewTodo: \(todoModel.isNewTodo)")
-            }) {
-              Image(systemName: "plus.circle.fill")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(theme.accentColor).contrast(1.5)
-                .background(Circle().fill(theme.backgroundColor))
-                .frame(width: 50, alignment: .center)
-                .shadow(radius: animatingButton ? 6 : 0)
-            } //: BUTTON
-            
-          }//: ADD BUTTON
-          .position(x: 325, y: 680)
-          
-          
-          
-          //MARK: - DELETE COMPLETED TODOS BUTTON
-          if todoModel.todos.filter({ $0.state }).count > 0 { //実行済みのTodoがある場合のみ
-            ZStack{
-              Circle()
-                .fill(.white)
-                .opacity(0.6)
-                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                .frame(width: 60, height: 88, alignment: .center)
-              
-              Button(action: {  //実行済みのタスクを削除
-                print("完了したTodoのみ削除")
-                todoModel.deleteAllCompletedTodo()
-              }) {
-                Image(systemName: "trash")
-                  .resizable()
-                  .scaledToFit()
-                  .foregroundColor(theme.backgroundColor)
-                  .frame(width: 30, alignment: .center)
-              }
-            }
-            .position(x: -130, y: 680)
-          } //: DELETE COMPLETED TODOS BUTTON
-          else {
-            SwiftUI.EmptyView()
-          } //: ELSE
-          
-        } //: FOOTER BUTTONS
-      ) //: OVERLAY
+      // MARK: - ALERT
+      .alert(isPresented: $todoModel.errorShowing2) {
+        Alert(title: Text(todoModel.errorTitle), message: Text(todoModel.errorMessage), dismissButton: .default(Text("OK")){
+          todoModel.errorShowing2 = false
+        })
+        
+      }
+#if !os(macOS)
+
+//      .navigationViewStyle(StackNavigationViewStyle())
       .navigationBarTitle("Todo", displayMode: .inline)
       
       .navigationBarItems(
@@ -153,12 +167,16 @@ struct ContentView: View {
           .sheet(isPresented: $showingSettingsView) {
             SettingsView(theme: theme)
           }
+        
       )
+      
+      
       
       .toolbarBackground(theme.backgroundColor,for: .navigationBar)
       .toolbarBackground(.visible, for: .navigationBar)
-      .toolbarColorScheme(theme.getNavigationForegroundColor(for: colorScheme) ? .dark : .light)
-      
+      .toolbarColorScheme(theme.determineTheFontColor(for: colorScheme) ? .dark : .light)
+#endif
+
       // MARK: - ON APPEAR
       .onAppear {
         withAnimation(Animation.easeInOut(duration: 1.8).repeatForever(autoreverses: true)) {
@@ -166,12 +184,17 @@ struct ContentView: View {
         }
       }
       
+      
       // MARK: - ON DISAPPEAR
       .onDisappear{
         self.animatingButton=false
       }
       
     } // : NAVIGATION
+    .onOpenURL(perform: { url in
+          todoModel.isNewTodo = true
+        })
+    .navigationViewStyle(StackNavigationViewStyle())
     
   } //: BODY
   

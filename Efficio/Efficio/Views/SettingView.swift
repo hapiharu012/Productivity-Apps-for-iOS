@@ -45,7 +45,6 @@ struct SettingsView: View {
                   self.theme.themeSettings = item.id
                   UserDefaults.standard.set(self.theme.themeSettings, forKey: "Theme")
                   self.isThemeChanged.toggle()
-                  //                  WidgetCenter.shared.reloadAllTimelines()
                 }) {
                   HStack {
                     Image(systemName: "circle.fill")
@@ -61,13 +60,7 @@ struct SettingsView: View {
           } //: THEME SECTION
           
           .padding(.vertical, 3)
-          .alert(isPresented: $isThemeChanged) {
-            Alert(
-              title: Text("テーマを変更しました。"),
-              message: Text("変更後 :  \(theme.themeName)"),
-              dismissButton: .default(Text("OK"))
-            )
-          }
+          
           
           // MARK: - ABOUT APP SECTION
           Section(header: Text("アプリケーションについて")) {
@@ -105,7 +98,15 @@ struct SettingsView: View {
     } //: NAVIGATION
     .navigationViewStyle(StackNavigationViewStyle())
     .accentColor(theme.backgroundColor)
-    
+    .alert(isPresented: $isThemeChanged) {
+      Alert(
+        title: Text("テーマを変更しました。"),
+        message: Text("変更後 :  \(theme.themeName)"),
+        dismissButton: .default(Text("OK"),action: {
+          isThemeChanged = false
+        })
+      )
+    }
     
   }//: BODY
 }//: SETTINGS
