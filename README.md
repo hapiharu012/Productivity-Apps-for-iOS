@@ -1,5 +1,6 @@
 # Efficio
 ## 目次
+1. [お知らせ](#お知らせ)
 1. [簡易紹介スライド](#今後実装予定)
 2. [概要](#概要)
 3. [きっかけ](#きっかけ)
@@ -9,6 +10,9 @@
 7. [言語](#言語)
 <hr>
 
+## お知らせ
+- 2023/10/24 AppStoreにリリースされました。
+  - [ダウンロード](https://apps.apple.com/jp/app/%E3%82%A8%E3%83%95%E3%82%A3%E3%82%B7%E3%82%AA-efficio-%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%8F%E3%81%AA%E3%82%8B%E7%94%9F%E7%94%A3%E6%80%A7%E5%90%91%E4%B8%8A%E3%82%A2%E3%83%97%E3%83%AA/id6470177037)
 ## 簡易紹介スライド
 ![I am Rich Image Assets](https://github.com/hapiharu012/Productivity-Apps-for-iOS/assets/120043995/f1404d62-31ae-4884-9171-e51ea591143a)
 ![IMG_5369](https://github.com/hapiharu012/Productivity-Apps-for-iOS/assets/120043995/e9d2007d-cfed-4c34-8707-e289befd1d70)
