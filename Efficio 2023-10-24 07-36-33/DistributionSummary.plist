@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Efficio.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>953E0DB4DC9F804136533B79584E13355023C758</string>
+				<key>dateExpires</key>
+				<string>2024/10/23</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>953E0DB4DC9F804136533B79584E13355023C758</string>
+						<key>dateExpires</key>
+						<string>2024/10/23</string>
+						<key>type</key>
+						<string>Cloud Managed Apple Distribution</string>
+					</dict>
+					<key>entitlements</key>
+					<dict>
+						<key>application-identifier</key>
+						<string>7Q258H3VNH.com.hapiharu8610.Efficio.EfficioWidget</string>
+						<key>com.apple.developer.team-identifier</key>
+						<string>7Q258H3VNH</string>
+						<key>com.apple.security.application-groups</key>
+						<array>
+							<string>group.hapiharu012.Efficio.app</string>
+						</array>
+						<key>get-task-allow</key>
+						<false/>
+					</dict>
+					<key>name</key>
+					<string>EfficioWidgetExtension.appex</string>
+					<key>profile</key>
+					<dict>
+						<key>UUID</key>
+						<string>89c56396-12bb-4cb7-be59-1bfd15bf6ea7</string>
+						<key>dateExpires</key>
+						<string>2024/10/23</string>
+						<key>name</key>
+						<string>iOS Team Ad Hoc Provisioning Profile: com.hapiharu8610.Efficio.EfficioWidget</string>
+					</dict>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>7Q258H3VNH</string>
+						<key>name</key>
+						<string>morishige haruto</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>1.0</string>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>7Q258H3VNH.com.hapiharu8610.Efficio</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>7Q258H3VNH</string>
+				<key>com.apple.security.application-groups</key>
+				<array>
+					<string>group.hapiharu012.Efficio.app</string>
+				</array>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>Efficio.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>ccaa1d9b-d7fe-4961-bb61-9abc8a02751a</string>
+				<key>dateExpires</key>
+				<string>2024/10/23</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: com.hapiharu8610.Efficio</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>7Q258H3VNH</string>
+				<key>name</key>
+				<string>morishige haruto</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>
