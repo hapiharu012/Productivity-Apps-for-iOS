@@ -40,10 +40,32 @@ extension Calendar {
     return formatter.string(from: date)
   }
   
-  func formatDate(_ date: Date?) -> String { // 日付を「○月○日(○)」の形式で返す
-    guard let date = date else { return "" }
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MM月dd日(E)"
-    return formatter.string(from: date)
+  func formatDate(_ date: Date?) -> String { // 日付を「○月○日」の形式で返す
+      guard let date = date else { return "" }
+      let calendar = Calendar.current
+      let f = DateFormatter()
+      f.locale = Locale(identifier: "ja_JP")
+      
+      if let diff = calendar.dateComponents([.day], from: calendar.startOfDay(for: Date()), to: calendar.startOfDay(for: date)).day {
+          switch diff {
+          case 0:
+              return "今日"
+          case 1:
+              return "明日"
+          case -1:
+              return "昨日"
+          case 2:
+              return "明後日"
+          case -2:
+              return "一昨日"
+          default:
+              f.dateFormat = "M月d日"
+              return f.string(from: date)
+          }
+      } else { // dateComponentsが何らかの理由でnilを返した場合
+          f.dateFormat = "M月d日"
+          return f.string(from: date)
+      }
   }
+  
 }

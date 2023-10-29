@@ -82,12 +82,23 @@ struct EfficioWidgetSmallView: View {
           .position(CGPoint(x: 56, y: 50))
       }
     } //: VSTACK
-    //    .widgetBackground(Color("BtoW"))
+    .paddingSettingsForEachOs()
     .widgetBackground(Color("WidgetBackground"))
   } //: BODY
   
   
 } //: VIEW
+
+private extension View {
+  @ViewBuilder
+  func paddingSettingsForEachOs() -> some View {
+    if #available(iOS 17.0, *) {
+      self.padding(0)
+    } else {
+      self.padding(15)
+      }
+    }
+  }
 //
 //
 //struct EfficioWidgetSmallView_Previews: PreviewProvider {
