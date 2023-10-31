@@ -30,7 +30,7 @@ struct EfficioWidgetRectangular: View {
                 .foregroundColor(Color("WidgetBackground"))
               
               Text(todo.name ?? "")
-                .font(.custom("HelveticaNeue", size: 15))
+                .font(.custom("HelveticaNeue", size: 13))
                 .foregroundColor(Color("WidgetBackground"))
                 .lineLimit(1)
                 .foregroundColor(todo.state ? Color.gray : Color.primary)
@@ -55,7 +55,7 @@ struct EfficioWidgetRectangular: View {
               .foregroundColor(Color("WidgetBackground"))
             
             Text(todo.name ?? "")
-              .font(.custom("HelveticaNeue", size: 15))
+              .font(.custom("HelveticaNeue", size: 13))
               .foregroundColor(Color("WidgetBackground"))
               .lineLimit(1)
               .foregroundColor(todo.state ? Color.gray : Color.primary)
@@ -66,7 +66,6 @@ struct EfficioWidgetRectangular: View {
             
           } //: HSTACK
           .padding(.vertical, 2)
-          //        .widgetBackground(Color("WidgetBackground"))
           .widgetBackground(Color("WidgetBackground"))
         }
       } //: FOREACH

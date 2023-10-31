@@ -29,7 +29,7 @@ struct ContentView: View {
       ZStack {
         List{
           ForEach(todoModel.todos, id: \.self) { todo in
-            TodoItemView(todoModel: todoModel, todo: todo)
+            TodoItemView(todoModel: todoModel, todo: todo, theme: theme)
               .padding(.vertical, 9)
           }// : FOREACH
           .onDelete(perform: todoModel.deleteTodo)

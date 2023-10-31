@@ -67,15 +67,6 @@
             ReferencedContainer = "container:Efficio.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "41810B6E2ABF67CE00ADBB9A"
-            BuildableName = "Efficio.app"
-            BlueprintName = "Efficio"
-            ReferencedContainer = "container:Efficio.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"

@@ -19,8 +19,7 @@ struct EfficioWidgetSmallView: View {
       Text("マイタスク")
         .font(.headline)
         .fontWeight(.bold)
-//        .position(CGPoint(x: 38, y: 25))
-        .padding(.top,3)
+        .foregroundStyle(Color("WidgetBackground"))
       
       if !todos.isEmpty {
         // MARK: - FOREACH
@@ -30,51 +29,13 @@ struct EfficioWidgetSmallView: View {
           if #available(iOS 17.0, *) {
             // MARK: - BUTTON
             Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
-              HStack {
-                Image(systemName: todo.state ? "checkmark.circle" : "circle")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 12)
-                  .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                
-                Text(todo.name ?? "")
-                  .font(.custom("HelveticaNeue", size: 13))
-                  .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                  .lineLimit(1)
-                  .foregroundColor(todo.state ? Color.gray : Color.primary)
-                  .strikethrough(todo.state)
-                
-                Spacer()
-                
-                Circle()
-                  .frame(width: 6, height: 12, alignment: .center)
-                  .foregroundColor(Utility.colorize(priority: todo.priority ?? ""))
-              } //: HSTACK
+              SmallWidgetTodoItemView(todo: todo)
             }//: BUTTON
             .buttonStyle(.plain)
             .padding(.vertical, 2)
             
           }else {
-            HStack {
-              Image(systemName: todo.state ? "checkmark.circle" : "circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 12)
-                .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-              
-              Text(todo.name ?? "")
-                .font(.custom("HelveticaNeue", size: 13))
-                .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                .lineLimit(1)
-                .foregroundColor(todo.state ? Color.gray : Color.primary)
-                .strikethrough(todo.state)
-              
-              Spacer()
-              
-              Circle()
-                .frame(width: 6, height: 12, alignment: .center)
-                .foregroundColor(Utility.colorize(priority: todo.priority ?? ""))
-            } //: HSTACK
+            SmallWidgetTodoItemView(todo: todo)
           }
         } //: FOREACH
       }else {
@@ -82,23 +43,14 @@ struct EfficioWidgetSmallView: View {
           .position(CGPoint(x: 56, y: 50))
       }
     } //: VSTACK
-    .paddingSettingsForEachOs()
+    .smallWidgetPaddingSettingsForEachOs()
     .widgetBackground(Color("WidgetBackground"))
   } //: BODY
   
   
 } //: VIEW
 
-private extension View {
-  @ViewBuilder
-  func paddingSettingsForEachOs() -> some View {
-    if #available(iOS 17.0, *) {
-      self.padding(0)
-    } else {
-      self.padding(15)
-      }
-    }
-  }
+
 //
 //
 //struct EfficioWidgetSmallView_Previews: PreviewProvider {

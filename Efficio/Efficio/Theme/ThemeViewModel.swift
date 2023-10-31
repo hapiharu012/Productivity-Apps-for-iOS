@@ -48,7 +48,7 @@ final public class ThemeViewModel: ObservableObject {
     }
   }
   
-  func determineEmptyViewFontColor(for colorScheme : ColorScheme) -> Bool {
+  func determineEmptyViewFontColor(for colorScheme: ColorScheme) -> Bool {
     if themeName == "リフレッシュ" {
       if colorScheme == .dark {
         return false // .dark: 白
@@ -67,6 +67,21 @@ final public class ThemeViewModel: ObservableObject {
     } else {
       return false
     }
+  }
+  
+  // MARK - GET TODO ITEM FOREGROUND COLOR
+  func getTodoItemForegroundColor(for colorScheme: ColorScheme) -> Bool {
+    if colorScheme == .dark {
+      if themeName == "リフレッシュ" ||
+          themeName == "フォレストクリーム" {
+        return false
+      } else {
+        return true
+      }
+    } else {
+      return false
+    }
+    
   }
   private init() {}
   public static let shared = ThemeViewModel()
