@@ -29,6 +29,7 @@
 		4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
 		4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */; };
 		41660FF92AD9B6ED00825DEB /* TodoToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */; };
+		416AB4302AF1694E00DD4F99 /* SettingFormRowLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AB42F2AF1694E00DD4F99 /* SettingFormRowLinkView.swift */; };
 		416E490E2AEF1574009F3A4E /* MediumWidgetTodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416E490D2AEF1574009F3A4E /* MediumWidgetTodoItemView.swift */; };
 		4179361B2ADF383E002E7136 /* SprashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179361A2ADF383E002E7136 /* SprashView.swift */; };
 		417D1B972AD058E10095EC66 /* EfficioWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D1B912AD0562B0095EC66 /* EfficioWidgetSmallView.swift */; };
@@ -102,6 +103,7 @@
 		4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4160D5812AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		416AB42F2AF1694E00DD4F99 /* SettingFormRowLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFormRowLinkView.swift; sourceTree = "<group>"; };
 		416E490D2AEF1574009F3A4E /* MediumWidgetTodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumWidgetTodoItemView.swift; sourceTree = "<group>"; };
 		4179361A2ADF383E002E7136 /* SprashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SprashView.swift; sourceTree = "<group>"; };
 		417D1B8C2AD00ECF0095EC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				41810B852ABF69E800ADBB9A /* AddTodoView.swift */,
 				41810B872ABF6ACC00ADBB9A /* EmptyView.swift */,
 				410944E12ADBE23F005820F0 /* SettingView.swift */,
+				416AB42F2AF1694E00DD4F99 /* SettingFormRowLinkView.swift */,
 				410944EA2ADBE960005820F0 /* SettingFormRowView.swift */,
 				4179361A2ADF383E002E7136 /* SprashView.swift */,
 			);
@@ -418,6 +421,7 @@
 			files = (
 				41810B7C2ABF67CF00ADBB9A /* Persistence.swift in Sources */,
 				41810B7F2ABF67CF00ADBB9A /* Efficio.xcdatamodeld in Sources */,
+				416AB4302AF1694E00DD4F99 /* SettingFormRowLinkView.swift in Sources */,
 				4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */,
 				41810B752ABF67CE00ADBB9A /* ContentView.swift in Sources */,
 				410944E02ADBD308005820F0 /* CustomToggleStyle.swift in Sources */,
@@ -634,7 +638,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Efficio/Efficio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Efficio/Preview Content\"";
 				DEVELOPMENT_TEAM = 7Q258H3VNH;
 				ENABLE_PREVIEWS = YES;
@@ -651,7 +655,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hapiharu8610.Efficio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -671,7 +675,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Efficio/Efficio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Efficio/Preview Content\"";
 				DEVELOPMENT_TEAM = 7Q258H3VNH;
 				ENABLE_PREVIEWS = YES;
@@ -688,7 +692,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hapiharu8610.Efficio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

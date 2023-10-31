@@ -65,9 +65,17 @@ struct SettingsView: View {
           // MARK: - ABOUT APP SECTION
           Section(header: Text("アプリケーションについて")) {
             SettingFormRowView(icon: "gear", firstText: "アプリケーション", secondText: "Efficio")
+            SettingFormRowLinkView(icon: "person.bubble", color: .pink, text: "問い合わせ", link: "https://docs.google.com/forms/d/e/1FAIpQLScSn_b26BJZBd7NgM2XPN-_oiEIzeDF9sqbOG_DW81hHDj5pw/viewform")
+            SettingFormRowLinkView(icon: "star", color: .blue, text: "AppStoreでレビューを書く", link: "review")
+            SettingFormRowLinkView(icon: "externaldrive.badge.icloud", color: .gray, text: "プライバシーポリシー", link: "https://www.notion.so/hapiharu012/Efficio-36096a247127491bb3f3c0f4da64da75?pvs=4")
+          } //: ABOUT APP SECTION
+          .padding(.vertical, 3)
+          .foregroundStyle(colorScheme == .dark ? .white : .black)
+          
+          Section {
             SettingFormRowView(icon: "checkmark.seal", firstText: "互換性", secondText: "iPhone, iPad")
             SettingFormRowView(icon: "keyboard", firstText: "開発者", secondText: "Haruto Morishige")
-            SettingFormRowView(icon: "flag", firstText: "バージョン", secondText: "1.0.0")
+            SettingFormRowView(icon: "flag", firstText: "バージョン", secondText: "1.1.0")
           } //: ABOUT APP SECTION
           .padding(.vertical, 3)
           .foregroundStyle(colorScheme == .dark ? .white : .black)
@@ -109,6 +117,7 @@ struct SettingsView: View {
     }
     
   }//: BODY
+ 
 }//: SETTINGS
 
 // MARK: - PREIVEW
