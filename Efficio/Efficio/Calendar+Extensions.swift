@@ -11,20 +11,29 @@ extension Calendar {
   
   // MARK: - FORMAT DATE
   func formatDateAndOptimization(date: Date) -> String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MM月dd日(E)"
-    formatter.locale = Locale(identifier: "ja_JP")
-    let today = Date()
-    let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
-    let dayAfterTomorrow = Calendar.current.date(byAdding: .day, value: 2, to: today)!
-    if formatter.string(from: date) == formatter.string(from: today) {
-      return "今日"
-    } else if formatter.string(from: date) == formatter.string(from: tomorrow) {
-      return "明日"
-    } else if formatter.string(from: date) == formatter.string(from: dayAfterTomorrow) {
-      return "明後日"
-    } else {
-      return formatter.string(from: date)
+    let calendar = Calendar.current
+    let f = DateFormatter()
+    f.locale = Locale(identifier: "ja_JP")
+    
+    if let diff = calendar.dateComponents([.day], from: calendar.startOfDay(for: Date()), to: calendar.startOfDay(for: date)).day {
+        switch diff {
+        case 0:
+            return "今日"
+        case 1:
+            return "明日"
+        case -1:
+            return "昨日"
+        case 2:
+            return "明後日"
+        case -2:
+            return "一昨日"
+        default:
+            f.dateFormat = "M月d日(E)"
+            return f.string(from: date)
+        }
+    } else { // dateComponentsが何らかの理由でnilを返した場合
+        f.dateFormat = "M月d日(E)"
+        return f.string(from: date)
     }
   }
   

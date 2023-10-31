@@ -20,7 +20,7 @@ struct EmptyView: View {
     // MARK: - ZSTACK
     
     ZStack {
-      VStack(alignment: .center, spacing: 20) {
+      VStack(alignment: .center, spacing: 10) {
         Image("back")
           .renderingMode(.template)
           .resizable()

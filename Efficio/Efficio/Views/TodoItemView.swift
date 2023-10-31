@@ -15,11 +15,13 @@ struct TodoItemView: View {
   
   let calendar = Calendar.current
   
-  
+  // THEME
+  @ObservedObject var theme: ThemeViewModel
+  @Environment(\.colorScheme) var colorScheme
   // MARK: - BODY
   
   var body: some View {
-    @Environment(\.colorScheme) var colorScheme
+    
     
     HStack {
       // MARK: - CHECKMARK
@@ -27,7 +29,7 @@ struct TodoItemView: View {
         .resizable()
         .scaledToFit()
         .frame(width: 20, height: 20)
-        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : .black))
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : theme.getTodoItemForegroundColor(for: colorScheme) ? .white : .black))
       // MARK: - CHECKMARK ONTAPGESTURE
         .onTapGesture {
           todoModel.toggleTodoState(for: todo)
@@ -35,8 +37,9 @@ struct TodoItemView: View {
         }
       // MARK: - TODO NAME
       Text(todo.wrappedName)
-        .font(.system(size: 14, weight: priorityJudgment(priority: todo.wrappedName) ? .bold : .medium, design: .none))
-        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black))
+        .font(.custom("HelveticaNeue", size: 15)).bold()
+      
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : theme.getTodoItemForegroundColor(for: colorScheme) ? .white : .black))
         .strikethrough(todo.state, color: .black)
         .offset(x: 10)
       Spacer()
@@ -62,8 +65,8 @@ struct TodoItemView: View {
           }
         }
         //フォントのサイズ変更
-        .font(.system(size: 10, weight: .medium, design: .none))
-        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : .black))
+        .font(.custom("HelveticaNeue", size: 11))
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : theme.getTodoItemForegroundColor(for: colorScheme) ? .white : .black))
         .opacity(0.5)
       }
       // MARK: - PRIORITY
@@ -135,7 +138,7 @@ struct TodoItemView: View {
 ////    todo.id = UUID()
 //
 ////    return TodoItemView(todoModel: TodoViewModel(), todo: todo)
-//    return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo)
+//    return TodoItemView(todoModel: TodoViewModel(context: PersistenceController.shared.container.viewContext), todo: todo,theme: ThemeViewModel.shared)
 //      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 //  }
 //}

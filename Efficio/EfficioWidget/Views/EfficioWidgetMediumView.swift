@@ -9,6 +9,8 @@ import SwiftUI
 import WidgetKit
 import CoreData
 
+let calendar = Calendar.current
+
 struct EfficioWidgetMediumView: View {
   @Environment(\.widgetFamily) var family
   @State var todos: [Todo]
@@ -17,142 +19,77 @@ struct EfficioWidgetMediumView: View {
   // 端末の環境設定を取得
   @Environment(\.colorScheme) var colorScheme
   
-  let calendar = Calendar.current
+  
   
   // MARK: - BODY
   
   var body: some View {
     
     // MARK: - HSTACK
-    HStack {
-      
-      VStack(alignment: .leading,spacing: 10){
-        Text("マイタスク")
-          .font(.system(size: 22,weight: .bold,design: .default))
-        HStack {
-          Text(calendar.formatDateTitleDay(Date()))
-            .font(.system(size: 22))
-          VStack(alignment: .leading) {
-            Text(calendar.formatDateTitleDayOfWeek(Date()))
-              .font(.system(size: 10))
-            Text(String(calendar.SameDayNum(todos: todos))+"件")
-              .font(.system(size: 8))
-          }//: VSTACK
+    GeometryReader { geometry in
+        HStack(spacing: geometry.size.width/35) {
           
-        } //: HSTACK
-        GeometryReader { geometry in
-          Link(destination: URL(string: "addTodo://")!) {
-            
-            Circle().fill()
-              .foregroundColor(Color("ItoW"))
-              .shadow(radius: 2)
-            
-              .overlay(
-                Image(systemName: "note.text.badge.plus")
-                  .resizable()
-                  .foregroundColor(Color("WtoB"))
-                  .scaledToFit()
-                  .padding(geometry.size.width / 27)
-                  .offset(x: geometry.size.width / 47, y: geometry.size.height / 37)
-                
-              )
-            
-              .position(CGPoint(x: geometry.size.width / 5.7, y: geometry.size.height / 1.9))
-          }//: LINK
-          .frame(width: geometry.size.width/0.3 ,height: geometry.size.height/1)
-          
-          //            .position(CGPoint(x: geometry.size.width / 2.3, y: geometry.size.height / 2.8))
-        }//: GEOMETRY READER
-      }//: VSTACK
-      
-      
-      VStack(alignment: .leading,spacing: 15) {
-        if !todos.isEmpty {
-          
-          // MARK: - FOREACH
-          ForEach(todos.prefix(4), id: \.id) { todo in
-            if #available(iOS 17.0, *) {
-              // MARK: - BUTTON
-              Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
-                HStack {
-                  Image(systemName: todo.state ? "checkmark.circle" : "circle")
+          VStack(alignment: .leading){
+            Text("マイタスク")
+              .font(.system(size: 22,weight: .bold,design: .default))
+              .foregroundStyle(Color("WidgetBackground"))
+            HStack {
+              Text(calendar.formatDateTitleDay(Date()))
+                .font(.system(size: 22))
+              VStack(alignment: .leading) {
+                Text(calendar.formatDateTitleDayOfWeek(Date()))
+                  .font(.system(size: 10))
+                Text(String(calendar.SameDayNum(todos: todos))+"件")
+                  .font(.system(size: 10))
+              }//: VSTACK
+              
+            } //: HSTACK
+            .foregroundStyle(Color("WidgetBackground"))
+            Spacer()
+            Link(destination: URL(string: "addTodo://")!) {
+              Circle().fill()
+                .foregroundColor(Color("ItoW"))
+                .shadow(radius: 2)
+                .frame(width:54,height: 55)
+                .overlay(
+                  Image(systemName: "note.text.badge.plus")
                     .resizable()
+                    .foregroundColor(Color("WtoB"))
                     .scaledToFit()
-                    .frame(width: 12)
-                    .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                  
-                  
-                  
-                  Group{
-                    Text(todo.name ?? "Unknown")
-                      .font(.custom("HelveticaNeue", size: 14))
-                      .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                    Spacer()
-                    
-                    Text(calendar.formatDate(todo.deadline_date))
-                      .font(.custom("HelveticaNeue", size: 10))
-                      .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                      .opacity(0.5)
-                    
-                    
-                    
-                    Circle()
-                      .frame(width: 7, height: 12, alignment: .center)
-                      .foregroundColor(Utility.colorize(priority: todo.priority ?? "中"))
-                  }.foregroundColor(todo.state ? Color.gray : Color.primary)
-                    .strikethrough(todo.state)
-                  
-                  
-                } //: HSTACK
-                
-              } //: BUTTON
-              .buttonStyle(.plain)
-            } else {
-              HStack {
-                Image(systemName: todo.state ? "checkmark.circle" : "circle")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 12)
-                  .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                
-                
-                
-                Group{
-                  Text(todo.name ?? "Unknown")
-                    .font(.custom("HelveticaNeue", size: 14))
-                    .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                  Spacer()
-                  
-                  Text(calendar.formatDate(todo.deadline_date))
-                    .font(.custom("HelveticaNeue", size: 10))
-                    .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
-                    .opacity(0.5)
-                  
-                  
-                  
-                  Circle()
-                    .frame(width: 7, height: 12, alignment: .center)
-                    .foregroundColor(Utility.colorize(priority: todo.priority ?? "中"))
-                }.foregroundColor(todo.state ? Color.gray : Color.primary)
-                  .strikethrough(todo.state)
-                
-                
-              } //: HSTACK
-            }
-          } //: FOREACH
-        }else {
+                    .frame(width:42)
+                    .offset(x:3,y:1)
+                )
+            }//: LINK
+          }//: VSTACK
           Spacer()
-          EmptyWidget(point: 17)
-        }
-      } //: VSTACK
-      
-      
-    } //: VSTACK
-    //      .widgetBackground(Color("BtoW"))
-    .widgetBackground(Color("WidgetBackground"))
-    
+          VStack(alignment: .leading,spacing: 19) {
+            if !todos.isEmpty {
+              // MARK: - FOREACH
+              ForEach(todos.prefix(4), id: \.id) { todo in
+                if #available(iOS 17.0, *) {
+                  // MARK: - BUTTON
+                  Button(intent: TodoToggleIntent(todo:todo.id!.uuidString)) {
+                    MediumWidgetTodoItemView(todo: todo)
+                  } //: BUTTON
+                  .buttonStyle(.plain)
+                } else {
+                  MediumWidgetTodoItemView(todo: todo)
+                }
+              } //: FOREACH
+            }else {
+              Spacer()
+              EmptyWidget(point: 17)
+            }
+          }  //: VSTACK
+        }  //: HSTACK
+      }
+
+      .widgetBackground(Color("WidgetBackground"))
+      .mediumWidgetPaddingSettingsForEachOs()
   } //: BODY
 } //: VIEW
+
+
 
 
 // MARK: - PREVIEW
