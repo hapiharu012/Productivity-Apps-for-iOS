@@ -29,21 +29,21 @@ private func formatDate(_ date: Date?) -> String {
   formatter.dateFormat = "MM月dd日"
   return formatter.string(from: date)
 }
-private func determiningPriority (priority: String) -> Bool {
+private func determiningPriority (priority: Int16) -> Bool {
   switch priority {
-  case "高":
+  case 3: // 高
     return true
   default:
     return false
   }
 }
-private func colorize(priority: String) -> Color {
+private func colorize(priority: Int16) -> Color {
 switch priority {
-case "高":
+case 3: // 高
   return .pink
-case "中":
+case 2: // 中
   return .green
-case "低":
+case 1: // 低
   return .blue
 default:
   return .clear
