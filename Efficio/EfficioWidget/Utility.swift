@@ -11,21 +11,21 @@ import CoreData
 
 
 struct Utility {
-  static func determiningPriority (priority: String) -> Bool {
+  static func determiningPriority (priority: Int16) -> Bool {
     switch priority {
-    case "高":
+    case 3: // 高
       return true
     default:
       return false
     }
   }
-  static func colorize(priority: String) -> Color {
+  static func colorize(priority: Int16) -> Color {
     switch priority {
-    case "高":
+    case 3: // 高
       return .pink
-    case "中":
+    case 2: // 中
       return .green
-    case "低":
+    case 1: // 低
       return .blue
     default:
       return .clear
@@ -38,7 +38,7 @@ struct Utility {
         todo.name = "タスク \(i)"
         todo.state = false
         todo.deadline_date = Date()
-        todo.priority = "中"
+        todo.priority = Int16(i) - 1
         todo.id = UUID()  // このid属性が必要です。
         // 他の属性もここで設定できます
         return todo
