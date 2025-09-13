@@ -24,7 +24,7 @@ struct PersistenceController {
     let newTodo = Todo(context: viewContext)
     newTodo.id = UUID()
     newTodo.name = "NewTodo"
-    newTodo.priority = ""
+    newTodo.priority = 1
     newTodo.state = false
     newTodo.deadline_date = Date()
     newTodo.deadline_time = Date()
