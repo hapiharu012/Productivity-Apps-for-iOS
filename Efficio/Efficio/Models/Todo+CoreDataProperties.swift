@@ -21,7 +21,7 @@ extension Todo {
   @NSManaged public var deadline_time: Date?
   @NSManaged public var id: UUID?
   @NSManaged public var name: String?
-  @NSManaged public var priority: String?
+  @NSManaged public var priority: Int16
   @NSManaged public var state: Bool
   @NSManaged public var order: Int16
   
@@ -31,7 +31,7 @@ extension Todo{
 //  public var wrappedDadeline: Date {deadline ?? Date()}
   public var wrappedId: UUID {id ?? UUID()}
   public var wrappedName: String {name ?? ""}
-  public var wrappedPriority: String {priority ?? "中"}
+  public var wrappedPriority: Int16 {priority}
 }
 
 extension Todo : Identifiable {
