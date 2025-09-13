@@ -18,7 +18,7 @@ class TodoViewModel: ObservableObject {
   
   // todoのプロパティ
   @Published var name = ""
-  @Published var priority = "" {
+  @Published var priority: Int16 = 0 {
     didSet {
       generateHapticFeedback()
     }
@@ -112,7 +112,7 @@ class TodoViewModel: ObservableObject {
       isNewTodo.toggle()
       
       name = ""
-      priority = ""
+      priority = 0
       state = false
       deadline_date = nil
       deadline_time = nil
@@ -144,7 +144,7 @@ class TodoViewModel: ObservableObject {
       self.errorMessage = "再度登録をしてください。"
     }
     name = ""
-    priority = ""
+    priority = 0
     state = false
     deadline_date = nil
     deadline_time = nil
@@ -172,7 +172,7 @@ class TodoViewModel: ObservableObject {
   // MARK: - RESET FORM
   func resetForm() {
     name = ""
-    priority = ""
+    priority = 0
     state = false
     deadline_date =  nil
     deadline_time = nil
