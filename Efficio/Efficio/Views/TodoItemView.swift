@@ -29,7 +29,7 @@ struct TodoItemView: View {
         .resizable()
         .scaledToFit()
         .frame(width: 20, height: 20)
-        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : theme.getTodoItemForegroundColor(for: colorScheme) ? .white : .black))
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : theme.getTodoItemForegroundColor(for: colorScheme) ? .white : .black))
       // MARK: - CHECKMARK ONTAPGESTURE
         .onTapGesture {
           todoModel.toggleTodoState(for: todo)
@@ -70,8 +70,8 @@ struct TodoItemView: View {
         .opacity(0.5)
       }
       // MARK: - PRIORITY
-      if todo.priority != "" {
-        Text(todo.priority ?? "")
+      if todo.priority != 0 {
+        Text(priorityText(for: todo.priority))
           .font(.footnote)
           .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black))
           .opacity(0.5)
@@ -82,7 +82,7 @@ struct TodoItemView: View {
               .opacity(0.5)
           )
       } else {
-        Text(todo.priority ?? "")
+        Text(priorityText(for: todo.priority))
           .font(.footnote)
           .opacity(0.5)
           .padding(3)
@@ -107,12 +107,21 @@ struct TodoItemView: View {
   
   
 // MARK: - PRIORITY JUDGMENT
-  private func priorityJudgment (priority: String) -> Bool {
+  private func priorityJudgment (priority: Int16) -> Bool {
     switch priority {
-    case "高":
+    case 3: // 高
       return true
     default:
       return false
+    }
+  }
+  
+  private func priorityText(for priority: Int16) -> String {
+    switch priority {
+    case 3: return "高"
+    case 2: return "中"
+    case 1: return "低"
+    default: return "なし"
     }
   }
   
