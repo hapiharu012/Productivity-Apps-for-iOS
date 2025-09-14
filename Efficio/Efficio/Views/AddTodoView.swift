@@ -120,7 +120,7 @@ struct AddTodoView: View {
       
       Picker("優先度", selection: $todoModel.priority) {
         ForEach(priorities, id: \.self) { priorityValue in
-            Text(priorityText(for: Int16(priorityValue)))
+            Text(PriorityUtils.priorityText(for: Int16(priorityValue)))
                 .tag(Int16(priorityValue))
         }
         .font(.footnote)
@@ -394,14 +394,6 @@ struct AddTodoView: View {
   }
   
   // MARK: - HELPER FUNCTIONS
-  private func priorityText(for priority: Int16) -> String {
-    switch priority {
-    case 3: return "高"
-    case 2: return "中"
-    case 1: return "低"
-    default: return "なし"
-    }
-  }
 } //: VIEW
 
 // MARK: - PREVIEW

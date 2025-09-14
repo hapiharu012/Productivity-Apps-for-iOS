@@ -71,7 +71,7 @@ struct TodoItemView: View {
       }
       // MARK: - PRIORITY
       if todo.priority != 0 {
-        Text(priorityText(for: todo.priority))
+        Text(PriorityUtils.priorityText(for: todo.priority))
           .font(.footnote)
           .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black))
           .opacity(0.5)
@@ -82,7 +82,7 @@ struct TodoItemView: View {
               .opacity(0.5)
           )
       } else {
-        Text(priorityText(for: todo.priority))
+        Text(PriorityUtils.priorityText(for: todo.priority))
           .font(.footnote)
           .opacity(0.5)
           .padding(3)
@@ -108,22 +108,9 @@ struct TodoItemView: View {
   
 // MARK: - PRIORITY JUDGMENT
   private func priorityJudgment (priority: Int16) -> Bool {
-    switch priority {
-    case 3: // 高
-      return true
-    default:
-      return false
-    }
+    return priority == 3
   }
   
-  private func priorityText(for priority: Int16) -> String {
-    switch priority {
-    case 3: return "高"
-    case 2: return "中"
-    case 1: return "低"
-    default: return "なし"
-    }
-  }
   
 } //: TODOITEMVIEW
 

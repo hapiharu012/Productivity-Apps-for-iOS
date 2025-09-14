@@ -54,6 +54,8 @@
 		41E0A13F2AC9D97700D41144 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
 		41E0AC642AD99B4900FDC9E2 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
 		41F7BB842AD5577300C7E782 /* EfficioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B722ABF67CE00ADBB9A /* EfficioApp.swift */; };
+		64436A342E773B94003F3713 /* PriorityUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64436A322E773B94003F3713 /* PriorityUtils.swift */; };
+		64436A352E773B94003F3713 /* PriorityUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64436A322E773B94003F3713 /* PriorityUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +125,7 @@
 		41D086852AF14865005E63EB /* SmallWidgetTodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetTodoItemView.swift; sourceTree = "<group>"; };
 		41DAE1F42ADD330F006EC850 /* EfficioWidgetRectangular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidgetRectangular.swift; sourceTree = "<group>"; };
 		41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoToggle.swift; sourceTree = "<group>"; };
+		64436A322E773B94003F3713 /* PriorityUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +260,7 @@
 				415B22072AC9BFFB006CC1E8 /* Efficio.entitlements */,
 				41810B722ABF67CE00ADBB9A /* EfficioApp.swift */,
 				4118D6402ADEEDB60034938A /* Calendar+Extensions.swift */,
+				64436A332E773B94003F3713 /* Utils */,
 				4160D5862AC1F3B300B99F6A /* Views */,
 				4160D5852AC1F39900B99F6A /* ViewModels */,
 				4160D5842AC1F38200B99F6A /* Models */,
@@ -287,6 +291,14 @@
 				414A6B262ACFB8F9002DFCA1 /* EmptyWidget.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		64436A332E773B94003F3713 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				64436A322E773B94003F3713 /* PriorityUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,6 +424,7 @@
 				41A611B52ADC0B18009DC661 /* ThemeViewModel.swift in Sources */,
 				413283622ADDA6DE00EBCF1C /* EfficioWidgetCircular.swift in Sources */,
 				414A6B282ACFBAB5002DFCA1 /* EmptyWidget.swift in Sources */,
+				64436A342E773B94003F3713 /* PriorityUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +441,7 @@
 				4118D6412ADEEDB60034938A /* Calendar+Extensions.swift in Sources */,
 				4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */,
 				4179361B2ADF383E002E7136 /* SprashView.swift in Sources */,
+				64436A352E773B94003F3713 /* PriorityUtils.swift in Sources */,
 				410944E72ADBE2D7005820F0 /* ThemeData.swift in Sources */,
 				41810B882ABF6ACC00ADBB9A /* EmptyView.swift in Sources */,
 				410944E52ADBE2B6005820F0 /* ThemeModel.swift in Sources */,
