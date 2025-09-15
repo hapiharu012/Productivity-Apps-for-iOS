@@ -121,7 +121,7 @@ struct TodoItemView: View {
 //  static var previews: some View {
 //    let todo = Todo(context: PersistenceController.preview.container.viewContext)
 //    todo.name = "サンプルTodo"
-//    todo.priority = "中"
+//    todo.priority = 1
 //    todo.state = false
 //    todo.deadline_date = Date()
 //    todo.deadline_time = Date()
