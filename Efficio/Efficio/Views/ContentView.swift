@@ -57,9 +57,9 @@ struct ContentView: View {
           theme: theme
         )
         
-        if todoModel.todos.count == 0 {
-          EmptyView(theme: theme)
-        }
+//        if todoModel.todos.count == 0 {
+//          EmptyView(theme: theme)
+//        }
       }  // : ZSTACK
     
       
@@ -128,24 +128,35 @@ struct TodoListView: View {
     static let todoRowPadding: CGFloat = 10
     static let todoRowMinHeight: CGFloat = 60
     static let todoRowCornerRadius: CGFloat = 10
+    static let filterSectionPadding: CGFloat = 16
+    static let filterButtonSpacing: CGFloat = 8
+    static let filterButtonHeight: CGFloat = 36
+    static let filterButtonCornerRadius: CGFloat = 18
   }
   
   var body: some View {
-    List {
-      ForEach(todoModel.todos, id: \.self) { todo in
-        TodoItemView(todoModel: todoModel, todo: todo, theme: theme)
-          .padding(.vertical, Constants.todoItemVerticalPadding)
+    VStack(spacing: 0) {
+      // フィルターセクション
+      FilterSectionView(theme: theme)
+        .background(theme.backgroundColor)
+      
+      // Todoリスト
+      List {
+        ForEach(todoModel.todos, id: \.self) { todo in
+          TodoItemView(todoModel: todoModel, todo: todo, theme: theme)
+            .padding(.vertical, Constants.todoItemVerticalPadding)
+        }
+        .onDelete(perform: todoModel.deleteTodo)
+        .onMove(perform: todoModel.moveTodo)
+        .padding(.all, Constants.todoRowPadding)
+        .frame(maxWidth: .infinity, minHeight: Constants.todoRowMinHeight)
+        .background(theme.rowColor.opacity(1))
+        .listRowBackground(theme.backgroundColor)
+        .listRowSeparator(.hidden)
+        .cornerRadius(Constants.todoRowCornerRadius)
       }
-      .onDelete(perform: todoModel.deleteTodo)
-      .onMove(perform: todoModel.moveTodo)
-      .padding(.all, Constants.todoRowPadding)
-      .frame(maxWidth: .infinity, minHeight: Constants.todoRowMinHeight)
-      .background(theme.rowColor.opacity(1))
-      .listRowBackground(theme.backgroundColor)
-      .listRowSeparator(.hidden)
-      .cornerRadius(Constants.todoRowCornerRadius)
+      .listStyle(.plain)
     }
-    .listStyle(.plain)
     .background(theme.backgroundColor)
   }
 }
@@ -271,6 +282,80 @@ struct AddButtonView: View {
           .shadow(radius: animatingButton ? Constants.addButtonShadowRadius : 0)
       }
     }
+  }
+}
+
+struct FilterSectionView: View {
+  let theme: ThemeViewModel
+  @State private var selectedFilter: FilterType = .all
+  
+  enum FilterType: String, CaseIterable {
+    case all = "すべて"
+    case completed = "完了済み"
+    case pending = "未完了"
+    case high = "高"
+    case medium = "中"
+    case low = "低"
+  }
+  
+  private enum Constants {
+    static let filterButtonHeight: CGFloat = 32
+    static let filterButtonCornerRadius: CGFloat = 16
+    static let filterButtonSpacing: CGFloat = 6
+    static let horizontalPadding: CGFloat = 20
+    static let verticalPadding: CGFloat = 8
+  }
+  
+  var body: some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack(spacing: Constants.filterButtonSpacing) {
+        ForEach(FilterType.allCases, id: \.self) { filter in
+          FilterButton(
+            title: filter.rawValue,
+            isSelected: selectedFilter == filter,
+            theme: theme
+          ) {
+            selectedFilter = filter
+          }
+        }
+      }
+      .padding(.horizontal, Constants.horizontalPadding)
+    }
+    .padding(.vertical, Constants.verticalPadding)
+  }
+}
+
+struct FilterButton: View {
+  let title: String
+  let isSelected: Bool
+  let theme: ThemeViewModel
+  let action: () -> Void
+  
+  private enum Constants {
+    static let buttonHeight: CGFloat = 32
+    static let buttonCornerRadius: CGFloat = 16
+    static let horizontalPadding: CGFloat = 12
+    static let fontSize: CGFloat = 13
+    static let fontWeight: Font.Weight = .medium
+  }
+  
+  var body: some View {
+    Button(action: action) {
+      Text(title)
+        .font(.system(size: Constants.fontSize, weight: Constants.fontWeight))
+        .foregroundColor(isSelected ? .white : theme.determineTheFontColor(for: .dark) ? .white.opacity(0.7) : .black.opacity(0.7))
+        .padding(.horizontal, Constants.horizontalPadding)
+        .frame(height: Constants.buttonHeight)
+        .background(
+          RoundedRectangle(cornerRadius: Constants.buttonCornerRadius)
+            .fill(isSelected ? theme.accentColor : Color.clear)
+            .overlay(
+              RoundedRectangle(cornerRadius: Constants.buttonCornerRadius)
+                .stroke(theme.determineTheFontColor(for: .dark) ? Color.white.opacity(0.2) : Color.black.opacity(0.2), lineWidth: 1)
+            )
+        )
+    }
+    .buttonStyle(PlainButtonStyle())
   }
 }
 
