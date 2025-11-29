@@ -84,5 +84,11 @@ final public class ThemeViewModel: ObservableObject {
     
   }
   private init() {}
+
+  // MARK: - Preview Init
+  internal init(forPreview themeIndex: Int) {
+    self.themeSettings = themeIndex
+  }
+
   public static let shared = ThemeViewModel()
 }

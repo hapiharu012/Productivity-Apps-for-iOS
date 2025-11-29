@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		410944E02ADBD308005820F0 /* CustomToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944DF2ADBD308005820F0 /* CustomToggleStyle.swift */; };
 		410944E52ADBE2B6005820F0 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E42ADBE2B6005820F0 /* ThemeModel.swift */; };
 		410944E72ADBE2D7005820F0 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E62ADBE2D7005820F0 /* ThemeData.swift */; };
 		410944E92ADBE2F9005820F0 /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410944E82ADBE2F9005820F0 /* ThemeViewModel.swift */; };
@@ -46,8 +47,10 @@
 		41E0A13F2AC9D97700D41144 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D5802AC1E1CF00B99F6A /* Todo+CoreDataClass.swift */; };
 		41E0AC642AD99B4900FDC9E2 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D57E2AC152EF00B99F6A /* TodoViewModel.swift */; };
 		41F7BB842AD5577300C7E782 /* EfficioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41810B722ABF67CE00ADBB9A /* EfficioApp.swift */; };
+		642723172EC849020064C475 /* FilterDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642723162EC849020064C475 /* FilterDropdownView.swift */; };
 		6431A1832EC9C9F000C6E34A /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431A1822EC9C9F000C6E34A /* TodoItemView.swift */; };
 		6431A1842EC9C9F000C6E34A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431A17F2EC9C9F000C6E34A /* SettingView.swift */; };
+		6431A1852EC9C9F000C6E34A /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431A1812EC9C9F000C6E34A /* TodoDetailView.swift */; };
 		6431A1862EC9C9F000C6E34A /* AddTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431A1772EC9C9F000C6E34A /* AddTodoView.swift */; };
 		6431A1872EC9C9F000C6E34A /* FilterDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431A17A2EC9C9F000C6E34A /* FilterDropdownView.swift */; };
 		6431A1882EC9C9F000C6E34A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431A1782EC9C9F000C6E34A /* ContentView.swift */; };
@@ -92,6 +95,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		410944DF2ADBD308005820F0 /* CustomToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleStyle.swift; sourceTree = "<group>"; };
 		410944E42ADBE2B6005820F0 /* ThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
 		410944E62ADBE2D7005820F0 /* ThemeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeData.swift; sourceTree = "<group>"; };
 		410944E82ADBE2F9005820F0 /* ThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewModel.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 		41D086852AF14865005E63EB /* SmallWidgetTodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetTodoItemView.swift; sourceTree = "<group>"; };
 		41DAE1F42ADD330F006EC850 /* EfficioWidgetRectangular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfficioWidgetRectangular.swift; sourceTree = "<group>"; };
 		41F7BB802AD53CBD00C7E782 /* TodoToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoToggle.swift; sourceTree = "<group>"; };
+		642723162EC849020064C475 /* FilterDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDropdownView.swift; sourceTree = "<group>"; };
 		6431A1772EC9C9F000C6E34A /* AddTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoView.swift; sourceTree = "<group>"; };
 		6431A1782EC9C9F000C6E34A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6431A1792EC9C9F000C6E34A /* CustomToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleStyle.swift; sourceTree = "<group>"; };
@@ -135,6 +140,7 @@
 		6431A17E2EC9C9F000C6E34A /* SettingFormRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFormRowView.swift; sourceTree = "<group>"; };
 		6431A17F2EC9C9F000C6E34A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		6431A1802EC9C9F000C6E34A /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		6431A1812EC9C9F000C6E34A /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
 		6431A1822EC9C9F000C6E34A /* TodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemView.swift; sourceTree = "<group>"; };
 		64436A322E773B94003F3713 /* PriorityUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityUtils.swift; sourceTree = "<group>"; };
 		6465688A2EC9C3D80086CBD7 /* EfficioTodoTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EfficioTodoTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +176,8 @@
 		410944DE2ADBD2EA005820F0 /* CustomStyle */ = {
 			isa = PBXGroup;
 			children = (
+				642723162EC849020064C475 /* FilterDropdownView.swift */,
+				410944DF2ADBD308005820F0 /* CustomToggleStyle.swift */,
 			);
 			path = CustomStyle;
 			sourceTree = "<group>";
@@ -245,6 +253,7 @@
 				6431A17E2EC9C9F000C6E34A /* SettingFormRowView.swift */,
 				6431A17F2EC9C9F000C6E34A /* SettingView.swift */,
 				6431A1802EC9C9F000C6E34A /* SwiftUIView.swift */,
+				6431A1812EC9C9F000C6E34A /* TodoDetailView.swift */,
 				6431A1822EC9C9F000C6E34A /* TodoItemView.swift */,
 				410944DE2ADBD2EA005820F0 /* CustomStyle */,
 				4179361A2ADF383E002E7136 /* SprashView.swift */,
@@ -497,10 +506,12 @@
 				41810B7C2ABF67CF00ADBB9A /* Persistence.swift in Sources */,
 				41810B7F2ABF67CF00ADBB9A /* Efficio.xcdatamodeld in Sources */,
 				4160D5822AC1E1CF00B99F6A /* Todo+CoreDataClass.swift in Sources */,
+				410944E02ADBD308005820F0 /* CustomToggleStyle.swift in Sources */,
 				4118D6412ADEEDB60034938A /* Calendar+Extensions.swift in Sources */,
 				4160D5832AC1E1CF00B99F6A /* Todo+CoreDataProperties.swift in Sources */,
 				6431A1832EC9C9F000C6E34A /* TodoItemView.swift in Sources */,
 				6431A1842EC9C9F000C6E34A /* SettingView.swift in Sources */,
+				6431A1852EC9C9F000C6E34A /* TodoDetailView.swift in Sources */,
 				6431A1862EC9C9F000C6E34A /* AddTodoView.swift in Sources */,
 				6431A1872EC9C9F000C6E34A /* FilterDropdownView.swift in Sources */,
 				6431A1882EC9C9F000C6E34A /* ContentView.swift in Sources */,
@@ -512,6 +523,7 @@
 				4179361B2ADF383E002E7136 /* SprashView.swift in Sources */,
 				64436A352E773B94003F3713 /* PriorityUtils.swift in Sources */,
 				410944E72ADBE2D7005820F0 /* ThemeData.swift in Sources */,
+				642723172EC849020064C475 /* FilterDropdownView.swift in Sources */,
 				410944E52ADBE2B6005820F0 /* ThemeModel.swift in Sources */,
 				41660FF92AD9B6ED00825DEB /* TodoToggle.swift in Sources */,
 				41E0AC642AD99B4900FDC9E2 /* TodoViewModel.swift in Sources */,
@@ -727,7 +739,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Efficio/Efficio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0.0;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Efficio/Preview Content\"";
 				DEVELOPMENT_TEAM = 7Q258H3VNH;
 				ENABLE_PREVIEWS = YES;
@@ -744,7 +756,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hapiharu8610.Efficio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -763,7 +775,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Efficio/Efficio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0.0;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Efficio/Preview Content\"";
 				DEVELOPMENT_TEAM = 7Q258H3VNH;
 				ENABLE_PREVIEWS = YES;
@@ -780,7 +792,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hapiharu8610.Efficio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
