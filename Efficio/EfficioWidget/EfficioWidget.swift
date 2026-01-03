@@ -67,31 +67,35 @@ struct EfficioWidgetEntryView : View {
   @Environment(\.widgetFamily) var family
   @FetchRequest(entity: Todo.entity(),
                sortDescriptors: [
-                 NSSortDescriptor(keyPath: \Todo.order, ascending: true),
-                 NSSortDescriptor(keyPath: \Todo.state, ascending: true)
+                 NSSortDescriptor(keyPath: \Todo.order, ascending: true)
                ]
   ) var todos:FetchedResults<Todo>
-  
-  
+
+
 //  var todos = TodoViewModel(context: PersistenceController.shared.container.viewContext).todos
-  
+
+  // アプリの設定に基づいてフィルタリング・ソートされたTodo
+  private var filteredAndSortedTodos: [Todo] {
+    Utility.filterAndSortTodos(Array(todos))
+  }
+
   //MARK: - BODY
   var body: some View {
     //MARK: - SWITCH
     switch family {
     case .systemSmall:
-      EfficioWidgetSmallView(todos: Array(todos))
+      EfficioWidgetSmallView(todos: filteredAndSortedTodos)
     case .systemMedium:
-      EfficioWidgetMediumView(todos: Array(todos))
+      EfficioWidgetMediumView(todos: filteredAndSortedTodos)
     case .accessoryCircular:
       EfficioWidgetCircular()
     case .accessoryRectangular:
-      EfficioWidgetRectangular(todos: Array(todos))
+      EfficioWidgetRectangular(todos: filteredAndSortedTodos)
     default:
       fatalError()
     }
   }
-    
+
 }
 
 

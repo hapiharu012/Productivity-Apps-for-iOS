@@ -19,8 +19,13 @@ struct SettingsView: View {
   
   // 端末の環境設定を取得
   @Environment(\.colorScheme) var colorScheme
-  
-  
+
+  // アプリバージョンを取得
+  private var appVersion: String {
+    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "不明"
+    return version
+  }
+
   // MARK: - BODY
   var body: some View {
     NavigationView {
@@ -43,7 +48,6 @@ struct SettingsView: View {
               ForEach(theme.themes, id: \.id) { item in
                 Button(action: {
                   self.theme.themeSettings = item.id
-                  UserDefaults.standard.set(self.theme.themeSettings, forKey: "Theme")
                   self.isThemeChanged.toggle()
                 }) {
                   HStack {
@@ -75,7 +79,7 @@ struct SettingsView: View {
           Section {
             SettingFormRowView(icon: "checkmark.seal", firstText: "互換性", secondText: "iPhone, iPad")
             SettingFormRowView(icon: "keyboard", firstText: "開発者", secondText: "Haruto Morishige")
-            SettingFormRowView(icon: "flag", firstText: "バージョン", secondText: "1.1.0")
+            SettingFormRowView(icon: "flag", firstText: "バージョン", secondText: appVersion)
           } //: ABOUT APP SECTION
           .padding(.vertical, 3)
           .foregroundStyle(colorScheme == .dark ? .white : .black)

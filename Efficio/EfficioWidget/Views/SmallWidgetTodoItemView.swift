@@ -15,11 +15,11 @@ struct SmallWidgetTodoItemView: View {
         .resizable()
         .scaledToFit()
         .frame(width: 12)
-        .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
+        .foregroundColor(Utility.determiningPriority(priority: todo.priority) ? Color("priority_high") : Color("WidgetBackground"))
       
       Text(todo.name ?? "")
         .font(.custom("HelveticaNeue", size: 12))
-        .foregroundColor(Utility.determiningPriority(priority: todo.priority!) ? Color("priority_high") : Color("WidgetBackground"))
+        .foregroundColor(Utility.determiningPriority(priority: todo.priority) ? Color("priority_high") : Color("WidgetBackground"))
         .lineLimit(1)
         .foregroundColor(todo.state ? Color.gray : Color.primary)
         .strikethrough(todo.state)
@@ -28,7 +28,7 @@ struct SmallWidgetTodoItemView: View {
       
       Circle()
         .frame(width: 6, height: 12, alignment: .center)
-        .foregroundColor(Utility.colorize(priority: todo.priority ?? ""))
+        .foregroundColor(Utility.colorize(priority: todo.priority))
     } //: HSTACK
   } //: BODY
 } //: TODO ITEM VIEW

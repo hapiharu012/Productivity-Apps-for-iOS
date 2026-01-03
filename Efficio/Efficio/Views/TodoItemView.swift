@@ -29,7 +29,7 @@ struct TodoItemView: View {
         .resizable()
         .scaledToFit()
         .frame(width: 20, height: 20)
-        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedName) ? .red : theme.getTodoItemForegroundColor(for: colorScheme) ? .white : .black))
+        .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? .red : theme.getTodoItemForegroundColor(for: colorScheme) ? .white : .black))
       // MARK: - CHECKMARK ONTAPGESTURE
         .onTapGesture {
           todoModel.toggleTodoState(for: todo)
@@ -70,8 +70,8 @@ struct TodoItemView: View {
         .opacity(0.5)
       }
       // MARK: - PRIORITY
-      if todo.priority != "" {
-        Text(todo.priority ?? "")
+      if todo.priority != 0 {
+        Text(PriorityUtils.priorityText(for: todo.priority))
           .font(.footnote)
           .foregroundColor(todo.state ? .gray : (priorityJudgment(priority: todo.wrappedPriority) ? Color("priority_high") : .black))
           .opacity(0.5)
@@ -82,7 +82,7 @@ struct TodoItemView: View {
               .opacity(0.5)
           )
       } else {
-        Text(todo.priority ?? "")
+        Text(PriorityUtils.priorityText(for: todo.priority))
           .font(.footnote)
           .opacity(0.5)
           .padding(3)
@@ -107,14 +107,10 @@ struct TodoItemView: View {
   
   
 // MARK: - PRIORITY JUDGMENT
-  private func priorityJudgment (priority: String) -> Bool {
-    switch priority {
-    case "高":
-      return true
-    default:
-      return false
-    }
+  private func priorityJudgment (priority: Int16) -> Bool {
+    return priority == 3
   }
+  
   
 } //: TODOITEMVIEW
 
@@ -125,7 +121,7 @@ struct TodoItemView: View {
 //  static var previews: some View {
 //    let todo = Todo(context: PersistenceController.preview.container.viewContext)
 //    todo.name = "サンプルTodo"
-//    todo.priority = "中"
+//    todo.priority = 1
 //    todo.state = false
 //    todo.deadline_date = Date()
 //    todo.deadline_time = Date()
